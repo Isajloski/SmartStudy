@@ -2,7 +2,7 @@ import axios from '../axios/axios';
 
 const Repository = {
     fetchExample: () => {
-        return axios.get("/listAll");
+        return axios.get("/example/listAll");
     }
 }
 

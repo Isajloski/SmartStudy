@@ -17,7 +17,7 @@ public class DataInitializer{
     @PostConstruct
     public void initData(){
         for (int i = 1; i < 11; i++){
-            this.exampleService.create("User-" + i, i);
+            this.exampleService.create("User" + i, i);
         }
     }
 
