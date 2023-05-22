@@ -3,17 +3,29 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/StudentManagement/StudentsManagement.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SmartStudy.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/repository/repository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/ExampleRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/ExampleRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/data/DataInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/data/DataInitializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/ExampleRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/ExampleRestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SmartStudy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SmartStudy.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,37 +39,102 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
-        <option name="useMavenConfig" value="true" />
+        <option name="mavenHome" value="C:\Users\popos\.m2\wrapper\dists\apache-maven-3.8.7-bin\1ktonn2lleg549uah6ngl1r74r\apache-maven-3.8.7" />
       </MavenGeneralSettings>
     </option>
   </component>
   <component name="ProjectId" id="2Psn6N0qSA9CPikoOWLpKTY5Ht1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/Programming/SmartStudy",
-    "nodejs_package_manager_path": "npm",
-    "spring.configuration.checksum": "ad1c857d37f99dfe528af9b0c0509d01"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <module name="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <module name="" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SmartStudyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="SmartStudy" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="mk.ukim.finki.smartstudy.SmartStudyApplication" />
@@ -78,6 +155,8 @@
       <workItem from="1684254674936" duration="22000" />
       <workItem from="1684254899066" duration="327000" />
       <workItem from="1684433973887" duration="2195000" />
+      <workItem from="1684785861371" duration="608000" />
+      <workItem from="1684786491097" duration="1859000" />
     </task>
     <servers />
   </component>
@@ -94,9 +173,28 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Security" />
     <option name="LAST_COMMIT_MESSAGE" value="Security" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="549" y="163" key="FileChooserDialogImpl" timestamp="1684786670963">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1684786670963" />
+    <state x="439" y="113" key="NewModule_or_Project.wizard" timestamp="1684786645040">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="439" y="113" key="NewModule_or_Project.wizard/0.0.1536.816@0.0.1536.816" timestamp="1684786645040" />
+    <state x="249" y="0" key="SettingsEditor" timestamp="1684786706630">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.816@0.0.1536.816" timestamp="1684786706630" />
+    <state x="209" y="69" key="new project wizard" timestamp="1684786659496">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="209" y="69" key="new project wizard/0.0.1536.816@0.0.1536.816" timestamp="1684786659496" />
   </component>
 </project>
