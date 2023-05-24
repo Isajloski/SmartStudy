@@ -3,7 +3,6 @@ import React, {Component} from "react";
 import Repository from "../../repository/repository";
 import Example from "../Example/Example";
 import {BrowserRouter as Router, Redirect, Routes , Route} from 'react-router-dom';
-import RegistrationForm from "../Registration/registrationForm";
 
 
 class App extends Component{
@@ -23,7 +22,6 @@ class App extends Component{
               <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
             </Routes>
           </Router>
-          <RegistrationForm/>
         </div>
     );
   }
