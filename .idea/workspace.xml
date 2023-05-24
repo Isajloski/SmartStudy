@@ -23,39 +23,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="Security">
-      <change afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/enumerations/ERole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Answer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/ERole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Example.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/auth/Example.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/auth/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/auth/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/payload/request/SignupRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/payload/request/SignupRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/ExampleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/ExampleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/RoleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/services/UserDetailsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/services/UserDetailsImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/services/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/services/UserDetailsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/ExampleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/ExampleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/ExampleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/ExampleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/ExampleRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/ExampleRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/ERole.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Example.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Role.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/ExampleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/ExampleRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/RoleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/RoleRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/services/UserDetailsImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/services/UserDetailsImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/services/UserDetailsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/services/UserDetailsServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/ExampleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/ExampleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/ExampleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/ExampleServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/ExampleRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/ExampleRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Quiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Quiz.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
