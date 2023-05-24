@@ -1,6 +1,6 @@
 package mk.ukim.finki.smartstudy.repository;
 
-import mk.ukim.finki.smartstudy.model.User;
+import mk.ukim.finki.smartstudy.model.auth.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

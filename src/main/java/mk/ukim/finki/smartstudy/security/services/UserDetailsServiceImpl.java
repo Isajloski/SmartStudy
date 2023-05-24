@@ -1,6 +1,6 @@
 package mk.ukim.finki.smartstudy.security.services;
 
-import mk.ukim.finki.smartstudy.model.User;
+import mk.ukim.finki.smartstudy.model.auth.User;
 import mk.ukim.finki.smartstudy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,6 @@
-package mk.ukim.finki.smartstudy.model;
+package mk.ukim.finki.smartstudy.model.auth;
+
+import mk.ukim.finki.smartstudy.model.enumerations.ERole;
 
 import javax.persistence.*;
 

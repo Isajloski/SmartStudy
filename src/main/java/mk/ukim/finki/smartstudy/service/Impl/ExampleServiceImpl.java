@@ -1,7 +1,7 @@
 package mk.ukim.finki.smartstudy.service.Impl;
 
 import mk.ukim.finki.smartstudy.exceptions.ExampleException;
-import mk.ukim.finki.smartstudy.model.Example;
+import mk.ukim.finki.smartstudy.model.auth.Example;
 import mk.ukim.finki.smartstudy.repository.ExampleRepository;
 import mk.ukim.finki.smartstudy.service.ExampleService;
 import org.springframework.stereotype.Service;

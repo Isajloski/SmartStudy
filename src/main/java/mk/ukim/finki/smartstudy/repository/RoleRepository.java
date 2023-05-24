@@ -1,7 +1,7 @@
 package mk.ukim.finki.smartstudy.repository;
 
-import mk.ukim.finki.smartstudy.model.ERole;
-import mk.ukim.finki.smartstudy.model.Role;
+import mk.ukim.finki.smartstudy.model.enumerations.ERole;
+import mk.ukim.finki.smartstudy.model.auth.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package mk.ukim.finki.smartstudy.web;
 
-import mk.ukim.finki.smartstudy.model.Example;
+import mk.ukim.finki.smartstudy.model.auth.Example;
 import mk.ukim.finki.smartstudy.service.ExampleService;
 import org.springframework.web.bind.annotation.*;
 

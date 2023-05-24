@@ -1,4 +1,4 @@
-package mk.ukim.finki.smartstudy.model;
+package mk.ukim.finki.smartstudy.model.auth;
 
 import lombok.Data;
 import javax.persistence.*;
