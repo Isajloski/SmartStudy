@@ -1,7 +1,6 @@
 package mk.ukim.finki.smartstudy.service;
 
 import mk.ukim.finki.smartstudy.model.Course;
-import mk.ukim.finki.smartstudy.model.Example;
 
 import java.util.List;
 

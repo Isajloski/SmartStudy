@@ -1,9 +1,8 @@
 package mk.ukim.finki.smartstudy.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 import lombok.Data;
-
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package mk.ukim.finki.smartstudy.web.controllers;
+package mk.ukim.finki.smartstudy.web.auth;
 
 import mk.ukim.finki.smartstudy.model.auth.Role;
 import mk.ukim.finki.smartstudy.model.auth.User;

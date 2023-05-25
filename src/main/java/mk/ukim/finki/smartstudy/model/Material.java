@@ -1,11 +1,9 @@
 package mk.ukim.finki.smartstudy.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
-
+import javax.persistence.*;
 import java.io.IOException;
 
 @Entity

@@ -1,7 +1,6 @@
-package mk.ukim.finki.smartstudy.web;
+package mk.ukim.finki.smartstudy.web.controllers;
 
 import mk.ukim.finki.smartstudy.model.Course;
-import mk.ukim.finki.smartstudy.model.Example;
 import mk.ukim.finki.smartstudy.service.CourseService;
 import org.springframework.web.bind.annotation.*;
 

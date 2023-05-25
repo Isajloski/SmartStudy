@@ -1,4 +1,4 @@
-package mk.ukim.finki.smartstudy.web;
+package mk.ukim.finki.smartstudy.web.controllers;
 
 import mk.ukim.finki.smartstudy.model.auth.Example;
 import mk.ukim.finki.smartstudy.service.ExampleService;

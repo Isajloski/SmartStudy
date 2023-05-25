@@ -1,4 +1,4 @@
-package mk.ukim.finki.smartstudy.web.controllers;
+package mk.ukim.finki.smartstudy.web.auth;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;

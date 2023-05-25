@@ -24,6 +24,22 @@
   <component name="ChangeListManager">
     <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="Security">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Material.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Section.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/CourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/ExampleRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/ExampleRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/MaterialRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/SectionRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/ExampleRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/AuthController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/TestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/repository/repository.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,12 +202,12 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/TestController.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java</url>
           <line>20</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/TestController.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java</url>
           <line>26</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
