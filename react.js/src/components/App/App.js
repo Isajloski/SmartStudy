@@ -2,7 +2,10 @@ import './App.css';
 import React, {Component} from "react";
 import Repository from "../../repository/repository";
 import Example from "../Example/Example";
-import {BrowserRouter as Router, Redirect, Routes , Route} from 'react-router-dom';
+import Material from "../Material/Material";
+import CreateMaterial from "../Material/Create/CreateMaterial";
+import {BrowserRouter as Router, Routes , Route} from 'react-router-dom';
+import Course from "../Course/Course";
 
 
 class App extends Component{
@@ -10,7 +13,9 @@ class App extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      example: []
+      example: [],
+      material: [],
+      course: []
     }
   }
 
@@ -20,6 +25,10 @@ class App extends Component{
           <Router>
             <Routes>
               <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
+              <Route path="/material" element={  <Material material = {this.state.material} />     }> </Route>
+              <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
+              <Route path="/course" element={  <Course course = {this.state.course}/>     }> </Route>
+
             </Routes>
           </Router>
         </div>
@@ -35,9 +44,22 @@ class App extends Component{
       });
   }
 
+  loadMaterial = () => {
+    Repository.fetchMaterial()
+        .then((data) => {
+          this.setState({
+              material: data.data
+          })
+        });
+  }
+
+
+
 
   componentDidMount() {
     this.loadExample();
+    this.loadMaterial();
+
   }
 
 }
