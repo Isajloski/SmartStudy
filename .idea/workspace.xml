@@ -22,23 +22,55 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="Security">
+    <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties">
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Course/Style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/Style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/img/docx.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/img/pdf.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/img/pptx.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/img/quiz.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/img/xlsx.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Delete/PopupDelete.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Delete/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Edit/PopupEdit.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Edit/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SmartStudy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SmartStudy.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/components/App/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/App/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/App/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/components/Material/Create/CreateMaterial.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Material/Create/CreateMaterial.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/repository/repository.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Course.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Material.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Section.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/CourseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/ExampleRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/ExampleRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/MaterialRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/SectionRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/MaterialService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/MaterialService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/ExampleRestController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/AuthController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/TestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Course/Course.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/components/Material/Create/CreateMaterial.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Material/Create/CreateMaterial.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Material/Material.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/data/DataInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/data/DataInitializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Course.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Course.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Material.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Material.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/MaterialService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/MaterialService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/repository/repository.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,14 +84,19 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
-        <option value="CSS File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -89,7 +126,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Bojan/Skillsify&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luka/Documents/University/Programing/Spring/Project/react.js/src/components/Popup&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
@@ -101,10 +138,14 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Luka\Documents\University\Programing\Spring\Project\react.js\src\components\Popup" />
+      <recent name="C:\Users\Luka\Documents\University\Programing\Spring\Project\react.js\src\components\Material" />
       <recent name="C:\Bojan\FINKI\VIII semestar\Upravuvanje so IKT\SmartStudy\SmartStudy\src\main\java\mk\ukim\finki\smartstudy\web\controllers" />
       <recent name="C:\Bojan\FINKI\VIII semestar\Upravuvanje so IKT\SmartStudy\SmartStudy\src\main\java\mk\ukim\finki\smartstudy\payload\response" />
       <recent name="C:\Bojan\FINKI\VIII semestar\Upravuvanje so IKT\SmartStudy\SmartStudy\src\main\java\mk\ukim\finki\smartstudy\payload" />
-      <recent name="C:\Bojan\FINKI\VIII semestar\Upravuvanje so IKT\SmartStudy\SmartStudy\src\main\java\mk\ukim\finki\smartstudy\security\jwt" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Luka\Documents\University\Programing\Spring\Project\react.js\src\components\Popup\Delete" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="mk.ukim.finki.smartstudy.security" />
@@ -177,7 +218,18 @@
       <workItem from="1684786491097" duration="1859000" />
       <workItem from="1684823393588" duration="12802000" />
       <workItem from="1684920161870" duration="407000" />
+      <workItem from="1685046776794" duration="10265000" />
+      <workItem from="1685103505452" duration="18394000" />
+      <workItem from="1685133430823" duration="113000" />
     </task>
+    <task id="LOCAL-00001" summary="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties">
+      <created>1685118412696</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1685118412696</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,7 +248,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Security" />
-    <option name="LAST_COMMIT_MESSAGE" value="Security" />
+    <MESSAGE value="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

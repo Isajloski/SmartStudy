@@ -41,7 +41,7 @@ const CreateMaterial = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="text-bg-danger">
             <div>
                 <label htmlFor="id">Content id:</label>
                 <input

@@ -26,16 +26,29 @@ public class MaterialRestController {
         return materialService.listAll();
     }
 
-    //        formData.append('sectionId', id);
-    //        formData.append('name', name);
-    //        formData.append('file', file);
-
+    @GetMapping("/findById/{id}")
+    public Material findById(@PathVariable Long id){
+        return materialService.findById(id);
+    }
     @PostMapping("/create")
     public Material create(
             @RequestParam String name,
             @RequestPart MultipartFile file,
             @RequestParam Long sectionId) throws IOException {
         return this.materialService.create(name, file, sectionId);
+    }
+
+    @PostMapping("/edit/{id}")
+    public Material edit(
+            @PathVariable Long id,
+            @RequestParam String name,
+            @RequestPart MultipartFile file) throws IOException {
+        return this.materialService.edit(id, name, file);
+    }
+
+    @PostMapping("/delete/{id}")
+    public Material create(@PathVariable Long id) throws IOException {
+        return this.materialService.delete(id);
     }
 
 }

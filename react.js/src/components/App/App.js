@@ -6,6 +6,7 @@ import Material from "../Material/Material";
 import CreateMaterial from "../Material/Create/CreateMaterial";
 import {BrowserRouter as Router, Routes , Route} from 'react-router-dom';
 import Course from "../Course/Course";
+import Popup from "../Popup/Delete/PopupDelete";
 
 
 class App extends Component{
@@ -21,16 +22,18 @@ class App extends Component{
 
   render() {
     return (
-        <div className="container">
-          <Router>
-            <Routes>
-              <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
-              <Route path="/material" element={  <Material material = {this.state.material} />     }> </Route>
-              <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
-              <Route path="/course" element={  <Course course = {this.state.course}/>     }> </Route>
-
-            </Routes>
-          </Router>
+        <div className="bg-dark">
+            <div className="container bg-dark">
+                  <Router>
+                    <Routes>
+                      <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
+                      <Route path="/material" element={  <Material material = {this.state.material} />     }> </Route>
+                      <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
+                      <Route path="/course" element={< Course courses={this.state.course} />} />
+                      <Route path="/popup" element={<Popup />} />
+                    </Routes>
+                  </Router>
+                </div>
         </div>
     );
   }
@@ -53,12 +56,22 @@ class App extends Component{
         });
   }
 
+    loadCourse = () => {
+        Repository.fetchCourse()
+            .then((data) => {
+                this.setState({
+                    course: data.data
+                })
+            });
+    }
+
 
 
 
   componentDidMount() {
     this.loadExample();
     this.loadMaterial();
+    this.loadCourse();
 
   }
 

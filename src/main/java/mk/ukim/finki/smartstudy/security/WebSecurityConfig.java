@@ -97,6 +97,8 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         .authorizeRequests().antMatchers("/api/auth/**").permitAll()
         .antMatchers("/api/test/**").permitAll()
         .antMatchers(h2ConsolePath + "/**").permitAll()
+            .antMatchers("/api/**") // Define the URL pattern for your API
+            .permitAll()
         .anyRequest().authenticated();
     
  // fix H2 database console: Refused to display ' in a frame because it set 'X-Frame-Options' to 'deny'

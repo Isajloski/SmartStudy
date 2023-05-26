@@ -28,8 +28,7 @@ public class CourseRestController {
     }
 
     @PostMapping("/create")
-    public Course create(@RequestParam String name
-                         ){
+    public Course create(@RequestParam String name){
         return this.courseService.create(name);
     }
 

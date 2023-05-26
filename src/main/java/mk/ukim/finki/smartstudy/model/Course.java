@@ -1,7 +1,8 @@
 package mk.ukim.finki.smartstudy.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class Course {
 //    private List<Section> sections;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonIgnore
     private List<Section> sections = new ArrayList<>();
 
     //To-Do

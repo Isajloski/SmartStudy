@@ -12,6 +12,9 @@ const Repository = {
     },
     fetchCourse() {
         return axios.get("/course/listAll");
+    },
+    deleteMaterial(id) {
+        return axios.post(`/material/delete/${id}`);
     }
 }
 

@@ -6,7 +6,6 @@ import mk.ukim.finki.smartstudy.model.Section;
 import mk.ukim.finki.smartstudy.repository.MaterialRepository;
 import mk.ukim.finki.smartstudy.service.MaterialService;
 import mk.ukim.finki.smartstudy.service.SectionService;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -60,7 +59,25 @@ public class MaterialServiceImpl implements MaterialService {
         return this.materialRepository.findAll();
     }
 
+    @Override
+    public Material delete(Long id) {
+        Material material = findById(id);
+        this.materialRepository.delete(material);
+        return material;
+    }
 
+    @Override
+    public Material edit(Long id, String name, MultipartFile file) throws IOException {
+//        Example example = this.findById(id);
+//        example.setId(id);
+//        example.setName(name);
+//        example.setNumber(number);
+//        return this.exampleRepository.save(example);
+        Material material = this.findById(id);
+        material.setFile(file.getBytes());
+        material.setName(name);
+        return this.materialRepository.save(material);
+    }
 
 
 }
