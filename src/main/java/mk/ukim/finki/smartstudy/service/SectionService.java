@@ -11,4 +11,9 @@ public interface SectionService {
 
     List<Section> listAll();
 
+    List<Section> findSectionsByCourseId(Long id);
+
+    Section delete(Long id);
+
+    Section edit(Long id, String name);
 }

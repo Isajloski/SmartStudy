@@ -24,6 +24,26 @@ public class SectionServiceImpl implements SectionService {
         return sectionRepository.findAll();
     }
 
+    @Override
+    public List<Section> findSectionsByCourseId(Long id) {
+        return this.sectionRepository.findSectionsByCourseId(id);
+    }
+
+    @Override
+    public Section delete(Long id) {
+        Section section = findById(id);
+        this.sectionRepository.delete(section);
+        return section;
+    }
+
+    @Override
+    public Section edit(Long id, String name) {
+        Section section = findById(id);
+        section.setName(name);
+        this.sectionRepository.save(section);
+        return section;
+    }
+
     public Section create(String name,  Long courseId) {
         Section section = new Section();
         section.setName(name);

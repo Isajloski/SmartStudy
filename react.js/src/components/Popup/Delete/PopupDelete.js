@@ -3,14 +3,42 @@ import '../Style.css';
 import img from './img.png';
 import repository from "../../../repository/repository";
 
-const PopupDelete = ({ id, name, type }) => {
+const PopupDelete = ({ id, name, type, func }) => {
     const [showModal, setShowModal] = useState(false);
 
     const handleCloseModal = () => {
         setShowModal(false);
-        if(type === 'material'){
-            repository.deleteMaterial(id);
+    };
+
+    const handleYes = () => {
+        if (type === 'material') {
+            repository.deleteMaterial(id)
+                .then(() => {
+                    func(); // Call the function after the material is successfully deleted
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
+        if(type === 'section'){
+            repository.deleteSection(id)
+                .then(() => {
+                    func(); // Call the function after the material is successfully deleted
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        if(type === 'course'){
+            repository.deleteCourse(id)
+                .then(() => {
+                    func(); // Call the function after the material is successfully deleted
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        setShowModal(false);
     };
 
     const handleOpenModal = () => {
@@ -22,31 +50,9 @@ const PopupDelete = ({ id, name, type }) => {
         <div>
             <div>
                 <img src={img} onClick={handleOpenModal} style={{ height: '1.6rem', marginRight: '0.5rem' }}/>
-                <button className="btn btn-outline-light" onClick={handleOpenModal}>Delete</button>
             </div>
 
             {showModal && (
-                // <div className="modal modal-overlay" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
-                //     <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
-                //         <div className="modal-content bg-dark text-white">
-                //             <div className="modal-header">
-                //                 <h5 className="modal-title">Delete</h5>
-                //
-                //             </div>
-                //             <div className="modal-body">
-                //                 <p>Are you sure that you want to delete this file?</p>
-                //             </div>
-                //             <div className="modal-footer">
-                //                 <button type="button" className="btn btn-outline-light" onClick={handleCloseModal}>
-                //                     Close
-                //                 </button>
-                //                 <button type="button " className="btn btn-light" onClick={handleCloseModal}>
-                //                     Yes
-                //                 </button>
-                //             </div>
-                //         </div>
-                //     </div>
-                // </div>
                 <div className="modal modal-overlay" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
                     <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div className="modal-content bg-white text-black">
@@ -60,7 +66,7 @@ const PopupDelete = ({ id, name, type }) => {
                                 <button type="button" className="btn btn-outline-dark" onClick={handleCloseModal}>
                                     Close
                                 </button>
-                                <button type="button " className="btn btn-dark" onClick={handleCloseModal}>
+                                <button type="button " className="btn btn-dark" onClick={handleYes}>
                                     Yes
                                 </button>
                             </div>

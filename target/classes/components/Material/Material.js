@@ -7,10 +7,31 @@ import quiz from './img/quiz.png';
 import xlsx from './img/xlsx.png';
 import PopupDelete from "../Popup/Delete/PopupDelete";
 import PopupEdit from "../Popup/Edit/PopupEdit";
+import Repository from "../../repository/repository";
 
 
-function Material(props) {
-    const { material } = props;
+const Material = ({ sectionId }) => {
+    const [material, setMaterial] = useState([]);
+    const user = 'ADMIN';
+    const isAdmin = user === 'ADMIN';
+
+
+
+
+    useEffect(() => {
+        loadMaterial();
+    }, [sectionId]);
+
+    const loadMaterial = () => {
+        Repository.fetchMaterialsBySectionId(sectionId)
+            .then((response) => {
+                const data = response.data;
+                setMaterial(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     const fileExtensionToIcon = {
         pdf: pdf,
@@ -83,7 +104,7 @@ function Material(props) {
             <ul className="list-unstyled">
 
                 {material.map((item) => (
-                    <li className="list-inline" key={item.section?.id}>
+                    <li className="list-inline" key={item.id}>
                         <div className="d-flex align-items-center justify-content-between">
                             <div className="d-flex align-items-center">
                                 <p onClick={() => openFileInNewTab(item.file, item.name)}>
@@ -96,14 +117,16 @@ function Material(props) {
                                     {getName(item.name)}
                                 </p>
                             </div>
+                            {isAdmin ? (
                             <div className="d-flex align-items-center justify-content-end">
                                 <div className="mr-2 ">
-                                    <PopupEdit />
+                                    <PopupEdit id={item.id} name={item.name} file={item.file} type={'material'} func={loadMaterial}/>
                                 </div>
                                 <div className="ms-2"> {/* Add a small left padding */}
-                                    <PopupDelete id={item.id} name={item.name} type={'material'} />
+                                    <PopupDelete id={item.id} name={item.name} type={'material'} func={loadMaterial} />
                                 </div>
                             </div>
+                            ): null}
                         </div>
                     </li>
                 ))}

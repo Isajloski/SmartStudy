@@ -26,6 +26,11 @@ public class MaterialRestController {
         return materialService.listAll();
     }
 
+    @GetMapping("/findMaterialsBySectionId/{id}")
+    public List<Material> findMaterialsBySectionId(@PathVariable Long id){
+        return this.materialService.findMaterialsBySectionId(id);
+    }
+
     @GetMapping("/findById/{id}")
     public Material findById(@PathVariable Long id){
         return materialService.findById(id);

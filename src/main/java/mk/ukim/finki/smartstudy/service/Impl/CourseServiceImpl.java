@@ -24,7 +24,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course findById(Long id) {
+
         return this.courseRepository.findById(id).orElseThrow(ExampleException::new);
+
     }
 
     @Override
@@ -36,6 +38,14 @@ public class CourseServiceImpl implements CourseService {
     public Course delete(Long id) {
         Course course = findById(id);
         this.courseRepository.delete(course);
+        return course;
+    }
+
+    @Override
+    public Course edit(Long id, String name) {
+        Course course = findById(id);
+        course.setName(name);
+        this.courseRepository.save(course);
         return course;
     }
 }

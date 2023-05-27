@@ -1,4 +1,3 @@
-import './App.css';
 import React, {Component} from "react";
 import Repository from "../../repository/repository";
 import Example from "../Example/Example";
@@ -26,10 +25,10 @@ class App extends Component{
             <div className="container bg-dark">
                   <Router>
                     <Routes>
+                        <Route path="/course/:id" element={<Course />} />
                       <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
                       <Route path="/material" element={  <Material material = {this.state.material} />     }> </Route>
                       <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
-                      <Route path="/course" element={< Course courses={this.state.course} />} />
                       <Route path="/popup" element={<Popup />} />
                     </Routes>
                   </Router>

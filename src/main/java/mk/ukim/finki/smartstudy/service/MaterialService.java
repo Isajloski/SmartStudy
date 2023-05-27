@@ -15,4 +15,6 @@ public interface MaterialService {
     Material delete(Long id);
 
     Material edit(Long id,String name, MultipartFile file) throws IOException;
+
+    List<Material> findMaterialsBySectionId(Long id);
 }

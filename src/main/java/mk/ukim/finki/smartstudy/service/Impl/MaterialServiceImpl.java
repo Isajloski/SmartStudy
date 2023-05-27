@@ -79,5 +79,10 @@ public class MaterialServiceImpl implements MaterialService {
         return this.materialRepository.save(material);
     }
 
+    @Override
+    public List<Material> findMaterialsBySectionId(Long id) {
+        return this.materialRepository.findMaterialsBySectionId(id);
+    }
+
 
 }

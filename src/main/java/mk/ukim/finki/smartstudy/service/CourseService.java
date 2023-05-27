@@ -12,4 +12,6 @@ public interface CourseService {
     Course create(String name);
 
     Course delete(Long id);
+
+    Course edit(Long id, String name);
 }

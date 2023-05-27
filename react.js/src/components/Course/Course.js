@@ -1,48 +1,61 @@
 import React from 'react';
-import Style  from './Style.css';
+import './Style.css';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Repository from "../../repository/repository";
+import Section from "../Section/Section";
+import PopupEdit from "../Popup/Edit/PopupEdit";
+import PopupDelete from "../Popup/Delete/PopupDelete";
+import Material from "../Material/Material";
 
-function Course(props) {
-    const { courses } = props;
 
-    if (!courses || courses.length === 0) {
-        // Handle the case when the course array is empty or undefined
+const Course = () => {
+    const { id } = useParams();
+    const [course, setCourse] = useState(null);
+
+    const user = 'ADMIN';
+    const isAdmin = user === 'ADMIN';
+
+
+
+
+    useEffect(() => {
+        loadCourse(id);
+    }, [id]);
+
+    const loadCourse = () => {
+        Repository.fetchCourseById(id)
+            .then((data) => {
+                setCourse(data.data);
+            });
+    };
+
+
+
+    const theCourseWasDeleted = () =>{
+
+    }
+
+    if (!course) {
         return <div>No course available</div>;
     }
 
-    const course = courses[0]; // Assign the first element of the course array to a new variable
-
     return (
-        <div className="bg-dark  text-white">
-            <h1 >{course.name}</h1>
-            <hr/>
-            <h3>Прв колоквиум предавања</h3>
-            <hr/>
-            <p>01 Introcuction</p>
-            <p>02 Project Management Life Cycle</p>
-            <p>03 Managing Project Teams</p>
-            <hr/>
-            <h3>Втор колоквиум предавање</h3>
-            <hr /> {/* Apply the fade-line class */}
-            <img src=""></img>
-            <p>01 Introcuction</p>
-            <p>02 Project Management Life Cycle</p>
-            <p>03 Managing Project Teams</p>
-            <hr/>
-            <h3>Домашни</h3>
-            <hr />
-            <p>
-                <img src="https://www.freeiconspng.com/uploads/word-file-icon-8.png" alt="Logo" style={{ height: '1.6rem', marginRight: '0.5rem' }} />
-                01 Introcuction
-            </p>
-            <p>
-                <img src="https://pixlok.com/wp-content/uploads/2021/05/PDF_file_icon.jpg" alt="Logo" style={{ height: '1.6rem', marginRight: '0.5rem' }} />
-                01 Introcuction
-            </p>
-            <p>03 Managing Project Teams</p>
 
+        <div className="bg-dark text-white">
+            <div className="d-flex justify-content-between align-items-center">
+                <h1>{course.name}</h1>
+                <hr />
 
-
-
+                {isAdmin ? (
+                <div className="d-flex align-items-center">
+                    <PopupEdit id={id} name={course.name} type={'course'} func={loadCourse}/>
+                    <PopupDelete id={id} name={course.name} type={'course'} func={theCourseWasDeleted}/>
+                </div>
+                    ):null}
+            </div>
+        <hr/>
+            <Section courseId={course.id} />
         </div>
     );
 }

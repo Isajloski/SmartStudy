@@ -22,7 +22,7 @@ public class CourseRestController {
         return courseService.listAll();
     }
 
-    @GetMapping("/findyById/{id}")
+    @GetMapping("/findById/{id}")
     public Course findById(@PathVariable Long id){
         return courseService.findById(id);
     }
@@ -35,6 +35,12 @@ public class CourseRestController {
     @PostMapping("/delete/{id}")
     public Course delete(@PathVariable Long id){
         return this.courseService.delete(id);
+    }
+
+
+    @PostMapping("/edit/{id}")
+    public Course edit(@PathVariable Long id, @RequestParam String name){
+        return this.courseService.edit(id,name);
     }
 
 
