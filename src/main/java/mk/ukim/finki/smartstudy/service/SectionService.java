@@ -7,8 +7,6 @@ import java.util.List;
 public interface SectionService {
     Section findById(Long sectionId);
 
-    Section create(String name,  Long courseId);
-
     List<Section> listAll();
 
 }

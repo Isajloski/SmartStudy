@@ -1,6 +1,8 @@
 package mk.ukim.finki.smartstudy.web.controllers;
 
 import mk.ukim.finki.smartstudy.model.Section;
+import mk.ukim.finki.smartstudy.payload.request.SectionCreateRequest;
+import mk.ukim.finki.smartstudy.service.CourseService;
 import mk.ukim.finki.smartstudy.service.SectionService;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +12,12 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/section")
 public class SectionRestController {
-    final private SectionService sectionService;
+    private final SectionService sectionService;
+    private final CourseService courseService;
 
-    public SectionRestController(SectionService sectionService) {
+    public SectionRestController(SectionService sectionService, CourseService courseService) {
         this.sectionService = sectionService;
+        this.courseService = courseService;
     }
     @GetMapping("/listAll")
     public List<Section> listAll(){
@@ -21,7 +25,7 @@ public class SectionRestController {
     }
 
     @PostMapping("/create")
-    public Section create(@RequestParam Long courseId, @RequestParam String name){
-        return this.sectionService.create(name, courseId);
+    public Section create(@RequestParam Long courseId, @RequestBody SectionCreateRequest sectionCreateRequest){
+        return this.courseService.addSectionToCourse(sectionCreateRequest.getName(), courseId);
     }
 }

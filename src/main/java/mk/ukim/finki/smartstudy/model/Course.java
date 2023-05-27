@@ -1,7 +1,7 @@
 package mk.ukim.finki.smartstudy.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import mk.ukim.finki.smartstudy.model.auth.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,22 +16,32 @@ public class Course {
 
     private String name;
 
-//    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonBackReference
-//    private List<Section> sections;
-
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "course")
     private List<Section> sections = new ArrayList<>();
 
-    //To-Do
-    //1. Has many users
-    //2. Has one Owner(User) who is of Proffesor role!
+    @ManyToMany (fetch = FetchType.LAZY)
+    private List<User> students;
+
+    @ManyToOne
+    private User professor;
+
+    @OneToOne
+    private Quiz quiz;
 
     public Course(){}
 
     public Course(String name){
         this.name = name;
+    }
+
+    public void addStudent(User user){
+        this.students.add(user);
+    }
+
+    public void addSection(Section section)
+    {
+        this.sections.add(section);
+        //section.setCourse(this);
     }
 
 }

@@ -11,7 +11,8 @@ import PopupEdit from "../Popup/Edit/PopupEdit";
 
 function Material(props) {
     const { material } = props;
-
+    const user = 'ADMIN';
+    const isAdmin = user === 'ADMIN';
     const fileExtensionToIcon = {
         pdf: pdf,
         docx: docx,
@@ -96,6 +97,7 @@ function Material(props) {
                                     {getName(item.name)}
                                 </p>
                             </div>
+                            {isAdmin ? (
                             <div className="d-flex align-items-center justify-content-end">
                                 <div className="mr-2 ">
                                     <PopupEdit />
@@ -104,6 +106,7 @@ function Material(props) {
                                     <PopupDelete id={item.id} name={item.name} type={'material'} />
                                 </div>
                             </div>
+                            ): null}
                         </div>
                     </li>
                 ))}

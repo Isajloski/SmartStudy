@@ -36,6 +36,4 @@ public class CourseRestController {
     public Course delete(@PathVariable Long id){
         return this.courseService.delete(id);
     }
-
-
 }
