@@ -24,9 +24,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course findById(Long id) {
-
         return this.courseRepository.findById(id).orElseThrow(ExampleException::new);
-
     }
 
     @Override

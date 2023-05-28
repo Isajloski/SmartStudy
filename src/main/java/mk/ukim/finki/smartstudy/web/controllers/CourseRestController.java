@@ -22,7 +22,7 @@ public class CourseRestController {
         return courseService.listAll();
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/findyById/{id}")
     public Course findById(@PathVariable Long id){
         return courseService.findById(id);
     }

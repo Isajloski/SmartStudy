@@ -1,7 +1,7 @@
 package mk.ukim.finki.smartstudy.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,9 +18,8 @@ public class Material {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "section_id")
-    @JsonIgnore
+    @ManyToOne
+    @JsonBackReference
     private Section section;
     @Lob
     @Basic(fetch = FetchType.LAZY)

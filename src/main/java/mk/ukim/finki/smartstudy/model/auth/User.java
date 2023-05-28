@@ -20,7 +20,7 @@ public class User {
     private String last_name;
 
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 30)
     private String username;
 
     @NotBlank

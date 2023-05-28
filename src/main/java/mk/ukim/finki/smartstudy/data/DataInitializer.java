@@ -28,16 +28,30 @@ public class DataInitializer{
 
     @PostConstruct
     public void initData(){
+        //Role init
         this.roleService.insertInto(ERole.ROLE_PROFESSOR);
         this.roleService.insertInto(ERole.ROLE_STUDENT);
 
+        //User init
         this.userService.insertInto("bojan.smart-study", "bojan.smart-study@email.com", "123456789", "Bojan", "Simichiev", ERole.ROLE_PROFESSOR);
-        this.courseService.create("Управување со ИКТ проекти");
-        this.sectionService.create("Прв колоквиум предавања", 1L);
-        this.sectionService.create("Втор колоквиум предавања", 1L);
-        this.sectionService.create("Тестови", 1L);
-        this.sectionService.create("Домашни", 1L);
+        this.userService.insertInto("student_1.smart-study", "student_1.smart-study@email.com", "123456789", "Student_1", "LastName_1", ERole.ROLE_STUDENT);
+        this.userService.insertInto("student_2.smart-study", "student_2.smart-study@email.com", "123456789", "Student_2", "LastName_2", ERole.ROLE_STUDENT);
+        this.userService.insertInto("student_3.smart-study", "student_3.smart-study@email.com", "123456789", "Student_3", "LastName_3", ERole.ROLE_STUDENT);
+        this.userService.insertInto("student_4.smart-study", "student_4.smart-study@email.com", "123456789", "Student_4", "LastName_4", ERole.ROLE_STUDENT);
+        this.userService.insertInto("student_5.smart-study", "student_5.smart-study@email.com", "123456789", "Student_5", "LastName_5", ERole.ROLE_STUDENT);
 
+        //Course and sections init
+        this.courseService.create("Управување со ИКТ проекти");
+        this.courseService.addSectionToCourse("Прв колоквиум предавања", 1L);
+        this.courseService.addSectionToCourse("Втор колоквиум предавања", 1L);
+        this.courseService.addSectionToCourse("Тестови", 1L);
+        this.courseService.addSectionToCourse("Домашни", 1L);
+
+        //Adding students to course
+        this.userService.enrollStudentIntoCourse(2L, 1L);
+        this.userService.enrollStudentIntoCourse(3L, 1L);
+        this.userService.enrollStudentIntoCourse(4L, 1L);
+        this.userService.enrollStudentIntoCourse(5L, 1L);
     }
 
 }
