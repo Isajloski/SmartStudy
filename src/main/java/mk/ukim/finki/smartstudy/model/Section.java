@@ -24,6 +24,9 @@ public class Section {
     private List<Material> materials = new ArrayList<>();
 
 
+    @OneToMany (mappedBy = "section")
+    private List<Homework> homeworks = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(
             name="course_id"
@@ -31,10 +34,11 @@ public class Section {
     @JsonBackReference
     private Course course;
 
-
-
     public Section(String name) {
         this.name = name;
     }
 
+    public void addHomework(Homework homework){
+        this.homeworks.add(homework);
+    }
 }

@@ -30,31 +30,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_01_48__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_01_48__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Course/Course.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Course/Style.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Course/Style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Material/Material.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Popup/Delete/PopupDelete.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Popup/Delete/PopupDelete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Popup/Edit/PopupEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Popup/Edit/PopupEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Popup/Style.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Popup/Style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Section/Section.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Section/Section.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/data/DataInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/data/DataInitializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/MaterialRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/MaterialRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/CourseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/CourseService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/MaterialService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/MaterialService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/SectionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/SectionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Section.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/CourseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,10 +45,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
-        <option value="Class" />
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -257,6 +235,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java</url>
           <line>26</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/HomeworkController.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
