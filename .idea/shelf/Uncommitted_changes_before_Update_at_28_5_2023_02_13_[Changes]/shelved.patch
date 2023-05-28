@@ -1,0 +1,363 @@
+Index: src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.web.auth;\r\n\r\nimport mk.ukim.finki.smartstudy.model.auth.Role;\r\nimport mk.ukim.finki.smartstudy.model.auth.User;\r\nimport mk.ukim.finki.smartstudy.model.enumerations.ERole;\r\nimport mk.ukim.finki.smartstudy.payload.request.LoginRequest;\r\nimport mk.ukim.finki.smartstudy.payload.request.SignupRequest;\r\nimport mk.ukim.finki.smartstudy.payload.response.MessageResponse;\r\nimport mk.ukim.finki.smartstudy.payload.response.UserInfoResponse;\r\nimport mk.ukim.finki.smartstudy.repository.RoleRepository;\r\nimport mk.ukim.finki.smartstudy.repository.UserRepository;\r\nimport mk.ukim.finki.smartstudy.security.jwt.JwtUtils;\r\nimport mk.ukim.finki.smartstudy.security.services.UserDetailsImpl;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.http.HttpHeaders;\r\nimport org.springframework.http.ResponseCookie;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.security.authentication.AuthenticationManager;\r\nimport org.springframework.security.authentication.UsernamePasswordAuthenticationToken;\r\nimport org.springframework.security.core.Authentication;\r\nimport org.springframework.security.core.context.SecurityContextHolder;\r\nimport org.springframework.security.crypto.password.PasswordEncoder;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport javax.validation.Valid;\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\n\r\n@CrossOrigin(origins = \"*\", maxAge = 3600)\r\n@RestController\r\n@RequestMapping(\"/api/auth\")\r\n\r\n\r\npublic class AuthController {\r\n  @Autowired\r\n  AuthenticationManager authenticationManager;\r\n\r\n  @Autowired\r\n  UserRepository userRepository;\r\n\r\n  @Autowired\r\n  RoleRepository roleRepository;\r\n\r\n  @Autowired\r\n  PasswordEncoder encoder;\r\n\r\n  @Autowired\r\n  JwtUtils jwtUtils;\r\n\r\n  @PostMapping(\"/signin\")\r\n  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {\r\n\r\n    Authentication authentication = authenticationManager\r\n        .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));\r\n\r\n    SecurityContextHolder.getContext().setAuthentication(authentication);\r\n\r\n    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();\r\n\r\n    ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);\r\n\r\n    List<String> roles = userDetails.getAuthorities().stream()\r\n        .map(item -> item.getAuthority())\r\n        .collect(Collectors.toList());\r\n\r\n    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())\r\n        .body(new UserInfoResponse(userDetails.getId(),\r\n                                   userDetails.getUsername(),\r\n                                   userDetails.getEmail(),\r\n                                   roles));\r\n  }\r\n\r\n  @PostMapping(\"/signup\")\r\n  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {\r\n    if (userRepository.existsByUsername(signUpRequest.getUsername())) {\r\n      return ResponseEntity.badRequest().body(new MessageResponse(\"Error: Username is already taken!\"));\r\n    }\r\n\r\n    if (userRepository.existsByEmail(signUpRequest.getEmail())) {\r\n      return ResponseEntity.badRequest().body(new MessageResponse(\"Error: Email is already in use!\"));\r\n    }\r\n\r\n    // Create new user's account\r\n    User user = new User(signUpRequest.getUsername(),\r\n                         signUpRequest.getEmail(),\r\n                         encoder.encode(signUpRequest.getPassword()),\r\n            signUpRequest.getFirst_name(),\r\n            signUpRequest.getLast_name());\r\n\r\n    String strRoles = signUpRequest.getRole();\r\n    Role role = null;\r\n\r\n    if (strRoles.equals(\"student\")) {\r\n      role = roleRepository.findByName(ERole.ROLE_STUDENT)\r\n          .orElseThrow(() -> new RuntimeException(\"Error: Role is not found.\"));\r\n    }\r\n    else if (strRoles.equals(\"professor\")) {\r\n      role = roleRepository.findByName(ERole.ROLE_PROFESSOR)\r\n              .orElseThrow(() -> new RuntimeException(\"Error: Role is not found.\"));\r\n    }\r\n\r\n\r\n    user.setRole(role);\r\n    userRepository.save(user);\r\n\r\n    return ResponseEntity.ok(new MessageResponse(\"User registered successfully!\"));\r\n  }\r\n\r\n  @PostMapping(\"/signout\")\r\n  public ResponseEntity<?> logoutUser() {\r\n    ResponseCookie cookie = jwtUtils.getCleanJwtCookie();\r\n    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())\r\n        .body(new MessageResponse(\"You've been signed out!\"));\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java b/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java	(revision ed46dac779747a35764bfa4f56fef184d240528e)
++++ b/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java	(date 1685231475546)
+@@ -30,8 +30,6 @@
+ @CrossOrigin(origins = "*", maxAge = 3600)
+ @RestController
+ @RequestMapping("/api/auth")
+-
+-
+ public class AuthController {
+   @Autowired
+   AuthenticationManager authenticationManager;
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"BranchesTreeState\">\r\n    <expand>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"GROUP_NODE:origin\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n    </expand>\r\n    <select />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2b392ebe-2368-48d3-88af-3dd6e5080506\" name=\"Changes\" comment=\"React.js Material done.\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/App/App.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/App/App.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/App/App.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/App/App.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Course/Course.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Course/Course.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Course/Style.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Course/Style.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Material/Material.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Material/Material.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Popup/Delete/PopupDelete.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Popup/Delete/PopupDelete.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Popup/Edit/PopupEdit.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Popup/Edit/PopupEdit.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Popup/Style.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Popup/Style.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Section/Section.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Section/Section.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/repository/repository.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/repository/repository.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/MaterialRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/MaterialRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/CourseService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/CourseService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/MaterialService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/MaterialService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/App/App.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/App/App.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/Course/Course.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/Course/Course.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/Material/Material.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/Material/Material.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/SectionRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/SectionRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/SectionService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/SectionService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/repository/repository.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/repository/repository.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"CodeInsightWorkspaceSettings\">\r\n    <option name=\"optimizeImportsOnTheFly\" value=\"true\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"CSS File\" />\r\n        <option value=\"JavaScript File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Psn6N0qSA9CPikoOWLpKTY5Ht1\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"autoscrollFromSource\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,\r\n    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,\r\n    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,\r\n    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luka/Documents/University/Programing/Spring/Project/react.js/src/components/Popup&quot;,\r\n    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;spring.configuration.checksum&quot;: &quot;ad1c857d37f99dfe528af9b0c0509d01&quot;,\r\n    &quot;ts.external.directory.path&quot;: &quot;C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2022.2.3\\\\plugins\\\\JavaScriptLanguage\\\\jsLanguageServicesImpl\\\\external&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Popup\" />\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Material\" />\r\n      <recent name=\"C:\\Bojan\\FINKI\\VIII semestar\\Upravuvanje so IKT\\SmartStudy\\SmartStudy\\src\\main\\java\\mk\\ukim\\finki\\smartstudy\\web\\controllers\" />\r\n      <recent name=\"C:\\Bojan\\FINKI\\VIII semestar\\Upravuvanje so IKT\\SmartStudy\\SmartStudy\\src\\main\\java\\mk\\ukim\\finki\\smartstudy\\payload\\response\" />\r\n      <recent name=\"C:\\Bojan\\FINKI\\VIII semestar\\Upravuvanje so IKT\\SmartStudy\\SmartStudy\\src\\main\\java\\mk\\ukim\\finki\\smartstudy\\payload\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Popup\\Delete\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"mk.ukim.finki.smartstudy.security\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.SmartStudyApplication\">\r\n    <configuration default=\"true\" type=\"ArquillianTestNG\" factoryName=\"\" nameIsGenerated=\"true\">\r\n      <option name=\"arquillianRunConfiguration\">\r\n        <value>\r\n          <option name=\"containerStateName\" value=\"\" />\r\n        </value>\r\n      </option>\r\n      <option name=\"TEST_OBJECT\" value=\"CLASS\" />\r\n      <properties />\r\n      <listeners />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"SmartStudyApplication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"mk.ukim.finki.smartstudy.SmartStudyApplication\" />\r\n      <module name=\"SmartStudy\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"mk.ukim.finki.smartstudy.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"SmartStudyApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"SmartStudy\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"mk.ukim.finki.smartstudy.SmartStudyApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.SmartStudyApplication\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2b392ebe-2368-48d3-88af-3dd6e5080506\" name=\"Changes\" comment=\"\" />\r\n      <created>1684254484081</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1684254484081</updated>\r\n      <workItem from=\"1684254487795\" duration=\"122000\" />\r\n      <workItem from=\"1684254674936\" duration=\"22000\" />\r\n      <workItem from=\"1684254899066\" duration=\"327000\" />\r\n      <workItem from=\"1684433973887\" duration=\"2195000\" />\r\n      <workItem from=\"1684785861371\" duration=\"608000\" />\r\n      <workItem from=\"1684786491097\" duration=\"1859000\" />\r\n      <workItem from=\"1684823393588\" duration=\"12802000\" />\r\n      <workItem from=\"1684920161870\" duration=\"407000\" />\r\n      <workItem from=\"1685046776794\" duration=\"10265000\" />\r\n      <workItem from=\"1685103505452\" duration=\"18394000\" />\r\n      <workItem from=\"1685133430823\" duration=\"113000\" />\r\n      <workItem from=\"1685133825108\" duration=\"462000\" />\r\n      <workItem from=\"1685135133118\" duration=\"1018000\" />\r\n      <workItem from=\"1685203080836\" duration=\"6705000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties\">\r\n      <created>1685118412696</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685118412696</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"React.js Material done.\">\r\n      <created>1685134197101</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685134197101</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Security\" />\r\n    <MESSAGE value=\"Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties\" />\r\n    <MESSAGE value=\"React.js Material done.\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"React.js Material done.\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java</url>\r\n          <line>20</line>\r\n          <option name=\"timeStamp\" value=\"4\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java</url>\r\n          <line>26</line>\r\n          <option name=\"timeStamp\" value=\"7\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision ed46dac779747a35764bfa4f56fef184d240528e)
++++ b/.idea/workspace.xml	(date 1685232746566)
+@@ -22,39 +22,26 @@
+     <select />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="React.js Material done.">
++    <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="Some small changes">
++      <change afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/exceptions/CourseNotFoundException.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/exceptions/UserNotFoundException.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/payload/request/EnrollStudentRequest.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/StudentRestController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/exceptions/CourseNotFoundException.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/exceptions/UserNotFoundException.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/payload/request/EnrollStudentRequest.class" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/StudentRestController.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/App/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/App/App.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/App/App.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Course/Style.css" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Course/Style.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Popup/Delete/PopupDelete.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Delete/PopupDelete.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Popup/Edit/PopupEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Edit/PopupEdit.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Popup/Style.css" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Style.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/repository/repository.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/MaterialRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/MaterialRepository.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/CourseService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/MaterialService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/MaterialService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Course/Course.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Material/Material.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/SectionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/SectionRepository.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/SectionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/SectionService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/repository/repository.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Course.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/auth/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/auth/User.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/UserService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Course.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Course.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/auth/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/auth/User.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/UserService.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/auth/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/auth/AuthController.class" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -207,6 +194,7 @@
+       <workItem from="1685133825108" duration="462000" />
+       <workItem from="1685135133118" duration="1018000" />
+       <workItem from="1685203080836" duration="6705000" />
++      <workItem from="1685231871263" duration="871000" />
+     </task>
+     <task id="LOCAL-00001" summary="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties">
+       <created>1685118412696</created>
+@@ -243,7 +231,8 @@
+     <MESSAGE value="Security" />
+     <MESSAGE value="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties" />
+     <MESSAGE value="React.js Material done." />
+-    <option name="LAST_COMMIT_MESSAGE" value="React.js Material done." />
++    <MESSAGE value="Some small changes" />
++    <option name="LAST_COMMIT_MESSAGE" value="Some small changes" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+Index: src/main/java/mk/ukim/finki/smartstudy/exceptions/CourseNotFoundException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/exceptions/CourseNotFoundException.java b/src/main/java/mk/ukim/finki/smartstudy/exceptions/CourseNotFoundException.java
+new file mode 100644
+--- /dev/null	(date 1685231475489)
++++ b/src/main/java/mk/ukim/finki/smartstudy/exceptions/CourseNotFoundException.java	(date 1685231475489)
+@@ -0,0 +1,4 @@
++package mk.ukim.finki.smartstudy.exceptions;
++
++public class CourseNotFoundException extends RuntimeException{
++}
+Index: src/main/java/mk/ukim/finki/smartstudy/service/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.service;\r\n\r\nimport mk.ukim.finki.smartstudy.model.auth.User;\r\nimport mk.ukim.finki.smartstudy.model.enumerations.ERole;\r\n\r\npublic interface UserService {\r\n    User insertInto(String username, String email, String password, String firstName, String lastName, ERole eRole);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/service/UserService.java b/src/main/java/mk/ukim/finki/smartstudy/service/UserService.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/service/UserService.java	(revision ed46dac779747a35764bfa4f56fef184d240528e)
++++ b/src/main/java/mk/ukim/finki/smartstudy/service/UserService.java	(date 1685231475541)
+@@ -5,4 +5,6 @@
+ 
+ public interface UserService {
+     User insertInto(String username, String email, String password, String firstName, String lastName, ERole eRole);
++
++    void enrollStudentIntoCourse(Long userId, Long courseId);
+ }
+Index: src/main/java/mk/ukim/finki/smartstudy/model/auth/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.model.auth;\r\n\r\nimport javax.persistence.*;\r\nimport javax.validation.constraints.Email;\r\nimport javax.validation.constraints.NotBlank;\r\nimport javax.validation.constraints.Size;\r\n\r\n@Entity\r\n@Table(name = \"users\",\r\n        uniqueConstraints = {\r\n                @UniqueConstraint(columnNames = \"username\"),\r\n                @UniqueConstraint(columnNames = \"email\")\r\n        })\r\npublic class User {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n    private Long user_id;\r\n\r\n    private String first_name;\r\n    private String last_name;\r\n\r\n    @NotBlank\r\n    @Size(max = 20)\r\n    private String username;\r\n\r\n    @NotBlank\r\n    @Size(max = 50)\r\n    @Email\r\n    private String email;\r\n\r\n    @NotBlank\r\n    @Size(max = 120)\r\n    private String password;\r\n\r\n    @ManyToOne\r\n    private Role role = new Role();\r\n\r\n    public User() {\r\n    }\r\n\r\n    public User(String username, String email, String password, String first_name, String last_name) {\r\n        this.username = username;\r\n        this.email = email;\r\n        this.password = password;\r\n        this.first_name = first_name;\r\n        this.last_name = last_name;\r\n    }\r\n\r\n    public Long getUser_id() {\r\n        return user_id;\r\n    }\r\n\r\n    public void setUser_id(Long user_id) {\r\n        this.user_id = user_id;\r\n    }\r\n\r\n    public String getUsername() {\r\n        return username;\r\n    }\r\n\r\n    public void setUsername(String username) {\r\n        this.username = username;\r\n    }\r\n\r\n    public String getEmail() {\r\n        return email;\r\n    }\r\n\r\n    public void setEmail(String email) {\r\n        this.email = email;\r\n    }\r\n\r\n    public String getPassword() {\r\n        return password;\r\n    }\r\n\r\n    public void setPassword(String password) {\r\n        this.password = password;\r\n    }\r\n\r\n    public Role getRole() {\r\n        return role;\r\n    }\r\n\r\n    public void setRole(Role role) {\r\n        this.role = role;\r\n    }\r\n\r\n//    public Set<Role> getRoles() {\r\n//        return roles;\r\n//    }\r\n//\r\n//    public void setRoles(Set<Role> roles) {\r\n//        this.roles = roles;\r\n//    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/model/auth/User.java b/src/main/java/mk/ukim/finki/smartstudy/model/auth/User.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/model/auth/User.java	(revision ed46dac779747a35764bfa4f56fef184d240528e)
++++ b/src/main/java/mk/ukim/finki/smartstudy/model/auth/User.java	(date 1685231475514)
+@@ -20,7 +20,7 @@
+     private String last_name;
+ 
+     @NotBlank
+-    @Size(max = 20)
++    @Size(max = 30)
+     private String username;
+ 
+     @NotBlank
+Index: src/main/java/mk/ukim/finki/smartstudy/exceptions/UserNotFoundException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/exceptions/UserNotFoundException.java b/src/main/java/mk/ukim/finki/smartstudy/exceptions/UserNotFoundException.java
+new file mode 100644
+--- /dev/null	(date 1685231475493)
++++ b/src/main/java/mk/ukim/finki/smartstudy/exceptions/UserNotFoundException.java	(date 1685231475493)
+@@ -0,0 +1,5 @@
++package mk.ukim.finki.smartstudy.exceptions;
++
++public class UserNotFoundException extends RuntimeException{
++}
++
+Index: src/main/java/mk/ukim/finki/smartstudy/web/controllers/StudentRestController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/web/controllers/StudentRestController.java b/src/main/java/mk/ukim/finki/smartstudy/web/controllers/StudentRestController.java
+new file mode 100644
+--- /dev/null	(date 1685231475552)
++++ b/src/main/java/mk/ukim/finki/smartstudy/web/controllers/StudentRestController.java	(date 1685231475552)
+@@ -0,0 +1,28 @@
++package mk.ukim.finki.smartstudy.web.controllers;
++
++
++import mk.ukim.finki.smartstudy.payload.request.EnrollStudentRequest;
++import mk.ukim.finki.smartstudy.service.UserService;
++import org.springframework.web.bind.annotation.*;
++
++import javax.validation.Valid;
++
++@CrossOrigin(origins = "*", maxAge = 3600)
++@RestController
++@RequestMapping("/api/student")
++public class StudentRestController {
++
++    private UserService userService;
++
++    public StudentRestController(UserService userService) {
++        this.userService = userService;
++    }
++
++    @PostMapping("/enroll")
++    public String enrollStudent (@Valid @RequestBody EnrollStudentRequest enrollStudentRequest){
++
++        this.userService.enrollStudentIntoCourse(Long.parseLong(enrollStudentRequest.getUser_id()), Long.parseLong(enrollStudentRequest.getCourse_id()));
++
++        return "Successfully enrolled";
++    }
++}
+Index: src/main/java/mk/ukim/finki/smartstudy/model/Course.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.model;\r\n\r\nimport com.fasterxml.jackson.annotation.JsonIgnore;\r\nimport lombok.Data;\r\n\r\nimport javax.persistence.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n@Entity\r\n@Data\r\npublic class Course {\r\n    @Id\r\n    @GeneratedValue\r\n    private Long id;\r\n\r\n    private String name;\r\n\r\n//    @OneToMany(mappedBy = \"course\", cascade = CascadeType.ALL, orphanRemoval = true)\r\n//    @JsonBackReference\r\n//    private List<Section> sections;\r\n\r\n    @OneToMany(mappedBy = \"course\", cascade = CascadeType.ALL, orphanRemoval = true)\r\n    @JsonIgnore\r\n    private List<Section> sections = new ArrayList<>();\r\n\r\n    //To-Do\r\n    //1. Has many users\r\n    //2. Has one Owner(User) who is of Proffesor role!\r\n\r\n    public Course(){}\r\n\r\n    public Course(String name){\r\n        this.name = name;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/model/Course.java b/src/main/java/mk/ukim/finki/smartstudy/model/Course.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/model/Course.java	(revision ed46dac779747a35764bfa4f56fef184d240528e)
++++ b/src/main/java/mk/ukim/finki/smartstudy/model/Course.java	(date 1685231475499)
+@@ -1,7 +1,7 @@
+ package mk.ukim.finki.smartstudy.model;
+ 
+-import com.fasterxml.jackson.annotation.JsonIgnore;
+ import lombok.Data;
++import mk.ukim.finki.smartstudy.model.auth.User;
+ 
+ import javax.persistence.*;
+ import java.util.ArrayList;
+@@ -16,17 +16,17 @@
+ 
+     private String name;
+ 
+-//    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+-//    @JsonBackReference
+-//    private List<Section> sections;
+-
+-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+-    @JsonIgnore
++    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "course")
+     private List<Section> sections = new ArrayList<>();
+ 
+-    //To-Do
+-    //1. Has many users
+-    //2. Has one Owner(User) who is of Proffesor role!
++    @ManyToMany (fetch = FetchType.LAZY)
++    private List<User> students;
++
++    @ManyToOne
++    private User professor;
++
++    @OneToOne
++    private Quiz quiz;
+ 
+     public Course(){}
+ 
+@@ -34,4 +34,14 @@
+         this.name = name;
+     }
+ 
++    public void addStudent(User user){
++        this.students.add(user);
++    }
++
++    public void addSection(Section section)
++    {
++        this.sections.add(section);
++        //section.setCourse(this);
++    }
++
+ }
+Index: src/main/java/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.service.Impl;\r\n\r\nimport mk.ukim.finki.smartstudy.model.auth.Role;\r\nimport mk.ukim.finki.smartstudy.model.auth.User;\r\nimport mk.ukim.finki.smartstudy.model.enumerations.ERole;\r\nimport mk.ukim.finki.smartstudy.repository.RoleRepository;\r\nimport mk.ukim.finki.smartstudy.repository.UserRepository;\r\nimport mk.ukim.finki.smartstudy.service.UserService;\r\nimport org.springframework.security.crypto.password.PasswordEncoder;\r\nimport org.springframework.stereotype.Service;\r\n\r\n@Service\r\npublic class UserServiceImpl implements UserService {\r\n\r\n    private final PasswordEncoder encoder;\r\n    private final UserRepository userRepository;\r\n    private final RoleRepository roleRepository;\r\n\r\n    public UserServiceImpl(PasswordEncoder encoder, UserRepository userRepository, RoleRepository roleRepository) {\r\n        this.encoder = encoder;\r\n        this.userRepository = userRepository;\r\n        this.roleRepository = roleRepository;\r\n    }\r\n\r\n    @Override\r\n    public User insertInto(String username, String email, String password, String firstName, String lastName, ERole eRole) {\r\n        User user = new User(username, email, encoder.encode(password), firstName, lastName);\r\n        Role role = this.roleRepository.findByName(eRole)\r\n                    .orElseThrow(() -> new RuntimeException(\"Error: Role is not found.\"));\r\n        user.setRole(role);\r\n\r\n        return this.userRepository.save(user);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.java b/src/main/java/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.java	(revision ed46dac779747a35764bfa4f56fef184d240528e)
++++ b/src/main/java/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.java	(date 1685231475534)
+@@ -1,25 +1,33 @@
+ package mk.ukim.finki.smartstudy.service.Impl;
+ 
++import mk.ukim.finki.smartstudy.exceptions.CourseNotFoundException;
++import mk.ukim.finki.smartstudy.exceptions.UserNotFoundException;
++import mk.ukim.finki.smartstudy.model.Course;
+ import mk.ukim.finki.smartstudy.model.auth.Role;
+ import mk.ukim.finki.smartstudy.model.auth.User;
+ import mk.ukim.finki.smartstudy.model.enumerations.ERole;
++import mk.ukim.finki.smartstudy.repository.CourseRepository;
+ import mk.ukim.finki.smartstudy.repository.RoleRepository;
+ import mk.ukim.finki.smartstudy.repository.UserRepository;
+ import mk.ukim.finki.smartstudy.service.UserService;
+ import org.springframework.security.crypto.password.PasswordEncoder;
+ import org.springframework.stereotype.Service;
+ 
++import javax.transaction.Transactional;
++
+ @Service
+ public class UserServiceImpl implements UserService {
+ 
+     private final PasswordEncoder encoder;
+     private final UserRepository userRepository;
+     private final RoleRepository roleRepository;
++    private final CourseRepository courseRepository;
+ 
+-    public UserServiceImpl(PasswordEncoder encoder, UserRepository userRepository, RoleRepository roleRepository) {
++    public UserServiceImpl(PasswordEncoder encoder, UserRepository userRepository, RoleRepository roleRepository, CourseRepository courseRepository) {
+         this.encoder = encoder;
+         this.userRepository = userRepository;
+         this.roleRepository = roleRepository;
++        this.courseRepository = courseRepository;
+     }
+ 
+     @Override
+@@ -31,4 +39,15 @@
+ 
+         return this.userRepository.save(user);
+     }
++
++    @Override
++    @Transactional
++    public void enrollStudentIntoCourse(Long userId, Long courseId) {
++        Course course = this.courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
++        User user = this.userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
++
++        course.addStudent(user);
++        this.courseRepository.save(course);
++
++    }
+ }
+Index: src/main/java/mk/ukim/finki/smartstudy/payload/request/EnrollStudentRequest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/payload/request/EnrollStudentRequest.java b/src/main/java/mk/ukim/finki/smartstudy/payload/request/EnrollStudentRequest.java
+new file mode 100644
+--- /dev/null	(date 1685231475520)
++++ b/src/main/java/mk/ukim/finki/smartstudy/payload/request/EnrollStudentRequest.java	(date 1685231475520)
+@@ -0,0 +1,22 @@
++package mk.ukim.finki.smartstudy.payload.request;
++
++public class EnrollStudentRequest {
++    private String user_id;
++    private String course_id;
++
++    public String getUser_id() {
++        return user_id;
++    }
++
++    public void setUser_id(String user_id) {
++        this.user_id = user_id;
++    }
++
++    public String getCourse_id() {
++        return course_id;
++    }
++
++    public void setCourse_id(String course_id) {
++        this.course_id = course_id;
++    }
++}

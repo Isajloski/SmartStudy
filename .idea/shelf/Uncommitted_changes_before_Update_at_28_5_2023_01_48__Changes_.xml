@@ -1,0 +1,29 @@
+<changelist name="Uncommitted_changes_before_Update_at_28_5_2023_01_48_[Changes]" date="1685231325887" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_01_48_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 28.5.2023 01:48 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/mk/ukim/finki/smartstudy/service/MaterialService.class" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/service/MaterialService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_01_48_[Changes]/MaterialService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.class" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_01_48_[Changes]/MaterialRestController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/mk/ukim/finki/smartstudy/service/CourseService.class" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/service/CourseService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_01_48_[Changes]/CourseService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_01_48_[Changes]/MaterialServiceImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/mk/ukim/finki/smartstudy/repository/MaterialRepository.class" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/repository/MaterialRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_01_48_[Changes]/MaterialRepository.class" />
+  </binary>
+</changelist>

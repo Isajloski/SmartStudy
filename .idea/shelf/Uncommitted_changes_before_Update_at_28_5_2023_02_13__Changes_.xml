@@ -1,0 +1,49 @@
+<changelist name="Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]" date="1685232795050" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 28.5.2023 02:13 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/mk/ukim/finki/smartstudy/service/UserService.class" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/service/UserService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]/UserService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/mk/ukim/finki/smartstudy/model/auth/User.class" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/model/auth/User.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]/User.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/exceptions/CourseNotFoundException.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]/CourseNotFoundException.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/web/controllers/StudentRestController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]/StudentRestController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/mk/ukim/finki/smartstudy/web/auth/AuthController.class" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/web/auth/AuthController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]/AuthController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/mk/ukim/finki/smartstudy/model/Course.class" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/model/Course.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]/Course.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/exceptions/UserNotFoundException.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]/UserNotFoundException.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]/UserServiceImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="target/classes/mk/ukim/finki/smartstudy/payload/request/EnrollStudentRequest.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2023_02_13_[Changes]/EnrollStudentRequest.class" />
+  </binary>
+</changelist>

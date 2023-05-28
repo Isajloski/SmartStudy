@@ -1,0 +1,475 @@
+Index: react.js/src/components/App/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import './App.css';\r\nimport React, {Component} from \"react\";\r\nimport Repository from \"../../repository/repository\";\r\nimport Example from \"../Example/Example\";\r\nimport Material from \"../Material/Material\";\r\nimport CreateMaterial from \"../Material/Create/CreateMaterial\";\r\nimport {BrowserRouter as Router, Routes , Route} from 'react-router-dom';\r\nimport Course from \"../Course/Course\";\r\nimport Popup from \"../Popup/Delete/PopupDelete\";\r\n\r\n\r\nclass App extends Component{\r\n\r\n  constructor(props) {\r\n    super(props);\r\n    this.state = {\r\n      example: [],\r\n      material: [],\r\n      course: []\r\n    }\r\n  }\r\n\r\n  render() {\r\n    return (\r\n        <div className=\"bg-dark\">\r\n            <div className=\"container bg-dark\">\r\n                  <Router>\r\n                    <Routes>\r\n                      <Route path=\"/example\" element={  <Example example = {this.state.example}/>    }> </Route>\r\n                      <Route path=\"/material\" element={  <Material material = {this.state.material} />     }> </Route>\r\n                      <Route path=\"/material/create\" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>\r\n                      <Route path=\"/course\" element={< Course courses={this.state.course} />} />\r\n                      <Route path=\"/popup\" element={<Popup />} />\r\n                    </Routes>\r\n                  </Router>\r\n                </div>\r\n        </div>\r\n    );\r\n  }\r\n\r\n  loadExample = () => {\r\n    Repository.fetchExample()\r\n      .then((data) => {\r\n        this.setState({\r\n          example: data.data\r\n        })\r\n      });\r\n  }\r\n\r\n  loadMaterial = () => {\r\n    Repository.fetchMaterial()\r\n        .then((data) => {\r\n          this.setState({\r\n              material: data.data\r\n          })\r\n        });\r\n  }\r\n\r\n    loadCourse = () => {\r\n        Repository.fetchCourse()\r\n            .then((data) => {\r\n                this.setState({\r\n                    course: data.data\r\n                })\r\n            });\r\n    }\r\n\r\n\r\n\r\n\r\n  componentDidMount() {\r\n    this.loadExample();\r\n    this.loadMaterial();\r\n    this.loadCourse();\r\n\r\n  }\r\n\r\n}\r\n\r\nexport default App;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/components/App/App.js b/react.js/src/components/App/App.js
+--- a/react.js/src/components/App/App.js	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/react.js/src/components/App/App.js	(date 1685210335895)
+@@ -26,10 +26,10 @@
+             <div className="container bg-dark">
+                   <Router>
+                     <Routes>
++                        <Route path="/course/:id" element={<Course />} />
+                       <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
+                       <Route path="/material" element={  <Material material = {this.state.material} />     }> </Route>
+                       <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
+-                      <Route path="/course" element={< Course courses={this.state.course} />} />
+                       <Route path="/popup" element={<Popup />} />
+                     </Routes>
+                   </Router>
+Index: react.js/src/components/Course/Course.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\nimport Style  from './Style.css';\r\n\r\nfunction Course(props) {\r\n    const { courses } = props;\r\n\r\n    if (!courses || courses.length === 0) {\r\n        // Handle the case when the course array is empty or undefined\r\n        return <div>No course available</div>;\r\n    }\r\n\r\n    const course = courses[0]; // Assign the first element of the course array to a new variable\r\n\r\n    return (\r\n        <div className=\"bg-dark  text-white\">\r\n            <h1 >{course.name}</h1>\r\n            <hr/>\r\n            <h3>Прв колоквиум предавања</h3>\r\n            <hr/>\r\n            <p>01 Introcuction</p>\r\n            <p>02 Project Management Life Cycle</p>\r\n            <p>03 Managing Project Teams</p>\r\n            <hr/>\r\n            <h3>Втор колоквиум предавање</h3>\r\n            <hr /> {/* Apply the fade-line class */}\r\n            <img src=\"\"></img>\r\n            <p>01 Introcuction</p>\r\n            <p>02 Project Management Life Cycle</p>\r\n            <p>03 Managing Project Teams</p>\r\n            <hr/>\r\n            <h3>Домашни</h3>\r\n            <hr />\r\n            <p>\r\n                <img src=\"https://www.freeiconspng.com/uploads/word-file-icon-8.png\" alt=\"Logo\" style={{ height: '1.6rem', marginRight: '0.5rem' }} />\r\n                01 Introcuction\r\n            </p>\r\n            <p>\r\n                <img src=\"https://pixlok.com/wp-content/uploads/2021/05/PDF_file_icon.jpg\" alt=\"Logo\" style={{ height: '1.6rem', marginRight: '0.5rem' }} />\r\n                01 Introcuction\r\n            </p>\r\n            <p>03 Managing Project Teams</p>\r\n\r\n\r\n\r\n\r\n        </div>\r\n    );\r\n}\r\n\r\n\r\nexport default Course;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/components/Course/Course.js b/react.js/src/components/Course/Course.js
+--- a/react.js/src/components/Course/Course.js	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/react.js/src/components/Course/Course.js	(date 1685212902135)
+@@ -1,16 +1,30 @@
+ import React from 'react';
+-import Style  from './Style.css';
++import './Style.css';
++import { useEffect, useState } from 'react';
++import { useParams } from 'react-router-dom';
++import Repository from "../../repository/repository";
++import Section from "../Section/Section";
++
+ 
+-function Course(props) {
+-    const { courses } = props;
++const Course = () => {
++    const { id } = useParams();
++    const [course, setCourse] = useState(null);
+ 
+-    if (!courses || courses.length === 0) {
+-        // Handle the case when the course array is empty or undefined
++    useEffect(() => {
++        loadCourse(id);
++    }, [id]);
++
++    const loadCourse = (id) => {
++        Repository.fetchCourseById(id)
++            .then((data) => {
++                setCourse(data.data);
++            });
++    };
++
++    if (!course) {
+         return <div>No course available</div>;
+     }
+ 
+-    const course = courses[0]; // Assign the first element of the course array to a new variable
+-
+     return (
+         <div className="bg-dark  text-white">
+             <h1 >{course.name}</h1>
+@@ -28,20 +42,8 @@
+             <p>02 Project Management Life Cycle</p>
+             <p>03 Managing Project Teams</p>
+             <hr/>
+-            <h3>Домашни</h3>
+-            <hr />
+-            <p>
+-                <img src="https://www.freeiconspng.com/uploads/word-file-icon-8.png" alt="Logo" style={{ height: '1.6rem', marginRight: '0.5rem' }} />
+-                01 Introcuction
+-            </p>
+-            <p>
+-                <img src="https://pixlok.com/wp-content/uploads/2021/05/PDF_file_icon.jpg" alt="Logo" style={{ height: '1.6rem', marginRight: '0.5rem' }} />
+-                01 Introcuction
+-            </p>
+-            <p>03 Managing Project Teams</p>
+-
+ 
+-
++            <Section courseId={course.id} />
+ 
+         </div>
+     );
+Index: react.js/src/repository/repository.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from '../axios/axios';\r\n\r\nconst Repository = {\r\n    fetchExample: () => {\r\n        return axios.get(\"/example/listAll\");\r\n    },\r\n    fetchMaterial: () => {\r\n        return axios.get(\"/material/listAll\");\r\n    },\r\n    createMaterial: (formData) => {\r\n        return axios.post(\"/material/create\", formData);\r\n    },\r\n    fetchCourse() {\r\n        return axios.get(\"/course/listAll\");\r\n    },\r\n    deleteMaterial(id) {\r\n        return axios.post(`/material/delete/${id}`);\r\n    }\r\n}\r\n\r\nexport default Repository;\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/repository/repository.js b/react.js/src/repository/repository.js
+--- a/react.js/src/repository/repository.js	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/react.js/src/repository/repository.js	(date 1685213417129)
+@@ -15,6 +15,12 @@
+     },
+     deleteMaterial(id) {
+         return axios.post(`/material/delete/${id}`);
++    },
++    fetchCourseById(id) {
++        return axios.get(`/course/findById/${id}`);
++    },
++    fetchSectionsByCourseId(courseId) {
++        return axios.get(`/section/findSectionsByCourseId/${courseId}`)
+     }
+ }
+ 
+Index: src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.web.controllers;\r\n\r\nimport mk.ukim.finki.smartstudy.model.Section;\r\nimport mk.ukim.finki.smartstudy.service.SectionService;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport java.util.List;\r\n\r\n@RestController\r\n@CrossOrigin(origins = \"http://localhost:3000\")\r\n@RequestMapping(\"/api/section\")\r\npublic class SectionRestController {\r\n    final private SectionService sectionService;\r\n\r\n    public SectionRestController(SectionService sectionService) {\r\n        this.sectionService = sectionService;\r\n    }\r\n    @GetMapping(\"/listAll\")\r\n    public List<Section> listAll(){\r\n        return this.sectionService.listAll();\r\n    }\r\n\r\n    @PostMapping(\"/create\")\r\n    public Section create(@RequestParam Long courseId, @RequestParam String name){\r\n        return this.sectionService.create(name, courseId);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java b/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java	(date 1685213417152)
+@@ -20,6 +20,16 @@
+         return this.sectionService.listAll();
+     }
+ 
++    @GetMapping("/findById/{id}")
++    public Section findById(@PathVariable Long id){
++        return this.sectionService.findById(id);
++    }
++
++    @GetMapping("/findSectionsByCourseId/{id}")
++    public List<Section> findSectionsByCourseId(@PathVariable Long id){
++        return this.sectionService.findSectionsByCourseId(id);
++    }
++
+     @PostMapping("/create")
+     public Section create(@RequestParam Long courseId, @RequestParam String name){
+         return this.sectionService.create(name, courseId);
+Index: src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.repository;\r\n\r\nimport mk.ukim.finki.smartstudy.model.Section;\r\nimport org.springframework.data.jpa.repository.JpaRepository;\r\nimport org.springframework.stereotype.Repository;\r\n\r\n@Repository\r\npublic interface SectionRepository extends JpaRepository<Section, Long> {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java b/src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java	(date 1685213645521)
+@@ -4,6 +4,9 @@
+ import org.springframework.data.jpa.repository.JpaRepository;
+ import org.springframework.stereotype.Repository;
+ 
++import java.util.List;
++
+ @Repository
+ public interface SectionRepository extends JpaRepository<Section, Long> {
++    List<Section> findSectionsByCourseId(Long id);
+ }
+Index: src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.service;\r\n\r\nimport mk.ukim.finki.smartstudy.model.Section;\r\n\r\nimport java.util.List;\r\n\r\npublic interface SectionService {\r\n    Section findById(Long sectionId);\r\n\r\n    Section create(String name,  Long courseId);\r\n\r\n    List<Section> listAll();\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java b/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java	(date 1685213417091)
+@@ -11,4 +11,5 @@
+ 
+     List<Section> listAll();
+ 
++    List<Section> findSectionsByCourseId(Long id);
+ }
+Index: src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.service.Impl;\r\n\r\nimport mk.ukim.finki.smartstudy.exceptions.ExampleException;\r\nimport mk.ukim.finki.smartstudy.model.Course;\r\nimport mk.ukim.finki.smartstudy.repository.CourseRepository;\r\nimport mk.ukim.finki.smartstudy.service.CourseService;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport java.util.List;\r\n\r\n@Service\r\npublic class CourseServiceImpl implements CourseService {\r\n\r\n    final private CourseRepository courseRepository;\r\n\r\n    public CourseServiceImpl(CourseRepository courseRepository) {\r\n        this.courseRepository = courseRepository;\r\n    }\r\n\r\n    @Override\r\n    public List<Course> listAll() {\r\n        return this.courseRepository.findAll();\r\n    }\r\n\r\n    @Override\r\n    public Course findById(Long id) {\r\n        return this.courseRepository.findById(id).orElseThrow(ExampleException::new);\r\n    }\r\n\r\n    @Override\r\n    public Course create(String name) {\r\n        return this.courseRepository.save(new Course(name));\r\n    }\r\n\r\n    @Override\r\n    public Course delete(Long id) {\r\n        Course course = findById(id);\r\n        this.courseRepository.delete(course);\r\n        return course;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java b/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java	(date 1685210792611)
+@@ -24,7 +24,9 @@
+ 
+     @Override
+     public Course findById(Long id) {
++
+         return this.courseRepository.findById(id).orElseThrow(ExampleException::new);
++
+     }
+ 
+     @Override
+Index: react.js/src/components/Section/Section.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\n\r\nfunction Section(props) {\r\n    return (\r\n        <div className=\"bg-dark  text-white\">\r\n        </div>\r\n    );\r\n}\r\n\r\n\r\nexport default Section;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/components/Section/Section.js b/react.js/src/components/Section/Section.js
+--- a/react.js/src/components/Section/Section.js	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/react.js/src/components/Section/Section.js	(date 1685214022330)
+@@ -1,10 +1,39 @@
+ import React from 'react';
++import PopupEdit from "../Popup/Edit/PopupEdit";
++import PopupDelete from "../Popup/Delete/PopupDelete";
++import Repository from "../../repository/repository";
++import { useEffect, useState } from 'react';
++import { useParams } from 'react-router-dom';
++
++function Section({courseId}) {
++
++    const [sections, setSections] = useState([]);
++
++    useEffect(() => {
++        loadSections(courseId);
++    }, []);
+ 
+-function Section(props) {
++    const loadSections = (courseId) => {
++        Repository.fetchSectionsByCourseId(courseId)
++            .then((response) => {
++                const data = response.data;
++                setSections(data);
++            })
++            .catch((error) => {
++                console.log(error);
++            });
++    };
++
+     return (
+         <div className="bg-dark  text-white">
++            {sections.map((section) => (
++                <h3 key={section.id}>{section.name}
++                    <hr/>
++                    <
++                </h3>
++            ))}
+         </div>
+-    );
++    )
+ }
+ 
+ 
+Index: src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.service.Impl;\r\n\r\nimport mk.ukim.finki.smartstudy.exceptions.ExampleException;\r\nimport mk.ukim.finki.smartstudy.model.Course;\r\nimport mk.ukim.finki.smartstudy.model.Section;\r\nimport mk.ukim.finki.smartstudy.repository.SectionRepository;\r\nimport mk.ukim.finki.smartstudy.service.CourseService;\r\nimport mk.ukim.finki.smartstudy.service.SectionService;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport java.util.List;\r\n\r\n@Service\r\npublic class SectionServiceImpl implements SectionService {\r\n    private final SectionRepository sectionRepository;\r\n    private final CourseService courseService;\r\n\r\n    public SectionServiceImpl(SectionRepository sectionRepository, CourseService courseService) {\r\n        this.sectionRepository = sectionRepository;\r\n        this.courseService = courseService;\r\n    }\r\n\r\n    public List<Section> listAll() {\r\n        return sectionRepository.findAll();\r\n    }\r\n\r\n    public Section create(String name,  Long courseId) {\r\n        Section section = new Section();\r\n        section.setName(name);\r\n        Course course = this.courseService.findById(courseId);\r\n        section.setCourse(course);\r\n        return sectionRepository.save(section);\r\n    }\r\n\r\n    @Override\r\n    public Section findById(Long sectionId) {\r\n        return this.sectionRepository.findById(sectionId).orElseThrow(ExampleException::new);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java b/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java	(date 1685213532636)
+@@ -24,6 +24,11 @@
+         return sectionRepository.findAll();
+     }
+ 
++    @Override
++    public List<Section> findSectionsByCourseId(Long id) {
++        return this.sectionRepository.findSectionsByCourseId(id);
++    }
++
+     public Section create(String name,  Long courseId) {
+         Section section = new Section();
+         section.setName(name);
+Index: react.js/src/components/Popup/Edit/PopupEdit.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useState } from 'react';\r\nimport '../Style.css';\r\nimport img from './img.png';\r\n\r\nconst PopupEdit = () => {\r\n    const [showModal, setShowModal] = useState(false);\r\n\r\n    const handleCloseModal = () => {\r\n        setShowModal(false);\r\n    };\r\n\r\n    const handleOpenModal = () => {\r\n        setShowModal(true);\r\n    };\r\n\r\n    return (\r\n        <div>\r\n            <div>\r\n                <img src={img} onClick={handleOpenModal} style={{ height: '1.6rem', marginRight: '0.5rem' }}/>\r\n                <button className=\"btn btn-light\" onClick={handleOpenModal}>Edit</button>\r\n            </div>\r\n\r\n            {showModal && (\r\n                // <div className=\"modal modal-overlay\" tabIndex=\"-1\" role=\"dialog\" style={{ display: 'block' }}>\r\n                //     <div className=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\r\n                //         <div className=\"modal-content bg-dark text-white\">\r\n                //             <div className=\"modal-header\">\r\n                //                 <h5 className=\"modal-title\">Delete</h5>\r\n                //\r\n                //             </div>\r\n                //             <div className=\"modal-body\">\r\n                //                 <p>Are you sure that you want to delete this file?</p>\r\n                //             </div>\r\n                //             <div className=\"modal-footer\">\r\n                //                 <button type=\"button\" className=\"btn btn-outline-light\" onClick={handleCloseModal}>\r\n                //                     Close\r\n                //                 </button>\r\n                //                 <button type=\"button \" className=\"btn btn-light\" onClick={handleCloseModal}>\r\n                //                     Yes\r\n                //                 </button>\r\n                //             </div>\r\n                //         </div>\r\n                //     </div>\r\n                // </div>\r\n                <div className=\"modal modal-overlay\" tabIndex=\"-1\" role=\"dialog\" style={{ display: 'block' }}>\r\n                    <div className=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\r\n                        <div className=\"modal-content bg-white text-black\">\r\n                            <div className=\"modal-header\">\r\n                                <h5 className=\"modal-title\">Edit</h5>\r\n                            </div>\r\n                            <div className=\"modal-body\">\r\n                                <label>Rename the file: </label>\r\n                                <input placeholder=\"01 Introduction\"/>\r\n                            </div>\r\n                            <div className=\"modal-footer\">\r\n                                <button type=\"button\" className=\"btn btn-outline-dark\" onClick={handleCloseModal}>\r\n                                    Close\r\n                                </button>\r\n                                <button type=\"button \" className=\"btn btn-dark\" onClick={handleCloseModal}>\r\n                                    Yes\r\n                                </button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            )}\r\n        </div>\r\n    );\r\n};\r\n\r\nexport default PopupEdit;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/components/Popup/Edit/PopupEdit.js b/react.js/src/components/Popup/Edit/PopupEdit.js
+--- a/react.js/src/components/Popup/Edit/PopupEdit.js	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/react.js/src/components/Popup/Edit/PopupEdit.js	(date 1685206154823)
+@@ -17,7 +17,6 @@
+         <div>
+             <div>
+                 <img src={img} onClick={handleOpenModal} style={{ height: '1.6rem', marginRight: '0.5rem' }}/>
+-                <button className="btn btn-light" onClick={handleOpenModal}>Edit</button>
+             </div>
+ 
+             {showModal && (
+Index: target/classes/components/Material/Material.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useEffect, useState } from \"react\";\r\nimport './Style.css';\r\nimport pdf from './img/pdf.png';\r\nimport docx from './img/docx.png';\r\nimport pptx from './img/pptx.png';\r\nimport quiz from './img/quiz.png';\r\nimport xlsx from './img/xlsx.png';\r\nimport PopupDelete from \"../Popup/Delete/PopupDelete\";\r\nimport PopupEdit from \"../Popup/Edit/PopupEdit\";\r\n\r\n\r\nfunction Material(props) {\r\n    const { material } = props;\r\n\r\n    const fileExtensionToIcon = {\r\n        pdf: pdf,\r\n        docx: docx,\r\n        pptx: pptx,\r\n        quiz: quiz,\r\n        xlsx: xlsx\r\n    };\r\n\r\n    const getFileIcon = (fileName) => {\r\n        if (!fileName) return null;\r\n\r\n        const extension = fileName.split('.').pop();\r\n        return fileExtensionToIcon[extension.toLowerCase()] || null;\r\n    };\r\n\r\n    const decodeBase64 = (fileData) => {\r\n        const byteCharacters = atob(fileData);\r\n        const byteNumbers = new Array(byteCharacters.length);\r\n\r\n        for (let i = 0; i < byteCharacters.length; i++) {\r\n            byteNumbers[i] = byteCharacters.charCodeAt(i);\r\n        }\r\n\r\n        return new Uint8Array(byteNumbers);\r\n    };\r\n\r\n    const openFileInNewTab = (fileData, fileName) => {\r\n        const extension = fileName.split('.').pop();\r\n        if(extension !== 'pdf'){\r\n            return downloadFile(fileData,fileName);\r\n        }\r\n        const byteArray = decodeBase64(fileData);\r\n        const blob = new Blob([byteArray], { type: 'application/pdf' });\r\n        const url = URL.createObjectURL(blob);\r\n\r\n        const newTab = window.open();\r\n        newTab.location.href = url;\r\n\r\n        // Clean up the URL object\r\n        URL.revokeObjectURL(url);\r\n    };\r\n\r\n    const downloadFile = (fileData, fileName) => {\r\n        const byteArray = decodeBase64(fileData);\r\n        const blob = new Blob([byteArray], { type: 'application/octet-stream' });\r\n        const url = URL.createObjectURL(blob);\r\n\r\n        const link = document.createElement('a');\r\n        link.href = url;\r\n        link.download = fileName;\r\n        link.click();\r\n\r\n        // Clean up the URL object\r\n        URL.revokeObjectURL(url);\r\n    };\r\n\r\n    const getName = (name) => {\r\n        const extensionIndex = name.lastIndexOf('.');\r\n        if (extensionIndex !== -1) {\r\n            return name.substring(0, extensionIndex);\r\n        }\r\n        return name;\r\n    }\r\n\r\n    return (\r\n        <div className=\"text-white bg-dark\">\r\n\r\n\r\n            <ul className=\"list-unstyled\">\r\n\r\n                {material.map((item) => (\r\n                    <li className=\"list-inline\" key={item.section?.id}>\r\n                        <div className=\"d-flex align-items-center justify-content-between\">\r\n                            <div className=\"d-flex align-items-center\">\r\n                                <p onClick={() => openFileInNewTab(item.file, item.name)}>\r\n                                    <img\r\n                                        src={getFileIcon(item.name)}\r\n                                        alt=\"Logo\"\r\n                                        style={{ height: '1.6rem', marginRight: '0.5rem' }}\r\n                                        onClick={() => openFileInNewTab(item.file, item.name)}\r\n                                    />\r\n                                    {getName(item.name)}\r\n                                </p>\r\n                            </div>\r\n                            <div className=\"d-flex align-items-center justify-content-end\">\r\n                                <div className=\"mr-2 \">\r\n                                    <PopupEdit />\r\n                                </div>\r\n                                <div className=\"ms-2\"> {/* Add a small left padding */}\r\n                                    <PopupDelete id={item.id} name={item.name} type={'material'} />\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </li>\r\n                ))}\r\n\r\n\r\n            </ul>\r\n\r\n\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default Material;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/components/Material/Material.js b/target/classes/components/Material/Material.js
+--- a/target/classes/components/Material/Material.js	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/target/classes/components/Material/Material.js	(date 1685124296348)
+@@ -11,7 +11,8 @@
+ 
+ function Material(props) {
+     const { material } = props;
+-
++    const user = 'ADMIN';
++    const isAdmin = user === 'ADMIN';
+     const fileExtensionToIcon = {
+         pdf: pdf,
+         docx: docx,
+@@ -96,6 +97,7 @@
+                                     {getName(item.name)}
+                                 </p>
+                             </div>
++                            {isAdmin ? (
+                             <div className="d-flex align-items-center justify-content-end">
+                                 <div className="mr-2 ">
+                                     <PopupEdit />
+@@ -104,6 +106,7 @@
+                                     <PopupDelete id={item.id} name={item.name} type={'material'} />
+                                 </div>
+                             </div>
++                            ): null}
+                         </div>
+                     </li>
+                 ))}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"BranchesTreeState\">\r\n    <expand>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"GROUP_NODE:origin\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n    </expand>\r\n    <select />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2b392ebe-2368-48d3-88af-3dd6e5080506\" name=\"Changes\" comment=\"Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties\">\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Course/Style.css\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Material/Style.css\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Material/img/docx.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Material/img/pdf.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Material/img/pptx.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Material/img/quiz.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Material/img/xlsx.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Popup/Delete/PopupDelete.js\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Popup/Delete/img.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Popup/Edit/PopupEdit.js\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Popup/Edit/img.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Popup/Style.css\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Section/Section.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/SmartStudy.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/SmartStudy.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/package-lock.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/package-lock.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/package.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/package.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/App/App.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/App/App.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/App/App.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/App/App.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Course/Course.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Course/Course.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Material/Create/CreateMaterial.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Material/Create/CreateMaterial.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Material/Material.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Material/Material.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/index.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/index.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/repository/repository.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/repository/repository.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Course.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Course.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Material.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Material.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Section.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Section.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/MaterialService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/MaterialService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/App/App.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/App/App.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/App/App.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/App/App.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/Course/Course.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/Course/Course.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/Material/Create/CreateMaterial.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/Material/Create/CreateMaterial.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/Material/Material.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/Material/Material.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/index.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/index.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/data/DataInitializer.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/data/DataInitializer.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Course.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Course.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Material.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Material.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/MaterialService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/MaterialService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/repository/repository.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/repository/repository.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"CodeInsightWorkspaceSettings\">\r\n    <option name=\"optimizeImportsOnTheFly\" value=\"true\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"CSS File\" />\r\n        <option value=\"JavaScript File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Psn6N0qSA9CPikoOWLpKTY5Ht1\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"autoscrollFromSource\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,\r\n    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,\r\n    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,\r\n    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luka/Documents/University/Programing/Spring/Project/react.js/src/components/Popup&quot;,\r\n    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;spring.configuration.checksum&quot;: &quot;ad1c857d37f99dfe528af9b0c0509d01&quot;,\r\n    &quot;ts.external.directory.path&quot;: &quot;C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2022.2.3\\\\plugins\\\\JavaScriptLanguage\\\\jsLanguageServicesImpl\\\\external&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Popup\" />\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Material\" />\r\n      <recent name=\"C:\\Bojan\\FINKI\\VIII semestar\\Upravuvanje so IKT\\SmartStudy\\SmartStudy\\src\\main\\java\\mk\\ukim\\finki\\smartstudy\\web\\controllers\" />\r\n      <recent name=\"C:\\Bojan\\FINKI\\VIII semestar\\Upravuvanje so IKT\\SmartStudy\\SmartStudy\\src\\main\\java\\mk\\ukim\\finki\\smartstudy\\payload\\response\" />\r\n      <recent name=\"C:\\Bojan\\FINKI\\VIII semestar\\Upravuvanje so IKT\\SmartStudy\\SmartStudy\\src\\main\\java\\mk\\ukim\\finki\\smartstudy\\payload\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Popup\\Delete\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"mk.ukim.finki.smartstudy.security\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.SmartStudyApplication\">\r\n    <configuration default=\"true\" type=\"ArquillianTestNG\" factoryName=\"\" nameIsGenerated=\"true\">\r\n      <option name=\"arquillianRunConfiguration\">\r\n        <value>\r\n          <option name=\"containerStateName\" value=\"\" />\r\n        </value>\r\n      </option>\r\n      <option name=\"TEST_OBJECT\" value=\"CLASS\" />\r\n      <properties />\r\n      <listeners />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"SmartStudyApplication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"mk.ukim.finki.smartstudy.SmartStudyApplication\" />\r\n      <module name=\"SmartStudy\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"mk.ukim.finki.smartstudy.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"SmartStudyApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"SmartStudy\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"mk.ukim.finki.smartstudy.SmartStudyApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.SmartStudyApplication\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2b392ebe-2368-48d3-88af-3dd6e5080506\" name=\"Changes\" comment=\"\" />\r\n      <created>1684254484081</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1684254484081</updated>\r\n      <workItem from=\"1684254487795\" duration=\"122000\" />\r\n      <workItem from=\"1684254674936\" duration=\"22000\" />\r\n      <workItem from=\"1684254899066\" duration=\"327000\" />\r\n      <workItem from=\"1684433973887\" duration=\"2195000\" />\r\n      <workItem from=\"1684785861371\" duration=\"608000\" />\r\n      <workItem from=\"1684786491097\" duration=\"1859000\" />\r\n      <workItem from=\"1684823393588\" duration=\"12802000\" />\r\n      <workItem from=\"1684920161870\" duration=\"407000\" />\r\n      <workItem from=\"1685046776794\" duration=\"10265000\" />\r\n      <workItem from=\"1685103505452\" duration=\"18394000\" />\r\n      <workItem from=\"1685133430823\" duration=\"113000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties\">\r\n      <created>1685118412696</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685118412696</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Security\" />\r\n    <MESSAGE value=\"Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java</url>\r\n          <line>20</line>\r\n          <option name=\"timeStamp\" value=\"4\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java</url>\r\n          <line>26</line>\r\n          <option name=\"timeStamp\" value=\"7\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/.idea/workspace.xml	(date 1685214908255)
+@@ -22,56 +22,21 @@
+     <select />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties">
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Course/Style.css" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/Style.css" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/img/docx.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/img/pdf.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/img/pptx.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/img/quiz.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Material/img/xlsx.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Delete/PopupDelete.js" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Delete/img.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Edit/PopupEdit.js" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Edit/img.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Style.css" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" afterDir="false" />
++    <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="React.js Material done.">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/SmartStudy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SmartStudy.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/package-lock.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/package.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/App/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/App/App.css" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/react.js/src/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/App/App.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Material/Create/CreateMaterial.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Material/Create/CreateMaterial.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/index.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/react.js/src/components/Popup/Delete/PopupDelete.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Delete/PopupDelete.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/react.js/src/components/Popup/Edit/PopupEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Edit/PopupEdit.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/react.js/src/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/repository/repository.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Course.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Material.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/Section.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/MaterialService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/MaterialService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/SectionRepository.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Course/Course.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/Material/Create/CreateMaterial.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Material/Create/CreateMaterial.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/SectionRestController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/target/classes/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Material/Material.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/index.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/data/DataInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/data/DataInitializer.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Course.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Course.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Material.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Material.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/MaterialServiceImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/MaterialService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/MaterialService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/MaterialRestController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/repository/repository.js" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -221,6 +186,9 @@
+       <workItem from="1685046776794" duration="10265000" />
+       <workItem from="1685103505452" duration="18394000" />
+       <workItem from="1685133430823" duration="113000" />
++      <workItem from="1685133825108" duration="462000" />
++      <workItem from="1685135133118" duration="1018000" />
++      <workItem from="1685203080836" duration="6705000" />
+     </task>
+     <task id="LOCAL-00001" summary="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties">
+       <created>1685118412696</created>
+@@ -229,7 +197,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1685118412696</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary="React.js Material done.">
++      <created>1685134197101</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1685134197101</updated>
++    </task>
++    <option name="localTasksCounter" value="3" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -249,7 +224,8 @@
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Security" />
+     <MESSAGE value="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties" />
++    <MESSAGE value="React.js Material done." />
++    <option name="LAST_COMMIT_MESSAGE" value="React.js Material done." />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+Index: src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package mk.ukim.finki.smartstudy.web.controllers;\r\n\r\nimport mk.ukim.finki.smartstudy.model.Course;\r\nimport mk.ukim.finki.smartstudy.service.CourseService;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport java.util.List;\r\n\r\n@RestController\r\n@CrossOrigin(origins = \"http://localhost:3000\")\r\n@RequestMapping(\"/api/course\")\r\npublic class CourseRestController {\r\n    final private CourseService courseService;\r\n\r\n    public CourseRestController(CourseService courseService) {\r\n        this.courseService = courseService;\r\n    }\r\n\r\n\r\n    @GetMapping(\"/listAll\")\r\n    public List<Course> listAll(){\r\n        return courseService.listAll();\r\n    }\r\n\r\n    @GetMapping(\"/findyById/{id}\")\r\n    public Course findById(@PathVariable Long id){\r\n        return courseService.findById(id);\r\n    }\r\n\r\n    @PostMapping(\"/create\")\r\n    public Course create(@RequestParam String name){\r\n        return this.courseService.create(name);\r\n    }\r\n\r\n    @PostMapping(\"/delete/{id}\")\r\n    public Course delete(@PathVariable Long id){\r\n        return this.courseService.delete(id);\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java b/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java
+--- a/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java	(date 1685208728002)
+@@ -22,7 +22,7 @@
+         return courseService.listAll();
+     }
+ 
+-    @GetMapping("/findyById/{id}")
++    @GetMapping("/findById/{id}")
+     public Course findById(@PathVariable Long id){
+         return courseService.findById(id);
+     }
+Index: react.js/src/components/Popup/Delete/PopupDelete.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useState } from 'react';\r\nimport '../Style.css';\r\nimport img from './img.png';\r\nimport repository from \"../../../repository/repository\";\r\n\r\nconst PopupDelete = ({ id, name, type }) => {\r\n    const [showModal, setShowModal] = useState(false);\r\n\r\n    const handleCloseModal = () => {\r\n        setShowModal(false);\r\n        if(type === 'material'){\r\n            repository.deleteMaterial(id);\r\n        }\r\n    };\r\n\r\n    const handleOpenModal = () => {\r\n        setShowModal(true);\r\n        console.log(\"The file \" + name + \" with the id od  \" + id + \", of the type: \" + type);\r\n    };\r\n\r\n    return (\r\n        <div>\r\n            <div>\r\n                <img src={img} onClick={handleOpenModal} style={{ height: '1.6rem', marginRight: '0.5rem' }}/>\r\n                <button className=\"btn btn-outline-light\" onClick={handleOpenModal}>Delete</button>\r\n            </div>\r\n\r\n            {showModal && (\r\n                // <div className=\"modal modal-overlay\" tabIndex=\"-1\" role=\"dialog\" style={{ display: 'block' }}>\r\n                //     <div className=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\r\n                //         <div className=\"modal-content bg-dark text-white\">\r\n                //             <div className=\"modal-header\">\r\n                //                 <h5 className=\"modal-title\">Delete</h5>\r\n                //\r\n                //             </div>\r\n                //             <div className=\"modal-body\">\r\n                //                 <p>Are you sure that you want to delete this file?</p>\r\n                //             </div>\r\n                //             <div className=\"modal-footer\">\r\n                //                 <button type=\"button\" className=\"btn btn-outline-light\" onClick={handleCloseModal}>\r\n                //                     Close\r\n                //                 </button>\r\n                //                 <button type=\"button \" className=\"btn btn-light\" onClick={handleCloseModal}>\r\n                //                     Yes\r\n                //                 </button>\r\n                //             </div>\r\n                //         </div>\r\n                //     </div>\r\n                // </div>\r\n                <div className=\"modal modal-overlay\" tabIndex=\"-1\" role=\"dialog\" style={{ display: 'block' }}>\r\n                    <div className=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\r\n                        <div className=\"modal-content bg-white text-black\">\r\n                            <div className=\"modal-header\">\r\n                                <h5 className=\"modal-title\">Delete</h5>\r\n                            </div>\r\n                            <div className=\"modal-body\">\r\n                                <p>Are you sure that you want to delete <b className=\"bg-dark text-white\">{name}?</b></p>\r\n                            </div>\r\n                            <div className=\"modal-footer\">\r\n                                <button type=\"button\" className=\"btn btn-outline-dark\" onClick={handleCloseModal}>\r\n                                    Close\r\n                                </button>\r\n                                <button type=\"button \" className=\"btn btn-dark\" onClick={handleCloseModal}>\r\n                                    Yes\r\n                                </button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            )}\r\n        </div>\r\n    );\r\n};\r\n\r\nexport default PopupDelete;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/components/Popup/Delete/PopupDelete.js b/react.js/src/components/Popup/Delete/PopupDelete.js
+--- a/react.js/src/components/Popup/Delete/PopupDelete.js	(revision 8cc35ef1e2b04fc734148f91e6bb6bc15e19f9f3)
++++ b/react.js/src/components/Popup/Delete/PopupDelete.js	(date 1685206154852)
+@@ -22,7 +22,6 @@
+         <div>
+             <div>
+                 <img src={img} onClick={handleOpenModal} style={{ height: '1.6rem', marginRight: '0.5rem' }}/>
+-                <button className="btn btn-outline-light" onClick={handleOpenModal}>Delete</button>
+             </div>
+ 
+             {showModal && (
