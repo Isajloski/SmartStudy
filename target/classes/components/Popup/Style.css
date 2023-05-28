@@ -59,10 +59,9 @@ button{
 
 h4 {font-size: 1.777rem;}
 
-p {
-    font-size: 1.1rem;
-    font-family: 'Exo 2', sans-serif;
-    font-weight: 100;
+p, label, input {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
 }
 
 small, .text_small {font-size: 0.75rem;}
@@ -76,6 +75,7 @@ small, .text_small {font-size: 0.75rem;}
 .fade-line:hover {
     opacity: 0; /* On hover, set opacity to 0 for the fading effect */
 }
+
 
 
 

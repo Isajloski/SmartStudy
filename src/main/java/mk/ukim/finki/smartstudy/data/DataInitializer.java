@@ -42,10 +42,10 @@ public class DataInitializer{
 
         //Course and sections init
         this.courseService.create("Управување со ИКТ проекти");
-        this.courseService.addSectionToCourse("Прв колоквиум предавања", 1L);
-        this.courseService.addSectionToCourse("Втор колоквиум предавања", 1L);
-        this.courseService.addSectionToCourse("Тестови", 1L);
-        this.courseService.addSectionToCourse("Домашни", 1L);
+        this.sectionService.create("Прв колоквиум предавања", 1L);
+        this.sectionService.create("Втор колоквиум предавања", 1L);
+        this.sectionService.create("Тестови", 1L);
+        this.sectionService.create("Домашни", 1L);
 
         //Adding students to course
         this.userService.enrollStudentIntoCourse(2L, 1L);

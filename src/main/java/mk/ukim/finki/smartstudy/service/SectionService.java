@@ -14,4 +14,6 @@ public interface SectionService {
     Section delete(Long id);
 
     Section edit(Long id, String name);
+
+    Section create(String name, Long courseId);
 }

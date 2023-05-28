@@ -1,4 +1,3 @@
-import './App.css';
 import React, {Component} from "react";
 import Repository from "../../repository/repository";
 import Example from "../Example/Example";

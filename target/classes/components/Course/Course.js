@@ -33,9 +33,7 @@ const Course = () => {
 
 
     const theCourseWasDeleted = () =>{
-        return ( <div>
-            <h1>The course was deleted sucesfully!;</h1>
-        </div>);
+
     }
 
     if (!course) {
@@ -43,9 +41,12 @@ const Course = () => {
     }
 
     return (
+
         <div className="bg-dark text-white">
             <div className="d-flex justify-content-between align-items-center">
                 <h1>{course.name}</h1>
+                <hr />
+
                 {isAdmin ? (
                 <div className="d-flex align-items-center">
                     <PopupEdit id={id} name={course.name} type={'course'} func={loadCourse}/>
@@ -53,6 +54,7 @@ const Course = () => {
                 </div>
                     ):null}
             </div>
+        <hr/>
             <Section courseId={course.id} />
         </div>
     );

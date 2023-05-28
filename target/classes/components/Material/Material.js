@@ -97,6 +97,10 @@ const Material = ({ sectionId }) => {
         return name;
     }
 
+    if(material == null){
+    }
+
+
     return (
         <div className="text-white bg-dark">
 
@@ -133,7 +137,7 @@ const Material = ({ sectionId }) => {
 
 
             </ul>
-
+        <hr/>
 
         </div>
     );
