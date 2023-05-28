@@ -46,6 +46,10 @@ const PopupDelete = ({ id, name, type, func }) => {
         console.log("The file " + name + " with the id od  " + id + ", of the type: " + type);
     };
 
+    const example = () =>{
+        console.log("Hi");
+    }
+
     return (
         <div>
             <div>
