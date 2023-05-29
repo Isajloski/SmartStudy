@@ -1,6 +1,9 @@
 import axios from '../axios/axios';
 
 const Repository = {
+    login:(username,password)=>{
+        return axios.post("/auth/signin",{username,password})
+    },
     fetchExample: () => {
         return axios.get("/example/listAll");
     },

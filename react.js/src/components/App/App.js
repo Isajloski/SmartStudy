@@ -6,6 +6,8 @@ import CreateMaterial from "../Material/Create/CreateMaterial";
 import {BrowserRouter as Router, Routes , Route} from 'react-router-dom';
 import Course from "../Course/Course";
 import Popup from "../Popup/Delete/PopupDelete";
+import Login from "../Login/Login";
+import RegistrationForm from "../Registration/registrationForm";
 
 
 class App extends Component{
@@ -25,6 +27,8 @@ class App extends Component{
             <div className="container bg-dark">
                   <Router>
                     <Routes>
+                        <Route path={"/register"} element={<RegistrationForm/>}></Route>
+                        <Route path="/login" element={<Login />} />
                         <Route path="/course/:id" element={<Course />} />
                       <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
                       <Route path="/material" element={  <Material material = {this.state.material} />     }> </Route>
