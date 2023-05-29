@@ -20,7 +20,7 @@ public class Section {
 
     private String name;
 
-    @OneToMany (mappedBy = "section")
+    @OneToMany (mappedBy = "section",fetch = FetchType.EAGER)
     private List<Material> materials = new ArrayList<>();
 
 

@@ -6,6 +6,9 @@ import CreateMaterial from "../Material/Create/CreateMaterial";
 import {BrowserRouter as Router, Routes , Route} from 'react-router-dom';
 import Course from "../Course/Course";
 import Popup from "../Popup/Delete/PopupDelete";
+import Quiz from "../Quiz/Quiz";
+import './App.css';
+import Question from "../Question/Question"; // Import the Bootstrap CSS
 
 
 class App extends Component{
@@ -23,15 +26,20 @@ class App extends Component{
     return (
         <div className="bg-dark">
             <div className="container bg-dark">
+                <body>
                   <Router>
                     <Routes>
                         <Route path="/course/:id" element={<Course />} />
-                      <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
-                      <Route path="/material" element={  <Material material = {this.state.material} />     }> </Route>
-                      <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
-                      <Route path="/popup" element={<Popup />} />
+                        <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
+                        <Route path="/material" element={  <Material material = {this.state.material} />     }> </Route>
+                        <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
+                        <Route path="/popup" element={<Popup />} />
+                        <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
+                        <Route path="/course/:course_id/quiz/:quiz_id" element={  <Quiz />}/>
+                        <Route path="/course/:course_id/quiz/:quiz_id/question/:question_id" element={  <Question />}/>
                     </Routes>
                   </Router>
+                </body>
                 </div>
         </div>
     );

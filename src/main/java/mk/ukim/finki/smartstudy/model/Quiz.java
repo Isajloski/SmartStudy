@@ -1,10 +1,9 @@
 package mk.ukim.finki.smartstudy.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.util.List;
 
 @Entity
@@ -15,18 +14,22 @@ public class Quiz { //TODO: The connection between the quiz and the course need 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String quizTitle;
+    private String name;
 
-    private Integer points;
+    private int time;
 
-    private Boolean isPassed;
-
-    @Max(5)
-    @Min(1)
-    private Integer grade;
-
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Question> questions;
 
+    @ManyToOne
+    @JsonBackReference
+    private Course course;
+
     public Quiz() {}
+
+    public Quiz(String name, int time, Course course) {
+        this.name = name;
+        this.time = time;
+        this.course = course;
+    }
 }

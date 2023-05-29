@@ -44,6 +44,28 @@ const Repository = {
     },
     editCourse(id, formData) {
         return axios.post(`/course/edit/${id}`, formData)
+    },
+    fetchQuizBySectionId(sectionId) {
+        return axios.get(`/quiz/findQuizByCourseId/${sectionId}`)
+    },
+    fetchQuiz(id) {
+        return axios.get(`/quiz/findById/${id}`)
+    },
+    editQuiz(id, formData) {
+        return axios.post(`/quiz/edit/${id}`, formData)
+    },
+    deleteQuiz(id) {
+        return axios.post(`/quiz/delete/${id}`)
+    },
+
+    createSection(formData) {
+        return axios.post("/section/create", formData);
+    },
+    findQuestionByQuizId(quiz_id) {
+        return axios.get(`/question/findQuestionByQuizId/${quiz_id}`)
+    },
+    fetchQuestion(question_id) {
+        return axios.get(`/question/findById/${question_id}`);
     }
 }
 

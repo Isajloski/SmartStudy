@@ -1,11 +1,10 @@
 import React, { useRef, useState } from 'react';
 import '../Style.css';
-import img from './img.png';
 import repository from "../../../repository/repository";
 import PopupDelete from "../Delete/PopupDelete";
 
-const PopupEdit = ({ id, name, time ,file, type, func }) => {
-    const [showModal, setShowModal] = useState(false);
+const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal }) => {
+    const [showModal, setShowModal] = useState(modalShow);
 
     const [newName, setNewName] = useState(() => name);
     const [newFile, setNewFile] = useState( () => file);
@@ -13,10 +12,9 @@ const PopupEdit = ({ id, name, time ,file, type, func }) => {
 
 
     const handleCloseModal = () => {
+        closeModal(false);
         setShowModal(false);
-
         console.log("The file that was about to be sent: " + newName);
-
         setNewName(name);
         setNewFile(file);
         setNewTime(time);
@@ -27,7 +25,8 @@ const PopupEdit = ({ id, name, time ,file, type, func }) => {
             const formData = new FormData();
             formData.append('name', newName);
             formData.append('file', newFile);
-            repository.editMaterial(id, formData)
+            formData.append('sectionId', id);
+            repository.createMaterial(formData)
                 .then(() => {
                     func(); // Call the function after the material is successfully deleted
                 })
@@ -52,7 +51,8 @@ const PopupEdit = ({ id, name, time ,file, type, func }) => {
         if(type === 'section'){
             const formData = new FormData();
             formData.append('name', newName);
-            repository.editSection(id, formData)
+            formData.append('courseId', id);
+            repository.createSection(formData)
                 .then(() => {
                     func(); // Call the function after the material is successfully deleted
                 })
@@ -71,6 +71,8 @@ const PopupEdit = ({ id, name, time ,file, type, func }) => {
                     console.log(error);
                 });
         }
+        func();
+        closeModal(false);
         setShowModal(false);
     };
 
@@ -102,19 +104,15 @@ const PopupEdit = ({ id, name, time ,file, type, func }) => {
 
     return (
         <div>
-            <div>
-                <img src={img} onClick={handleOpenModal} style={{ height: '1.6rem', marginRight: '0.5rem' }}/>
-            </div>
-
             {showModal && (
                 <div className="modal modal-overlay" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
                     <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div className="modal-content bg-white text-black">
                             <div className="modal-header">
-                                <h5 className="modal-title">Edit</h5>
+                                <h5 className="modal-title">Create {type}</h5>
                             </div>
                             <div className="modal-body">
-                                <label>Rename the {name} to:</label>
+                                <label>Name:</label>
                                 <input
                                     className="bg-dark text-white w-100"
                                     placeholder={newName}
@@ -148,7 +146,7 @@ const PopupEdit = ({ id, name, time ,file, type, func }) => {
 
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-outline-dark"  onClick={handleCloseModal}>
+                                <button type="button" className="btn btn-outline-dark" onClick={handleCloseModal}>
                                     Close
                                 </button>
                                 <button type="button " className="btn btn-dark" onClick={handleYes}>
@@ -163,4 +161,4 @@ const PopupEdit = ({ id, name, time ,file, type, func }) => {
     );
 };
 
-export default PopupEdit;
+export default PopupCreate;

@@ -19,6 +19,8 @@ const PopupDelete = ({ id, name, type, func }) => {
                 .catch((error) => {
                     console.log(error);
                 });
+
+
         }
         if(type === 'section'){
             repository.deleteSection(id)
@@ -29,6 +31,18 @@ const PopupDelete = ({ id, name, type, func }) => {
                     console.log(error);
                 });
         }
+        if(type === 'quiz'){
+            repository.deleteQuiz(id)
+                .then(() => {
+                    func(); // Call the function after the material is successfully deleted
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            console.log(id);
+        }
+
         if(type === 'course'){
             repository.deleteCourse(id)
                 .then(() => {
@@ -43,7 +57,6 @@ const PopupDelete = ({ id, name, type, func }) => {
 
     const handleOpenModal = () => {
         setShowModal(true);
-        console.log("The file " + name + " with the id od  " + id + ", of the type: " + type);
     };
 
     return (

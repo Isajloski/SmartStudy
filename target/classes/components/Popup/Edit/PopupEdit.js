@@ -4,19 +4,22 @@ import img from './img.png';
 import repository from "../../../repository/repository";
 import PopupDelete from "../Delete/PopupDelete";
 
-const PopupEdit = ({ id, name, file, type, func }) => {
+const PopupEdit = ({ id, name, time ,file, type, func }) => {
     const [showModal, setShowModal] = useState(false);
 
     const [newName, setNewName] = useState(() => name);
     const [newFile, setNewFile] = useState( () => file);
+    const [newTime, setNewTime] = useState( () => time);
 
 
     const handleCloseModal = () => {
         setShowModal(false);
+
         console.log("The file that was about to be sent: " + newName);
 
         setNewName(name);
         setNewFile(file);
+        setNewTime(time);
     };
 
     const handleYes = () => {
@@ -32,6 +35,20 @@ const PopupEdit = ({ id, name, file, type, func }) => {
                     console.log(error);
                 });
         }
+        if (type === 'quiz') {
+            const formData = new FormData();
+            formData.append('name', newName);
+            formData.append('time', newTime);
+            repository.editQuiz(id, formData)
+                .then(() => {
+                    func(); // Call the function after the material is successfully deleted
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
+
         if(type === 'section'){
             const formData = new FormData();
             formData.append('name', newName);
@@ -78,6 +95,10 @@ const PopupEdit = ({ id, name, file, type, func }) => {
         console.log(newName);
     };
 
+    const handleTimeChange = (e) =>{
+        setNewTime(e.target.value);
+    }
+
 
     return (
         <div>
@@ -101,6 +122,18 @@ const PopupEdit = ({ id, name, file, type, func }) => {
                                     id={newName}
                                     onChange={handleNameChange}
                                 />
+                                {type === 'quiz' ? (
+                                    <div>
+                                        <label>Change the time {name} to:</label>
+                                        <input
+                                            className="bg-dark text-white w-100"
+                                            placeholder={newTime}
+                                            name={newTime}
+                                            id={newTime}
+                                            onChange={handleTimeChange}
+                                        />
+                                    </div>
+                                ):null}
                                 {type === 'material' ? (
                                     <div>
                                         <br/>
@@ -115,7 +148,7 @@ const PopupEdit = ({ id, name, file, type, func }) => {
 
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-outline-dark" onClick={handleCloseModal}>
+                                <button type="button" className="btn btn-outline-dark"  onClick={handleCloseModal}>
                                     Close
                                 </button>
                                 <button type="button " className="btn btn-dark" onClick={handleYes}>

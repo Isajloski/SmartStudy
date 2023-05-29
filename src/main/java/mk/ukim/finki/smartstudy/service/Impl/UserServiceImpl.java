@@ -41,6 +41,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findById(Long id) throws Exception {
+        return this.userRepository.findById(id).orElseThrow(Exception::new);
+    }
+
+    @Override
     @Transactional
     public void enrollStudentIntoCourse(Long userId, Long courseId) {
         Course course = this.courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);

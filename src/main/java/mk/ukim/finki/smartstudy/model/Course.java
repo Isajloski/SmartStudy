@@ -14,19 +14,23 @@ public class Course {
     @GeneratedValue
     private Long id;
 
+    @OneToMany(mappedBy = "course")
+    private List<Grade> grades;
+
+
     private String name;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "course")
     private List<Section> sections = new ArrayList<>();
+
+    @OneToMany(mappedBy = "course")
+    private List<Quiz> quiz;
 
     @ManyToMany (fetch = FetchType.LAZY)
     private List<User> students;
 
     @ManyToOne
     private User professor;
-
-    @OneToOne
-    private Quiz quiz;
 
     public Course(){}
 

@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from "react";
 import './Style.css';
+import otherFile from  './img/otherfile.png';
 import pdf from './img/pdf.png';
 import docx from './img/docx.png';
 import pptx from './img/pptx.png';
-import quiz from './img/quiz.png';
 import xlsx from './img/xlsx.png';
 import PopupDelete from "../Popup/Delete/PopupDelete";
 import PopupEdit from "../Popup/Edit/PopupEdit";
 import Repository from "../../repository/repository";
+import PopupCreate from "../Popup/Create/PopupCreate";
 
 
 const Material = ({ sectionId }) => {
     const [material, setMaterial] = useState([]);
-    const user = 'ADMIN';
+    const user = 'USER';
     const isAdmin = user === 'ADMIN';
 
+    const [showPopup, setShowPopup] = useState(false);
 
+
+    const openModal = () => {
+        setShowPopup(true);
+    };
+
+    const closeModal = () => {
+        setShowPopup(false);
+    };
 
 
     useEffect(() => {
@@ -37,8 +47,8 @@ const Material = ({ sectionId }) => {
         pdf: pdf,
         docx: docx,
         pptx: pptx,
-        quiz: quiz,
-        xlsx: xlsx
+        xlsx: xlsx,
+        homework: otherFile
     };
 
     const getFileIcon = (fileName) => {
@@ -134,10 +144,15 @@ const Material = ({ sectionId }) => {
                         </div>
                     </li>
                 ))}
-
+                {isAdmin ? (
+                    <div>
+                        <p className="text-center opacity-25"  onClick={openModal}>Create a new material</p>
+                        {showPopup && <PopupCreate closeModal={closeModal} type={'material'} id={sectionId} modalShow={true} func={loadMaterial} />}
+                        <hr/>
+                    </div>
+                ): null}
 
             </ul>
-        <hr/>
 
         </div>
     );

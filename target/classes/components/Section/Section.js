@@ -5,16 +5,32 @@ import Repository from "../../repository/repository";
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Material from "../Material/Material";
+import PopupCreate from "../Popup/Create/PopupCreate";
 
 function Section({courseId}) {
 
-    const user = 'ADMIN';
+    const user = 'USER';
     const isAdmin = user === 'ADMIN';
     const [sections, setSections] = useState([]);
+    const [showPopup, setShowPopup] = useState(false);
+
+
+    const openModal = () => {
+        setShowPopup(true);
+    };
+
+    const closeModal = () => {
+        setShowPopup(false);
+    };
+
 
     useEffect(() => {
         loadSections();
     }, []);
+
+
+
+
 
     const loadSections = () => {
         Repository.fetchSectionsByCourseId(courseId)
@@ -56,6 +72,13 @@ function Section({courseId}) {
                     <Material sectionId={section.id} />
                 </div>
             ))}
+            {isAdmin ? (
+                <div>
+                    <h3 className="text-center opacity-25"  onClick={openModal}>Create a new section</h3>
+                    {showPopup && <PopupCreate closeModal={closeModal} type={'section'} id={courseId} modalShow={true} func={loadSections} />}
+                    <hr/>
+                </div>
+            ):null}
 
         </div>
 

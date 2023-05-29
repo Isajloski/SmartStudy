@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -15,22 +13,30 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
+    private String name;
 
-    private String questionContent;
+    private String answer;
 
-    private Boolean isAnsweredCorrectly;
-
-    private Integer points;
-
-    @OneToMany(mappedBy = "question")
-    private List<Answer> answers;
+    private String a;
+    private String b;
+    private String c;
+    private String d;
 
     @ManyToOne
     @JsonBackReference
     private Quiz quiz;
 
+    public Question(String name, String answer, String a, String b, String c, String d, Quiz quiz) {
+        this.name = name;
+        this.answer = answer;
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        this.d = d;
+        this.quiz =quiz;
+    }
+
     public Question() {
-        this.answers = new ArrayList<>();
+
     }
 }

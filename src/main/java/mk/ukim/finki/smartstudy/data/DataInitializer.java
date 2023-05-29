@@ -18,12 +18,18 @@ public class DataInitializer{
     private final RoleService roleService;
     private final UserService userService;
 
-    public DataInitializer(CourseService courseService, SectionService sectionService, MaterialService materialService, RoleService roleService, UserService userService) {
+    private final QuizService quizService;
+
+    private final QuestionService questionService;
+
+    public DataInitializer(CourseService courseService, SectionService sectionService, MaterialService materialService, RoleService roleService, UserService userService, QuizService quizService, QuestionService questionService) {
         this.courseService = courseService;
         this.sectionService = sectionService;
         this.materialService = materialService;
         this.roleService = roleService;
         this.userService = userService;
+        this.quizService = quizService;
+        this.questionService = questionService;
     }
 
     @PostConstruct
@@ -52,6 +58,16 @@ public class DataInitializer{
         this.userService.enrollStudentIntoCourse(3L, 1L);
         this.userService.enrollStudentIntoCourse(4L, 1L);
         this.userService.enrollStudentIntoCourse(5L, 1L);
+
+        this.quizService.create("Прв колоквиум", 35, 1L);
+        this.quizService.create("Втор колоквиум", 60, 1L);
+
+        this.questionService.create("Колку краци има македонското знаме?", "d", "9", "5", "3", "8", 1L);
+        this.questionService.create("Колку краци има јапонското знаме?", "c", "9", "5", "1", "8", 1L);
+        this.questionService.create("Колку бои има германското знаме", "c", "9", "5", "3", "8", 1L);
+        this.questionService.create("Колку бои има германското знаме", "c", "9", "5", "3", "8", 1L);
+        this.questionService.create("Колку бои има германското знаме", "c", "9", "5", "3", "8", 1L);
+
     }
 
 }

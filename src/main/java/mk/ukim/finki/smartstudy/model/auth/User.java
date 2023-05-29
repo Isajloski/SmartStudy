@@ -1,9 +1,12 @@
 package mk.ukim.finki.smartstudy.model.auth;
 
+import mk.ukim.finki.smartstudy.model.Grade;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "users",
@@ -34,6 +37,9 @@ public class User {
 
     @ManyToOne
     private Role role = new Role();
+
+    @OneToMany(mappedBy = "user")
+    private List<Grade> grades;
 
     public User() {
     }
