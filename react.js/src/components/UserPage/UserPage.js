@@ -25,6 +25,7 @@ const UserPage = (props) => {
                             <p style={{ 'fontSize': '20px', 'fontWeight': 'bold' }}>Информации за корисникот</p>
                             <div>
                                 <p><span style={{ 'fontWeight': 'bold' }}>Корисник : </span>{user?.username} </p>
+                                <p><span style={{ 'fontWeight': 'bold' }}>Индекс : </span>{user?.index} </p>
                                 <p><span style={{ 'fontWeight': 'bold' }}>Електронска пошта : </span>{user?.email}</p>
                                 <p><span style={{ 'fontWeight': 'bold' }}>Држава : </span>{user?.country}</p>
                                 <p><span style={{ 'fontWeight': 'bold' }}>Град : </span>{user?.city}</p>
