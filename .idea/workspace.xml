@@ -23,30 +23,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="Quiz + Grade">
-      <change afterPath="$PROJECT_DIR$/react.js/src/Cookie/Cookie.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Login/UserContex.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/App/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Example/Example.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Example/Example.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Registration/registrationForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Registration/registrationForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/repository/repository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/auth/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/model/auth/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/payload/request/SignupRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/payload/request/SignupRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Course/Course.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Material/Material.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Section/Section.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Section/Section.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/auth/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/auth/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/UserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/auth/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/auth/AuthController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/repository/repository.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,8 +48,8 @@
       <list>
         <option value="CSS File" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="JavaScript File" />
+        <option value="Class" />
       </list>
     </option>
   </component>

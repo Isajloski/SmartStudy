@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,10 @@ public class User {
 
     private String first_name;
     private String last_name;
+    private String city;
+    private String country;
+    private Date birthday;
+    private String description;
 
     @NotBlank
     @Size(max = 30)
@@ -44,12 +49,16 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String first_name, String last_name) {
+    public User(String username, String email, String password, String first_name, String last_name, String city, String country, Date birthday, String description) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
+        this.city = city;
+        this.country = country;
+        this.birthday = birthday;
+        this.description = description;
     }
 
     public Long getUser_id() {
@@ -90,6 +99,38 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 //    public Set<Role> getRoles() {

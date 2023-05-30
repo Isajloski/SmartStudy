@@ -88,7 +88,11 @@ public class AuthController {
                          signUpRequest.getEmail(),
                          encoder.encode(signUpRequest.getPassword()),
             signUpRequest.getFirst_name(),
-            signUpRequest.getLast_name());
+            signUpRequest.getLast_name(),
+            signUpRequest.getCity(),
+            signUpRequest.getCountry(),
+            signUpRequest.getBirthday(),
+            signUpRequest.getDescription());
 
     String strRoles = signUpRequest.getRole();
     Role role = null;

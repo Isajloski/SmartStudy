@@ -6,6 +6,8 @@ import mk.ukim.finki.smartstudy.service.*;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.time.Instant;
+import java.util.Date;
 
 @Component
 public class DataInitializer{
@@ -39,12 +41,12 @@ public class DataInitializer{
         this.roleService.insertInto(ERole.ROLE_STUDENT);
 
         //User init
-        this.userService.insertInto("bojan.smart-study", "bojan.smart-study@email.com", "123456789", "Bojan", "Simichiev", ERole.ROLE_PROFESSOR);
-        this.userService.insertInto("student_1.smart-study", "student_1.smart-study@email.com", "123456789", "Student_1", "LastName_1", ERole.ROLE_STUDENT);
-        this.userService.insertInto("student_2.smart-study", "student_2.smart-study@email.com", "123456789", "Student_2", "LastName_2", ERole.ROLE_STUDENT);
-        this.userService.insertInto("student_3.smart-study", "student_3.smart-study@email.com", "123456789", "Student_3", "LastName_3", ERole.ROLE_STUDENT);
-        this.userService.insertInto("student_4.smart-study", "student_4.smart-study@email.com", "123456789", "Student_4", "LastName_4", ERole.ROLE_STUDENT);
-        this.userService.insertInto("student_5.smart-study", "student_5.smart-study@email.com", "123456789", "Student_5", "LastName_5", ERole.ROLE_STUDENT);
+        this.userService.insertInto("bojan.smart-study", "bojan.smart-study@email.com", "123456789", "Bojan", "Simichiev", "Skopje", "MKD", Date.from(Instant.now()), "Description number 1", ERole.ROLE_PROFESSOR);
+        this.userService.insertInto("student_1.smart-study", "student_1.smart-study@email.com", "123456789", "Student_1", "LastName_1", "Skopje", "MKD", Date.from(Instant.now()), "Description number 1", ERole.ROLE_STUDENT);
+        this.userService.insertInto("student_2.smart-study", "student_2.smart-study@email.com", "123456789", "Student_2", "LastName_2", "Skopje", "MKD", Date.from(Instant.now()), "Description number 2",  ERole.ROLE_STUDENT);
+        this.userService.insertInto("student_3.smart-study", "student_3.smart-study@email.com", "123456789", "Student_3", "LastName_3", "Skopje", "MKD", Date.from(Instant.now()), "Description number 3",  ERole.ROLE_STUDENT);
+        this.userService.insertInto("student_4.smart-study", "student_4.smart-study@email.com", "123456789", "Student_4", "LastName_4", "Skopje", "MKD", Date.from(Instant.now()), "Description number 4",  ERole.ROLE_STUDENT);
+        this.userService.insertInto("student_5.smart-study", "student_5.smart-study@email.com", "123456789", "Student_5", "LastName_5", "Skopje", "MKD", Date.from(Instant.now()), "Description number 5",  ERole.ROLE_STUDENT);
 
         //Course and sections init
         this.courseService.create("Управување со ИКТ проекти");
