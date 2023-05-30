@@ -28,7 +28,6 @@ class App extends Component{
     return (
         <div className="bg-dark">
             <div className="container bg-dark">
-                <body>
                   <Router>
                     <Routes>
                         <Route path={"/register"} element={<RegistrationForm/>}></Route>
@@ -45,7 +44,7 @@ class App extends Component{
                         <Route path="/course/:course_id/quiz/:quiz_id/question/:question_id" element={  <Question />}/>
                     </Routes>
                   </Router>
-                </body>
+
                 </div>
         </div>
     );
