@@ -1,6 +1,13 @@
 import axios from '../axios/axios';
 
 const Repository = {
+    login: (formData) => {
+        return axios.post('/api/auth/signin', formData, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+    },
     fetchExample: () => {
         return axios.get("/example/listAll");
     },
@@ -67,6 +74,7 @@ const Repository = {
     fetchQuestion(question_id) {
         return axios.get(`/question/findById/${question_id}`);
     }
+
 }
 
 export default Repository;

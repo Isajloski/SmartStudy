@@ -43,7 +43,7 @@ function RegistrationForm() {
 
     return(
         <div className="container mt-3">
-            <form className="bg-dark p-3 text-white">
+            <form className="bg-dark h3 mb-3 font-weight-normal text-center p-3 text-white">
                 <h1 className="h3 mb-3 font-weight-normal text-center">Registration</h1>
                 <div className="form-group">
                     <label htmlFor="firstName">First Name</label>

@@ -97,6 +97,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         .authorizeRequests().antMatchers("/api/auth/**").permitAll()
         .antMatchers("/api/test/**").permitAll()
         .antMatchers(h2ConsolePath + "/**").permitAll()
+            .antMatchers("/api/auth/**").permitAll()
             .antMatchers("/api/**") // Define the URL pattern for your API
             .permitAll()
         .anyRequest().authenticated();

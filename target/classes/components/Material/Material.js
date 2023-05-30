@@ -13,7 +13,7 @@ import PopupCreate from "../Popup/Create/PopupCreate";
 
 const Material = ({ sectionId }) => {
     const [material, setMaterial] = useState([]);
-    const user = 'USER';
+    const user = 'ADMIN';
     const isAdmin = user === 'ADMIN';
 
     const [showPopup, setShowPopup] = useState(false);

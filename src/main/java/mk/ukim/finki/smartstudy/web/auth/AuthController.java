@@ -3,7 +3,6 @@ package mk.ukim.finki.smartstudy.web.auth;
 import mk.ukim.finki.smartstudy.model.auth.Role;
 import mk.ukim.finki.smartstudy.model.auth.User;
 import mk.ukim.finki.smartstudy.model.enumerations.ERole;
-import mk.ukim.finki.smartstudy.payload.request.LoginRequest;
 import mk.ukim.finki.smartstudy.payload.request.SignupRequest;
 import mk.ukim.finki.smartstudy.payload.response.MessageResponse;
 import mk.ukim.finki.smartstudy.payload.response.UserInfoResponse;
@@ -18,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -47,27 +47,31 @@ public class AuthController {
   JwtUtils jwtUtils;
 
   @PostMapping("/signin")
-  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+  public ResponseEntity<?> authenticateUser(@RequestParam String username, @RequestParam String password) {
 
-    Authentication authentication = authenticationManager
-        .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+  Authentication authentication = authenticationManager
+          .authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+  UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-    ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+  ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-    List<String> roles = userDetails.getAuthorities().stream()
-        .map(item -> item.getAuthority())
-        .collect(Collectors.toList());
+  List<String> roles = userDetails.getAuthorities().stream()
+          .map(GrantedAuthority::getAuthority)
+          .collect(Collectors.toList());
 
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-        .body(new UserInfoResponse(userDetails.getId(),
+          .body(new UserInfoResponse(userDetails.getId(),
                                    userDetails.getUsername(),
-                                   userDetails.getEmail(),
-                                   roles));
-  }
+                                           userDetails.getEmail(),
+                  roles));
+}
+
+
+
+
 
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {

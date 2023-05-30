@@ -9,7 +9,7 @@ import PopupCreate from "../Popup/Create/PopupCreate";
 
 function Section({courseId}) {
 
-    const user = 'USER';
+    const user = 'ADMIN';
     const isAdmin = user === 'ADMIN';
     const [sections, setSections] = useState([]);
     const [showPopup, setShowPopup] = useState(false);

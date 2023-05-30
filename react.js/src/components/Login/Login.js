@@ -1,65 +1,74 @@
-import React, {useState, useEffect} from "react";
-import 'bootstrap/dist/css/bootstrap.css';
-import repository from "../../repository/repository";
-import {Link, redirect} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {redirect} from "react-router-dom";
 
 const Login = () => {
-
-    const [email, setEmail] = useState("");
-
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
-    const handleInputChange = (e) => {
-        const {id, value} = e.target;
-        if (id === "email") {
-            setEmail(value);
-        }
-        if (id === "password") {
-            setPassword(value);
-        }
-    }
-
-    function validateForm() {
-
-        return email.length > 0 && password.length > 0;
-
-    }
+    const [user, setUser] = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email, password);
-        repository.login(email,password)
-            .then((data)=>{
-                redirect("/material")
-            }).catch(()=>{
-                redirect("/login?error=incorrectUsernameOrPassword")
-        })
-    }
+
+        const formData = {
+            username: username,
+            password: password,
+        };
+
+        axios
+            .post(`http://localhost:8080/api/auth/signin?username=${username}&password=${password}`)
+            .then((response) => {
+                const userData = response.data;
+                setUser(userData);
+
+            })
+            .catch((error) => {
+                // Handle the error
+            });
+
+    };
+
+
 
     return (
+
         <div className="container mt-3">
-            <form className="bg-dark p-3 text-white">
-                <h1 className="h3 mb-3 font-weight-normal text-center">Login</h1>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" className="form-control" placeholder="Username" required
-                           value={email} onChange={(e) => handleInputChange(e)}/>
+            <form className="bg-dark p-3 text-white" onSubmit={handleSubmit}>
+                <h3 className="h3 mb-3 font-weight-normal text-center">Login</h3>
+                <div>
+                    <form className="form-group">
+                    <label htmlFor="username">Username:</label>
+                    <input
+                        type="text"
+                        id="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                    </form>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id="password" className="form-control" placeholder="Password" required
-                           value={password} onChange={(e) => handleInputChange(e)}/>
+                <div>
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
                 </div>
-                <div className="text-center">
-                    <button onClick={() => handleSubmit()} type="submit" className="mt-3 mb-3 btn btn-secondary"
-                            disabled={!validateForm()}>Login
-                    </button>
-                </div>
-                <div className={"text-center"}>
-                    <Link to={"/register"}>Register</Link>
-                </div>
+                <button type="submit">Login</button>
             </form>
+
+            {user && (
+                <div>
+                    <h2>Welcome, {user.username}!</h2>
+                    <p>Login successful!</p>
+                </div>
+            )}
+
         </div>
     );
-}
+};
+
 export default Login;

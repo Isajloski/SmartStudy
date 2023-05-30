@@ -6,6 +6,8 @@ import CreateMaterial from "../Material/Create/CreateMaterial";
 import {BrowserRouter as Router, Routes , Route} from 'react-router-dom';
 import Course from "../Course/Course";
 import Popup from "../Popup/Delete/PopupDelete";
+import Login from "../Login/Login";
+import RegistrationForm from "../Registration/registrationForm";
 import Quiz from "../Quiz/Quiz";
 import './App.css';
 import Question from "../Question/Question"; // Import the Bootstrap CSS
@@ -29,6 +31,8 @@ class App extends Component{
                 <body>
                   <Router>
                     <Routes>
+                        <Route path={"/register"} element={<RegistrationForm/>}></Route>
+                        <Route path="/login" element={<Login />} />
                         <Route path="/course/:id" element={<Course />} />
                         <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
                         <Route path="/material" element={  <Material material = {this.state.material} />     }> </Route>
@@ -36,6 +40,8 @@ class App extends Component{
                         <Route path="/popup" element={<Popup />} />
                         <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
                         <Route path="/course/:course_id/quiz/:quiz_id" element={  <Quiz />}/>
+                        <Route path="/user/:id" element={  <Course/>     }> </Route>
+
                         <Route path="/course/:course_id/quiz/:quiz_id/question/:question_id" element={  <Question />}/>
                     </Routes>
                   </Router>

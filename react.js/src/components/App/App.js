@@ -40,6 +40,8 @@ class App extends Component{
                         <Route path="/popup" element={<Popup />} />
                         <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
                         <Route path="/course/:course_id/quiz/:quiz_id" element={  <Quiz />}/>
+                        <Route path="/user/:id" element={  <Course/>     }> </Route>
+
                         <Route path="/course/:course_id/quiz/:quiz_id/question/:question_id" element={  <Question />}/>
                     </Routes>
                   </Router>

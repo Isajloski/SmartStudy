@@ -19,7 +19,7 @@ const Course = () => {
     const [showPopup, setShowPopup] = useState(false);
 
 
-    const user = 'USER';
+    const user = 'ADMIN';
     const isAdmin = user === 'ADMIN';
 
 
