@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState(null);
@@ -23,7 +23,7 @@ const Login = () => {
 
                 const userData = response.data;
                 setUser(userData);
-
+                props.getUser(userData)
                 //const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
                 const jsonResponse = response.data;
 

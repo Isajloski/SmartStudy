@@ -1,9 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Repository from "../../repository/repository";
 import Example from "../Example/Example";
 import Material from "../Material/Material";
 import CreateMaterial from "../Material/Create/CreateMaterial";
-import {BrowserRouter as Router, Routes , Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Course from "../Course/Course";
 import Popup from "../Popup/Delete/PopupDelete";
 import Login from "../Login/Login";
@@ -11,42 +11,50 @@ import RegistrationForm from "../Registration/registrationForm";
 import Quiz from "../Quiz/Quiz";
 import './App.css';
 import Question from "../Question/Question"; // Import the Bootstrap CSS
-
-
-class App extends Component{
+import Navbar from '../Nabar/Navbar';
+import UserPage from '../UserPage/UserPage'
+class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       example: [],
       material: [],
-      course: []
+      course: [],
+      user: undefined
     }
   }
 
-  render() {
+  getUserFromLogin = (user) => {
+    this.setState({ user })
+  }
+
+
+  render () {
     return (
-        <div className="bg-dark">
-            <div className="container bg-dark">
-                  <Router>
-                    <Routes>
-                        <Route path={"/register"} element={<RegistrationForm/>}></Route>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/course/:id" element={<Course />} />
-                        <Route path="/example" element={  <Example example = {this.state.example}/>    }> </Route>
-                        <Route path="/material" element={  <Material material = {this.state.material} />     }> </Route>
-                        <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
-                        <Route path="/popup" element={<Popup />} />
-                        <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
-                        <Route path="/course/:course_id/quiz/:quiz_id" element={  <Quiz />}/>
-                        <Route path="/user/:id" element={  <Course/>     }> </Route>
+      <div className="bg-dark">
+        <Router>
+          <Navbar />
+          <div className="container bg-dark">
+            <Routes>
+              <Route path={"/register"} element={<RegistrationForm />}></Route>
+              <Route path="/login" element={<Login getUser={this.getUserFromLogin} />} />
+              <Route path="/course/:id" element={<Course />} />
+              <Route path="/example" element={<Example example={this.state.example} />}> </Route>
+              <Route path="/material" element={<Material material={this.state.material} />}> </Route>
+              <Route path="/material/create" element={<CreateMaterial material={this.state.material} />}> </Route>
+              <Route path="/popup" element={<Popup />} />
+              <Route path="/material/create" element={<CreateMaterial material={this.state.material} />}> </Route>
+              <Route path="/course/:course_id/quiz/:quiz_id" element={<Quiz />} />
+              <Route path="/user/:id" element={<Course />}> </Route>
+              <Route path="/userpage" element={<UserPage user={this.state.user} />} />
+              <Route path="/course/:course_id/quiz/:quiz_id/question/:question_id" element={<Question />} />
+            </Routes>
 
-                        <Route path="/course/:course_id/quiz/:quiz_id/question/:question_id" element={  <Question />}/>
-                    </Routes>
-                  </Router>
 
-                </div>
-        </div>
+          </div>
+        </Router>
+      </div>
     );
   }
 
@@ -61,26 +69,26 @@ class App extends Component{
 
   loadMaterial = () => {
     Repository.fetchMaterial()
-        .then((data) => {
-          this.setState({
-              material: data.data
-          })
-        });
+      .then((data) => {
+        this.setState({
+          material: data.data
+        })
+      });
   }
 
-    loadCourse = () => {
-        Repository.fetchCourse()
-            .then((data) => {
-                this.setState({
-                    course: data.data
-                })
-            });
-    }
+  loadCourse = () => {
+    Repository.fetchCourse()
+      .then((data) => {
+        this.setState({
+          course: data.data
+        })
+      });
+  }
 
 
 
 
-  componentDidMount() {
+  componentDidMount () {
     this.loadExample();
     this.loadMaterial();
     this.loadCourse();
