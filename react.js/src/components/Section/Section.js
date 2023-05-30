@@ -9,8 +9,11 @@ import PopupCreate from "../Popup/Create/PopupCreate";
 
 function Section({courseId}) {
 
-    const user = 'ADMIN';
-    const isAdmin = user === 'ADMIN';
+    const userJson = localStorage.getItem("User");
+    const user = JSON.parse(userJson);
+
+    const userType = user.role.id;
+    const isAdmin = userType === 1;
     const [sections, setSections] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
 
