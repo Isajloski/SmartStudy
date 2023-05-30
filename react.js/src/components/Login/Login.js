@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {redirect} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,15 +24,14 @@ const Login = () => {
                 const userData = response.data;
                 setUser(userData);
 
-                console.log(response.headers['set-cookie']);
-
-
                 //const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
                 const jsonResponse = response.data;
 
 
                 localStorage.setItem('User', JSON.stringify(jsonResponse));
                 //localStorage.setItem('token', token);
+
+                navigate('/');
 
             })
             .catch((error) => {

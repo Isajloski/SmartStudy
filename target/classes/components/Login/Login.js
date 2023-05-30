@@ -26,12 +26,12 @@ const Login = () => {
                 console.log(response.headers['set-cookie']);
 
 
-                const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
+                //const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
                 const jsonResponse = response.data;
 
 
                 localStorage.setItem('User', JSON.stringify(jsonResponse));
-                localStorage.setItem('token', token);
+                //localStorage.setItem('token', token);
 
             })
             .catch((error) => {
