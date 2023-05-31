@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import {UserContext} from "./UserContex";
 
-const Login = () => {
+const Login = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { user, setUser } = useContext(UserContext); // Accessing setUser from UserContext
@@ -24,7 +24,7 @@ const Login = () => {
 
                 const userData = response.data;
                 setUser(userData);
-
+                props.getUser(userData)
                 //const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
                 const jsonResponse = response.data;
 
