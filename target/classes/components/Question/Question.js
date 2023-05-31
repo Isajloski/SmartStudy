@@ -22,6 +22,7 @@ const Question = () => {
     const closeModal = () => {
         setShowPopup(false);
     };
+    const { course_id, quiz_id, question_id } = useParams();
 
     useEffect(() => {
         loadQuestions();
@@ -106,12 +107,7 @@ const Question = () => {
                         <div className="grid-container row row-cols-3">
                             {questions.map((item, index) => (
                                 <div className="grid-item col" key={item.id}>
-                                    <div
-                                        className={`bg-white rounded-3 border p-3 border-white border-1 d-flex align-items-center justify-content-center ${
-                                            !selectedAnswers[item.id] ? "bg-green" : ""
-                                        }`}
-                                        style={{ marginBottom: index % 3 === 1 ? "10px" : 0 }}
-                                    >
+                                    <div className="bg-white rounded-3 border p-3 border-white border-1 d-flex align-items-center justify-content-center" style={{ marginBottom: index % 3 === 1 ? '10px' : 0 }}>
                                         <Link
                                             className="m-0 text-decoration-none text-center text-black"
                                             to={`/course/${course_id}/quiz/${quiz_id}/question/${item.id}`}
@@ -141,6 +137,7 @@ const Question = () => {
                                     <hr />
 
                                     <div>
+                                        {/* Render the answer options */}
                                         <div className="form-check">
                                             <input
                                                 type="radio"
@@ -230,6 +227,10 @@ const Question = () => {
                                             </button>
                                         ) : (
                                             <button
+                                                className="btn btn-light "
+                                                onClick={handleAnswerSubmit}
+                                            >
+                                                Finish
                                                 className="btn btn-light"
                                                 onClick={isAdmin ? openModal : handleAnswerSubmit}
                                             >

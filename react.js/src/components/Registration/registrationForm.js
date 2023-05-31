@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
+
 function RegistrationForm() {
 
+    const navigate = useNavigate();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
@@ -37,20 +41,48 @@ function RegistrationForm() {
 
     }
 
-    const handleSubmit  = () => {
+    const handleSubmit  = (e) => {
+        e.preventDefault();
         console.log(firstName,lastName,username,email,password,roles);
+
+
+        const formData = {
+            username: username,
+            email : email,
+            role: roles,
+            firs_name: firstName,
+            last_name: lastName,
+            city: "Skopje",
+            country: "MKD",
+            birthday: "2000-10-10",
+            description: "Something interesting",
+            password: password,
+        };
+
+
+        axios
+            .post('http://localhost:8080/api/auth/signup', formData)
+            .then((response) => {
+                navigate('/login');
+            })
+            .catch((error) => {
+                // Handle the error
+                console.error('Error:', error);
+            });
+
+
     }
 
     return(
         <div className="container mt-3">
-            <form className="bg-dark h3 mb-3 font-weight-normal text-center p-3 text-white">
+            <form className="bg-dark h3 mb-3 font-weight-normal text-center p-3 text-white"  onSubmit={handleSubmit}>
                 <h1 className="h3 mb-3 font-weight-normal text-center">Registration</h1>
                 <div className="form-group">
                     <label htmlFor="firstName">First Name</label>
                     <input type="text" id="firstName" className="form-control" placeholder="First Name" required value={firstName} onChange={(e) => handleInputChange(e)}/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="lastName">First Name</label>
+                    <label htmlFor="lastName">Last Name</label>
                     <input type="text" id="lastName" className="form-control" placeholder="Last Name" required value={lastName} onChange={(e) => handleInputChange(e)}/>
                 </div>
                 <div className="form-group">
@@ -66,19 +98,19 @@ function RegistrationForm() {
                     <input type="email" id="email" className="form-control" placeholder="Email" required value={email} onChange={(e) => handleInputChange(e)}/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Email</label>
+                    <label htmlFor="password">Password</label>
                     <input type="password" id="password" className="form-control" placeholder="Password" required value={password} onChange={(e) => handleInputChange(e)}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="roles">Roles</label>
                     <select id="roles" className="form-control" value={roles} onChange={(e) => handleInputChange(e)}>
                         <option value="">Select a role</option>
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
+                        <option value="professor">Professor</option>
+                        <option value="student">Student</option>
                     </select>
                 </div>
                 <div className="text-center">
-                    <button onClick={() => handleSubmit()} type="submit" className="mt-3 mb-3 btn btn-secondary">Register</button>
+                    <button type="submit" className="mt-3 mb-3 btn btn-secondary">Register</button>
                 </div>
             </form>
         </div>

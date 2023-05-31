@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {redirect} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,15 +16,27 @@ const Login = () => {
             password: password,
         };
 
+
         axios
-            .post(`http://localhost:8080/api/auth/signin?username=${username}&password=${password}`)
+            .post('http://localhost:8080/api/auth/signin', formData)
             .then((response) => {
+
                 const userData = response.data;
                 setUser(userData);
+
+                //const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
+                const jsonResponse = response.data;
+
+
+                localStorage.setItem('User', JSON.stringify(jsonResponse));
+                //localStorage.setItem('token', token);
+
+                navigate('/');
 
             })
             .catch((error) => {
                 // Handle the error
+                console.error('Error:', error);
             });
 
     };
@@ -36,7 +49,6 @@ const Login = () => {
             <form className="bg-dark p-3 text-white" onSubmit={handleSubmit}>
                 <h3 className="h3 mb-3 font-weight-normal text-center">Login</h3>
                 <div>
-                    <form className="form-group">
                     <label htmlFor="username">Username:</label>
                     <input
                         type="text"
@@ -45,7 +57,6 @@ const Login = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
-                    </form>
                 </div>
                 <div>
                     <label htmlFor="password">Password:</label>

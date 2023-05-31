@@ -15,27 +15,33 @@ const Login = () => {
             password: password,
         };
 
+
         axios
-            .post(`http://localhost:8080/api/auth/signin?username=${username}&password=${password}`)
+            .post('http://localhost:8080/api/auth/signin', formData)
             .then((response) => {
+
                 const userData = response.data;
                 setUser(userData);
-                localStorage.setItem('user', JSON.stringify(userData));
+
+                console.log(response.headers['set-cookie']);
+
+
+                //const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
+                const jsonResponse = response.data;
+
+
+                localStorage.setItem('User', JSON.stringify(jsonResponse));
+                //localStorage.setItem('token', token);
 
             })
             .catch((error) => {
                 // Handle the error
+                console.error('Error:', error);
             });
 
     };
 
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
 
     return (
 
@@ -43,7 +49,6 @@ const Login = () => {
             <form className="bg-dark p-3 text-white" onSubmit={handleSubmit}>
                 <h3 className="h3 mb-3 font-weight-normal text-center">Login</h3>
                 <div>
-                    <form className="form-group">
                     <label htmlFor="username">Username:</label>
                     <input
                         type="text"
@@ -52,7 +57,6 @@ const Login = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
-                    </form>
                 </div>
                 <div>
                     <label htmlFor="password">Password:</label>

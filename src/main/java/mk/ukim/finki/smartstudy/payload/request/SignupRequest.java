@@ -3,7 +3,8 @@ package mk.ukim.finki.smartstudy.payload.request;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
- 
+import java.util.Date;
+
 public class SignupRequest {
     @NotBlank
     @Size(min = 3, max = 20)
@@ -19,6 +20,11 @@ public class SignupRequest {
     private String first_name;
 
     private String last_name;
+
+    private String city;
+    private String country;
+    private Date birthday;
+    private String description;
 
     @NotBlank
     @Size(min = 6, max = 40)
@@ -70,5 +76,37 @@ public class SignupRequest {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -3,13 +3,14 @@ package mk.ukim.finki.smartstudy.web.auth;
 import mk.ukim.finki.smartstudy.model.auth.Role;
 import mk.ukim.finki.smartstudy.model.auth.User;
 import mk.ukim.finki.smartstudy.model.enumerations.ERole;
+import mk.ukim.finki.smartstudy.payload.request.LoginRequest;
 import mk.ukim.finki.smartstudy.payload.request.SignupRequest;
 import mk.ukim.finki.smartstudy.payload.response.MessageResponse;
-import mk.ukim.finki.smartstudy.payload.response.UserInfoResponse;
 import mk.ukim.finki.smartstudy.repository.RoleRepository;
 import mk.ukim.finki.smartstudy.repository.UserRepository;
 import mk.ukim.finki.smartstudy.security.jwt.JwtUtils;
 import mk.ukim.finki.smartstudy.security.services.UserDetailsImpl;
+import mk.ukim.finki.smartstudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600, allowedHeaders = "*", exposedHeaders = "*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -46,15 +47,23 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
+  private final UserService userService;
+
+  public AuthController(UserService userService) {
+    this.userService = userService;
+  }
+
   @PostMapping("/signin")
-  public ResponseEntity<?> authenticateUser(@RequestParam String username, @RequestParam String password) {
+  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
 
   Authentication authentication = authenticationManager
-          .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+          .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
   UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+  User user = userService.findById(userDetails.getId());
 
   ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
@@ -62,11 +71,9 @@ public class AuthController {
           .map(GrantedAuthority::getAuthority)
           .collect(Collectors.toList());
 
+
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-          .body(new UserInfoResponse(userDetails.getId(),
-                                   userDetails.getUsername(),
-                                           userDetails.getEmail(),
-                  roles));
+          .body(user);
 }
 
 
@@ -88,7 +95,11 @@ public class AuthController {
                          signUpRequest.getEmail(),
                          encoder.encode(signUpRequest.getPassword()),
             signUpRequest.getFirst_name(),
-            signUpRequest.getLast_name());
+            signUpRequest.getLast_name(),
+            signUpRequest.getCity(),
+            signUpRequest.getCountry(),
+            signUpRequest.getBirthday(),
+            signUpRequest.getDescription());
 
     String strRoles = signUpRequest.getRole();
     Role role = null;

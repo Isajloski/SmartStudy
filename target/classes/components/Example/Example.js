@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from "react";
+import {UserContext } from '../Login/UserContex';
+
 
 function Example (props) {
     const { example } = props;
+    const { user, setUser } = useContext(UserContext);
 
     return (
         <div>
@@ -12,6 +15,7 @@ function Example (props) {
                         <p>ID: {item.id}</p>
                         <p>Name: {item.name}</p>
                         <p>Number: {item.number}</p>
+                        <p>{user.id}</p>
                     </li>
                 ))}
             </ul>

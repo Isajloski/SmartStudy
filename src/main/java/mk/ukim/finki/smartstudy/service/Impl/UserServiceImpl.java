@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,8 +32,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User insertInto(String username, String email, String password, String firstName, String lastName, ERole eRole) {
-        User user = new User(username, email, encoder.encode(password), firstName, lastName);
+    public User insertInto(String username, String email, String password, String first_name, String last_name, String city, String country, Date birthday, String description, ERole eRole) {
+        User user = new User(username, email, encoder.encode(password), first_name, last_name, city, country, birthday, description);
         Role role = this.roleRepository.findByName(eRole)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         user.setRole(role);

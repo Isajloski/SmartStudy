@@ -75,6 +75,7 @@ const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal, a
                     console.log(error);
                 });
         }
+        func();
         closeModal(false);
         setShowModal(false);
     };
@@ -127,6 +128,10 @@ const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal, a
         setNewAnswer(e.target.value);
         console.log(newAnswer);
     };
+    const handleTimeChange = (e) =>{
+        setNewTime(e.target.value);
+    }
+
 
     return (
         <div>
@@ -138,7 +143,7 @@ const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal, a
                                 <h5 className="modal-title">Create {type}</h5>
                             </div>
                             <div className="modal-body">
-                                <label>Rename: </label>
+                                <label>Name:</label>
                                 <input
                                     className="bg-dark text-white w-100"
                                     placeholder={newName}
