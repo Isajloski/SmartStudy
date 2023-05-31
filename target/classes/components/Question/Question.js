@@ -1,33 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Repository from "../../repository/repository";
-import Timer from "../Timer/Timer";
-import PopupCreate from "../Popup/Create/PopupCreate";
 
 const Question = () => {
     const [questions, setQuestions] = useState([]);
     const [question, setQuestion] = useState(null);
     const [selectedAnswers, setSelectedAnswers] = useState({});
-    const [quiz, setQuiz] = useState(null);
     const { course_id, quiz_id, question_id } = useParams();
-    const [showPopup, setShowPopup] = useState(true);
 
-    const user = 'ADMIN';
-    const isAdmin = user === 'ADMIN';
+    const userJson = localStorage.getItem("User");
+    const user = JSON.parse(userJson);
 
-    const openModal = () => {
-        setShowPopup(true);
-    };
-
-    const closeModal = () => {
-        setShowPopup(false);
-    };
-    const { course_id, quiz_id, question_id } = useParams();
+    const userType = user.role;
+    const isAdmin = userType === 1;
+    console.log(isAdmin)
 
     useEffect(() => {
         loadQuestions();
         loadQuestion(question_id);
-        loadQuiz();
     }, [quiz_id, question_id]);
 
     const loadQuestions = () => {
@@ -50,14 +40,7 @@ const Question = () => {
             .catch((error) => {
                 console.log(error);
             });
-    };
-
-    const loadQuiz = () => {
-        Repository.fetchQuiz(quiz_id)
-            .then((data) => {
-                setQuiz(data.data);
-            });
-    };
+    }
 
     const loadQuestion = (id) => {
         Repository.fetchQuestion(id)
@@ -85,14 +68,19 @@ const Question = () => {
 
         const totalQuestions = questions.length;
         const correctPercentage = (correctAnswersCount / totalQuestions) * 100;
-
         const user_id = 1;
 
         const formData = new FormData();
-        formData.append('user_id', user_id);
-        formData.append('course_id', course_id);
-        formData.append('grade', correctPercentage);
-        Repository.createGrade(formData);
+        formData.append('user_id', user_id); // Convert user_id to string
+        formData.append('course_id',course_id); // Convert course_id to string
+        formData.append('grade',correctPercentage); // Convert correctPercentage to string
+        Repository.createGrade(formData)
+            .then((response) => {
+                window.location.href = `/course/${course_id}/grade`;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     if (!questions || !question) {
@@ -117,18 +105,11 @@ const Question = () => {
                                     </div>
                                 </div>
                             ))}
-                        </div>
-                        <div className="justify-content-center  align-items-center">
-                            <br />
-                            <br />
-                            <button
-                                className="text-center justify-content-center text text-center btn btn-light "
-                                onClick={handleAnswerSubmit}
-                            >
-                                Finish
-                            </button>
+
+
                         </div>
                     </div>
+
                     <div className="col-md-9">
                         <div className="container">
                             <div className="row">
@@ -231,10 +212,6 @@ const Question = () => {
                                                 onClick={handleAnswerSubmit}
                                             >
                                                 Finish
-                                                className="btn btn-light"
-                                                onClick={isAdmin ? openModal : handleAnswerSubmit}
-                                            >
-                                                {isAdmin ? "Create" : "Finish"}
                                             </button>
                                         )}
                                     </div>
@@ -244,25 +221,6 @@ const Question = () => {
                     </div>
                 </div>
             </div>
-
-            {isAdmin ? (
-                <div>
-                    <h3 className="text-center opacity-25" onClick={openModal}>
-                        Create a new Question
-                    </h3>
-                    {showPopup && (
-                        <PopupCreate
-                            closeModal={closeModal}
-                            type={"question"}
-                            quiz_id={quiz_id}
-                            id={course_id}
-                            modalShow={true}
-                            func={loadQuestions}
-                        />
-                    )}
-                    <hr />
-                </div>
-            ) : null}
         </div>
     );
 };

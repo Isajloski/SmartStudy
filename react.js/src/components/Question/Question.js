@@ -8,6 +8,13 @@ const Question = () => {
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const { course_id, quiz_id, question_id } = useParams();
 
+    const userJson = localStorage.getItem("User");
+    const user = JSON.parse(userJson);
+
+    const userType = user.role;
+    const isAdmin = userType === 1;
+    console.log(isAdmin)
+
     useEffect(() => {
         loadQuestions();
         loadQuestion(question_id);
@@ -61,11 +68,19 @@ const Question = () => {
 
         const totalQuestions = questions.length;
         const correctPercentage = (correctAnswersCount / totalQuestions) * 100;
-        const wrongPercentage = 100 - correctPercentage;
+        const user_id = 1;
 
-        console.log("Selected Answers:", selectedAnswers);
-        console.log("Correct Percentage:", correctPercentage);
-        console.log("Wrong Percentage:", wrongPercentage);
+        const formData = new FormData();
+        formData.append('user_id', user_id); // Convert user_id to string
+        formData.append('course_id',course_id); // Convert course_id to string
+        formData.append('grade',correctPercentage); // Convert correctPercentage to string
+        Repository.createGrade(formData)
+            .then((response) => {
+                window.location.href = `/course/${course_id}/grade`;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     if (!questions || !question) {

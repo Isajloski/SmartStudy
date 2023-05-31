@@ -13,8 +13,11 @@ import PopupCreate from "../Popup/Create/PopupCreate";
 
 const Material = ({ sectionId }) => {
     const [material, setMaterial] = useState([]);
-    const user = 'ADMIN';
-    const isAdmin = user === 'ADMIN';
+    const userJson = localStorage.getItem("User");
+    const user = JSON.parse(userJson);
+
+    const userType = user.role.id;
+    const isAdmin = userType === 1;
 
     const [showPopup, setShowPopup] = useState(false);
 

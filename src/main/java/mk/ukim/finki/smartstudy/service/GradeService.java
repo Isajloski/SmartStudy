@@ -17,5 +17,7 @@ public interface GradeService {
     Grade edit(Long id, int grade) throws Exception;
     List<Grade> findGradeByCourse(Long id);
 
+    Grade findByUserAndCourse(Long user_id, Long course_id) throws Exception;
+
 //    List<Grade> findGradeByUser(Long id);
 }

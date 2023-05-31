@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import {UserContext} from "./UserContex";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [user, setUser] = useState(null);
+    const { user, setUser } = useContext(UserContext); // Accessing setUser from UserContext
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {

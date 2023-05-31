@@ -3,17 +3,13 @@ import '../Style.css';
 import repository from "../../../repository/repository";
 import PopupDelete from "../Delete/PopupDelete";
 
-const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal, a, b, quiz_id, c, d, answer }) => {
+const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal }) => {
     const [showModal, setShowModal] = useState(modalShow);
 
     const [newName, setNewName] = useState(() => name);
-    const [newFile, setNewFile] = useState(() => file);
-    const [newTime, setNewTime] = useState(() => time);
-    const [newA, setNewA] = useState('');
-    const [newB, setNewB] = useState('');
-    const [newC, setNewC] = useState('');
-    const [newD, setNewD] = useState('');
-    const [newAnswer, setNewAnswer] = useState('');
+    const [newFile, setNewFile] = useState( () => file);
+    const [newTime, setNewTime] = useState( () => time);
+
 
     const handleCloseModal = () => {
         closeModal(false);
@@ -52,7 +48,7 @@ const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal, a
         }
 
 
-        if (type === 'section') {
+        if(type === 'section'){
             const formData = new FormData();
             formData.append('name', newName);
             formData.append('courseId', id);
@@ -64,10 +60,10 @@ const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal, a
                     console.log(error);
                 });
         }
-        if (type === 'course') {
+        if(type === 'course'){
             const formData = new FormData();
             formData.append('name', newName);
-            repository.editCourse(id, formData)
+            repository.editCourse(id,formData)
                 .then(() => {
                     func(); // Call the function after the material is successfully deleted
                 })
@@ -87,6 +83,7 @@ const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal, a
         setShowModal(true);
     };
 
+
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
@@ -100,34 +97,6 @@ const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal, a
         console.log(newName);
     };
 
-    const handleTimeChange = (e) => {
-        setNewTime(e.target.value);
-    };
-
-    const handleA = (e) =>{
-        setNewA(e.target.value);
-        console.log(newA);
-    };
-
-    const handleB = (e) =>{
-        setNewB(e.target.value);
-        console.log(newB);
-    };
-
-    const handleC = (e) =>{
-        setNewC(e.target.value);
-        console.log(newC);
-    };
-
-    const handleD = (e) =>{
-        setNewD(e.target.value);
-        console.log(newD);
-    };
-
-    const handleAnswer = (e) => {
-        setNewAnswer(e.target.value);
-        console.log(newAnswer);
-    };
     const handleTimeChange = (e) =>{
         setNewTime(e.target.value);
     }
@@ -175,54 +144,6 @@ const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal, a
                                     </div>
                                 ):null}
 
-                                {type === 'question' ? (
-                                    <div>
-                                        <label>a. </label>
-                                        <input
-                                            className="bg-dark text-white w-100"
-                                            placeholder={newA}
-                                            name={newA}
-                                            id={newA}
-                                            onChange={handleA}
-                                        />
-
-                                        <label>b. </label>
-                                        <input
-                                            className="bg-dark text-white w-100"
-                                            placeholder={newB}
-                                            name={newB}
-                                            id={newB}
-                                            onChange={handleB}
-                                        />
-
-                                        <label>c. </label>
-                                        <input
-                                            className="bg-dark text-white w-100"
-                                            placeholder={newC}
-                                            name={newC}
-                                            id={newC}
-                                            onChange={handleC}
-                                        />
-
-                                        <label>d. </label>
-                                        <input
-                                            className="bg-dark text-white w-100"
-                                            placeholder={newD}
-                                            name={newD}
-                                            id={newD}
-                                            onChange={handleD}
-                                        />
-
-                                        <label>Answer </label>
-                                        <input
-                                            className="bg-dark text-white w-100"
-                                            placeholder={newAnswer}
-                                            name={newAnswer}
-                                            id={newAnswer}
-                                            onChange={handleAnswer}
-                                        />
-                                    </div>
-                                ):null}
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-outline-dark" onClick={handleCloseModal}>

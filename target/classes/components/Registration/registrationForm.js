@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
+
 function RegistrationForm() {
 
+    const navigate = useNavigate();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
@@ -40,6 +44,33 @@ function RegistrationForm() {
     const handleSubmit  = (e) => {
         e.preventDefault();
         console.log(firstName,lastName,username,email,password,roles);
+
+
+        const formData = {
+            username: username,
+            email : email,
+            role: roles,
+            firs_name: firstName,
+            last_name: lastName,
+            city: "Skopje",
+            country: "MKD",
+            birthday: "2000-10-10",
+            description: "Something interesting",
+            password: password,
+        };
+
+
+        axios
+            .post('http://localhost:8080/api/auth/signup', formData)
+            .then((response) => {
+                navigate('/login');
+            })
+            .catch((error) => {
+                // Handle the error
+                console.error('Error:', error);
+            });
+
+
     }
 
     return(
@@ -74,8 +105,8 @@ function RegistrationForm() {
                     <label htmlFor="roles">Roles</label>
                     <select id="roles" className="form-control" value={roles} onChange={(e) => handleInputChange(e)}>
                         <option value="">Select a role</option>
-                        <option value="1">Professor</option>
-                        <option value="2">Student</option>
+                        <option value="professor">Professor</option>
+                        <option value="student">Student</option>
                     </select>
                 </div>
                 <div className="text-center">

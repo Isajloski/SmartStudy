@@ -6,6 +6,7 @@ import mk.ukim.finki.smartstudy.model.Section;
 import mk.ukim.finki.smartstudy.repository.SectionRepository;
 import mk.ukim.finki.smartstudy.service.CourseService;
 import mk.ukim.finki.smartstudy.service.SectionService;
+import mk.ukim.finki.smartstudy.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +16,11 @@ public class SectionServiceImpl implements SectionService {
     private final SectionRepository sectionRepository;
     private final CourseService courseService;
 
-    public SectionServiceImpl(SectionRepository sectionRepository, CourseService courseService) {
+    private final UserService userService;
+    public SectionServiceImpl(SectionRepository sectionRepository, CourseService courseService, UserService userService) {
         this.sectionRepository = sectionRepository;
         this.courseService = courseService;
+        this.userService = userService;
     }
 
     public List<Section> listAll() {
@@ -53,6 +56,8 @@ public class SectionServiceImpl implements SectionService {
         section.setCourse(course);
         return sectionRepository.save(section);
     }
+
+
 
     @Override
     public Section findById(Long sectionId) {

@@ -65,6 +65,11 @@ public class GradeServiceImpl implements GradeService {
         return this.gradeRepository.findGradesByCourseId(id);
     }
 
+    @Override
+    public Grade findByUserAndCourse(Long user_id, Long course_id) throws Exception {
+        return this.gradeRepository.findByUserAndCourse(userService.findById(user_id), courseService.findById(course_id));
+    }
+
 //    @Override
 //    public List<Grade> findGradeByUser(Long id) {
 //        return this.gradeRepository.findByUserUser_id(id);

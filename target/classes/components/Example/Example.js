@@ -2,23 +2,21 @@ import React, { useContext } from "react";
 import {UserContext } from '../Login/UserContex';
 
 
-function Example (props) {
-    const { example } = props;
+function Example () {
     const { user, setUser } = useContext(UserContext);
 
     return (
         <div>
             <h1>Example Component: </h1>
-            <ul>
-                {example.map((item) => (
-                    <li key={item.id}>
-                        <p>ID: {item.id}</p>
-                        <p>Name: {item.name}</p>
-                        <p>Number: {item.number}</p>
-                        <p>{user.id}</p>
-                    </li>
-                ))}
-            </ul>
+            {user ? (
+                <div>
+                    <h2>Welcome, {user.username}!</h2>
+                    <p>Login successful!</p>
+                </div>
+            ) : (
+                <h2>Please log in to view the content.</h2>
+            )}
+
         </div>
     );
 }

@@ -18,10 +18,12 @@ const Course = () => {
     const [quizzes, setQuizzes] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
 
+    const userJson = localStorage.getItem("User");
+    const user = JSON.parse(userJson);
 
-    const user = 'ADMIN';
-    const isAdmin = user === 'ADMIN';
-
+    const userType = user.role;
+    const isAdmin = userType === 1;
+    console.log(isAdmin)
 
 
     useEffect(() => {
@@ -56,12 +58,12 @@ const Course = () => {
                 <h1>{course.name}</h1>
                 <hr />
 
-                {isAdmin ? (
-                <div className="d-flex align-items-center">
+                {isAdmin ?
+                <div className="d-flex align-items-center" aria-hidden={"true"}>
                     <PopupEdit id={id} name={course.name} type={'course'} func={loadCourse}/>
                     <PopupDelete id={id} name={course.name} type={'course'} func={loadCourse}/>
                 </div>
-                    ):null}
+                    :null}
             </div>
         <hr/>
 

@@ -16,4 +16,5 @@ public interface SectionService {
     Section edit(Long id, String name);
 
     Section create(String name, Long courseId);
+
 }

@@ -21,7 +21,7 @@ const Course = () => {
     const userJson = localStorage.getItem("User");
     const user = JSON.parse(userJson);
 
-    const userType = user.role.id;
+    const userType = user.role;
     const isAdmin = userType === 1;
     console.log(isAdmin)
 

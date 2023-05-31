@@ -73,8 +73,22 @@ const Repository = {
     },
     fetchQuestion(question_id) {
         return axios.get(`/question/findById/${question_id}`);
-    }
+    },
+    createGrade(formData) {
+        return axios.post(`/grade/create`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+    },
+    fetchGradeByUserAndCourse(user_id, course_id) {
+        return axios.get(`/grade/findByUserAndCourse/?user_id=${user_id}&course_id=${course_id}`);
+    },
 
+
+    fetchCourseByUser(user_id) {
+        return axios.get(`/course/findByUser/${user_id}`);
+    }
 }
 
 export default Repository;

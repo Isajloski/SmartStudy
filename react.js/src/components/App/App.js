@@ -10,7 +10,9 @@ import Login from "../Login/Login";
 import RegistrationForm from "../Registration/registrationForm";
 import Quiz from "../Quiz/Quiz";
 import './App.css';
-import Question from "../Question/Question"; // Import the Bootstrap CSS
+import Question from "../Question/Question";
+import Grade from "../Grade/Grade";
+import Grades from "../Grade/Grades"; // Import the Bootstrap CSS
 
 
 class App extends Component{
@@ -40,8 +42,10 @@ class App extends Component{
                         <Route path="/material/create" element={  <CreateMaterial material = {this.state.material}/>     }> </Route>
                         <Route path="/course/:course_id/quiz/:quiz_id" element={  <Quiz />}/>
                         <Route path="/user/:id" element={  <Course/>     }> </Route>
-
+                        <Route path="/course/:course_id/grade" element={ <Grade/>} />
                         <Route path="/course/:course_id/quiz/:quiz_id/question/:question_id" element={  <Question />}/>
+                        <Route path="/user/:id/grades" element={  <Grades />}/>
+
                     </Routes>
                   </Router>
 

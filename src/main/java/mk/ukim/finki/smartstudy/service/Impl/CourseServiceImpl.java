@@ -4,6 +4,7 @@ import mk.ukim.finki.smartstudy.exceptions.ExampleException;
 import mk.ukim.finki.smartstudy.model.Course;
 import mk.ukim.finki.smartstudy.repository.CourseRepository;
 import mk.ukim.finki.smartstudy.service.CourseService;
+import mk.ukim.finki.smartstudy.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +13,14 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
 
     final private CourseRepository courseRepository;
+    final private UserService userService;
 
-    public CourseServiceImpl(CourseRepository courseRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, UserService userService) {
         this.courseRepository = courseRepository;
+        this.userService = userService;
     }
+
+
 
     @Override
     public List<Course> listAll() {

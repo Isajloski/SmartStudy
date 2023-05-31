@@ -35,6 +35,11 @@ public class GradeRestController {
 //    }
 //
 
+    @GetMapping("/findByUserAndCourse")
+    public Grade findByUserAndCourse(@RequestParam Long user_id, @RequestParam Long course_id) throws Exception {
+        return this.gradeService.findByUserAndCourse(user_id, course_id);
+    }
+
     @GetMapping("/findyById/{id}")
     public Grade findById(@PathVariable Long id) throws Exception {
         return gradeService.findById(id);
