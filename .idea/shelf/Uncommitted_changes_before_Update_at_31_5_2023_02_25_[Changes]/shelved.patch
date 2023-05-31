@@ -1,0 +1,679 @@
+Index: react.js/src/components/Question/Question.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useEffect, useState } from \"react\";\r\nimport { Link, useParams } from \"react-router-dom\";\r\nimport Repository from \"../../repository/repository\";\r\n\r\nconst Question = () => {\r\n    const [questions, setQuestions] = useState([]);\r\n    const [question, setQuestion] = useState(null);\r\n    const [selectedAnswers, setSelectedAnswers] = useState({});\r\n    const { course_id, quiz_id, question_id } = useParams();\r\n\r\n    useEffect(() => {\r\n        loadQuestions();\r\n        loadQuestion(question_id);\r\n    }, [quiz_id, question_id]);\r\n\r\n    const loadQuestions = () => {\r\n        Repository.findQuestionByQuizId(quiz_id)\r\n            .then((response) => {\r\n                const data = response.data;\r\n                setQuestions(data);\r\n            })\r\n            .catch((error) => {\r\n                console.log(error);\r\n            });\r\n    };\r\n\r\n    const submitGrade = () => {\r\n        Repository.findQuestionByQuizId(quiz_id)\r\n            .then((response) => {\r\n                const data = response.data;\r\n                setQuestions(data);\r\n            })\r\n            .catch((error) => {\r\n                console.log(error);\r\n            });\r\n    }\r\n\r\n    const loadQuestion = (id) => {\r\n        Repository.fetchQuestion(id)\r\n            .then((response) => {\r\n                const data = response.data;\r\n                setQuestion(data);\r\n            })\r\n            .catch((error) => {\r\n                console.log(error);\r\n            });\r\n    };\r\n\r\n    const handleAnswerChange = (event) => {\r\n        setSelectedAnswers((prevAnswers) => ({\r\n            ...prevAnswers,\r\n            [question_id]: event.target.value,\r\n        }));\r\n    };\r\n\r\n    const handleAnswerSubmit = () => {\r\n        // Calculate the percentage of correct and wrong answers\r\n        const correctAnswersCount = questions.reduce((count, q) => {\r\n            return selectedAnswers[q.id] === q.answer.charAt(0) ? count + 1 : count;\r\n        }, 0);\r\n\r\n        const totalQuestions = questions.length;\r\n        const correctPercentage = (correctAnswersCount / totalQuestions) * 100;\r\n        const wrongPercentage = 100 - correctPercentage;\r\n\r\n        console.log(\"Selected Answers:\", selectedAnswers);\r\n        console.log(\"Correct Percentage:\", correctPercentage);\r\n        console.log(\"Wrong Percentage:\", wrongPercentage);\r\n    };\r\n\r\n    if (!questions || !question) {\r\n        return <div>Loading...</div>;\r\n    }\r\n\r\n    return (\r\n        <div className=\"text-white\">\r\n            <div className=\"container-fluid\">\r\n                <div className=\"row p-3\">\r\n                    <div className=\"bg-dark rounded-3 border p-3 border-white border-1 col-md-3\">\r\n                        <div className=\"grid-container row row-cols-3\">\r\n                            {questions.map((item, index) => (\r\n                                <div className=\"grid-item col\" key={item.id}>\r\n                                    <div className=\"bg-white rounded-3 border p-3 border-white border-1 d-flex align-items-center justify-content-center\" style={{ marginBottom: index % 3 === 1 ? '10px' : 0 }}>\r\n                                        <Link\r\n                                            className=\"m-0 text-decoration-none text-center text-black\"\r\n                                            to={`/course/${course_id}/quiz/${quiz_id}/question/${item.id}`}\r\n                                        >\r\n                                            {item.id}\r\n                                        </Link>\r\n                                    </div>\r\n                                </div>\r\n                            ))}\r\n\r\n\r\n                        </div>\r\n                    </div>\r\n\r\n                    <div className=\"col-md-9\">\r\n                        <div className=\"container\">\r\n                            <div className=\"row\">\r\n                                <div className=\"col\">\r\n                                    <h3>{question.name}</h3>\r\n                                    <hr />\r\n\r\n                                    <div>\r\n                                        {/* Render the answer options */}\r\n                                        <div className=\"form-check\">\r\n                                            <input\r\n                                                type=\"radio\"\r\n                                                id=\"optionA\"\r\n                                                className=\"form-check-input\"\r\n                                                name=\"answer\"\r\n                                                value=\"a\"\r\n                                                checked={selectedAnswers[question_id] === \"a\"}\r\n                                                onChange={handleAnswerChange}\r\n                                            />\r\n                                            <label htmlFor=\"optionA\" className=\"form-check-label\">\r\n                                                a. {question.a}\r\n                                            </label>\r\n                                        </div>\r\n                                        <div className=\"form-check\">\r\n                                            <input\r\n                                                type=\"radio\"\r\n                                                id=\"optionB\"\r\n                                                className=\"form-check-input\"\r\n                                                name=\"answer\"\r\n                                                value=\"b\"\r\n                                                checked={selectedAnswers[question_id] === \"b\"}\r\n                                                onChange={handleAnswerChange}\r\n                                            />\r\n                                            <label htmlFor=\"optionB\" className=\"form-check-label\">\r\n                                                b. {question.b}\r\n                                            </label>\r\n                                        </div>\r\n                                        <div className=\"form-check\">\r\n                                            <input\r\n                                                type=\"radio\"\r\n                                                id=\"optionC\"\r\n                                                className=\"form-check-input\"\r\n                                                name=\"answer\"\r\n                                                value=\"c\"\r\n                                                checked={selectedAnswers[question_id] === \"c\"}\r\n                                                onChange={handleAnswerChange}\r\n                                            />\r\n                                            <label htmlFor=\"optionC\" className=\"form-check-label\">\r\n                                                c. {question.c}\r\n                                            </label>\r\n                                        </div>\r\n                                        <div className=\"form-check\">\r\n                                            <input\r\n                                                type=\"radio\"\r\n                                                id=\"optionD\"\r\n                                                className=\"form-check-input\"\r\n                                                name=\"answer\"\r\n                                                value=\"d\"\r\n                                                checked={selectedAnswers[question_id] === \"d\"}\r\n                                                onChange={handleAnswerChange}\r\n                                            />\r\n                                            <label htmlFor=\"optionD\" className=\"form-check-label\">\r\n                                                d. {question.d}\r\n                                            </label>\r\n                                        </div>\r\n                                    </div>\r\n\r\n                                    <hr />\r\n                                    <div className=\"d-flex justify-content-between\">\r\n                                        {question_id > 1 ? (\r\n                                            <button className=\"btn btn-light\">\r\n                                                <Link\r\n                                                    className=\"text-decoration-none text-center text-black\"\r\n                                                    to={`/course/${course_id}/quiz/${quiz_id}/question/${\r\n                                                        parseInt(question_id) - 1\r\n                                                    }`}\r\n                                                >\r\n                                                    Previous\r\n                                                </Link>\r\n                                            </button>\r\n                                        ) : (\r\n                                            <button className=\"btn btn-light disabled\">\r\n                                                Previous\r\n                                            </button>\r\n                                        )}\r\n                                        {question_id < questions.length ? (\r\n                                            <button className=\"btn btn-light\">\r\n                                                <Link\r\n                                                    className=\"text-decoration-none text-center text-black\"\r\n                                                    to={`/course/${course_id}/quiz/${quiz_id}/question/${\r\n                                                        parseInt(question_id) + 1\r\n                                                    }`}\r\n                                                >\r\n                                                    Next\r\n                                                </Link>\r\n                                            </button>\r\n                                        ) : (\r\n                                            <button\r\n                                                className=\"btn btn-light \"\r\n                                                onClick={handleAnswerSubmit}\r\n                                            >\r\n                                                Finish\r\n                                            </button>\r\n                                        )}\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    );\r\n};\r\n\r\nexport default Question;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/components/Question/Question.js b/react.js/src/components/Question/Question.js
+--- a/react.js/src/components/Question/Question.js	(revision 406f6ffad73a2d0d7a820221d0de94b974cebfa1)
++++ b/react.js/src/components/Question/Question.js	(date 1685491650763)
+@@ -1,16 +1,32 @@
+ import React, { useEffect, useState } from "react";
+ import { Link, useParams } from "react-router-dom";
+ import Repository from "../../repository/repository";
++import Timer from "../Timer/Timer";
++import PopupCreate from "../Popup/Create/PopupCreate";
+ 
+ const Question = () => {
+     const [questions, setQuestions] = useState([]);
+     const [question, setQuestion] = useState(null);
+     const [selectedAnswers, setSelectedAnswers] = useState({});
++    const [quiz, setQuiz] = useState(null);
+     const { course_id, quiz_id, question_id } = useParams();
++    const [showPopup, setShowPopup] = useState(true);
++
++    const user = 'ADMIN';
++    const isAdmin = user === 'ADMIN';
++
++    const openModal = () => {
++        setShowPopup(true);
++    };
++
++    const closeModal = () => {
++        setShowPopup(false);
++    };
+ 
+     useEffect(() => {
+         loadQuestions();
+         loadQuestion(question_id);
++        loadQuiz();
+     }, [quiz_id, question_id]);
+ 
+     const loadQuestions = () => {
+@@ -33,7 +49,14 @@
+             .catch((error) => {
+                 console.log(error);
+             });
+-    }
++    };
++
++    const loadQuiz = () => {
++        Repository.fetchQuiz(quiz_id)
++            .then((data) => {
++                setQuiz(data.data);
++            });
++    };
+ 
+     const loadQuestion = (id) => {
+         Repository.fetchQuestion(id)
+@@ -61,11 +84,20 @@
+ 
+         const totalQuestions = questions.length;
+         const correctPercentage = (correctAnswersCount / totalQuestions) * 100;
+-        const wrongPercentage = 100 - correctPercentage;
+ 
+-        console.log("Selected Answers:", selectedAnswers);
+-        console.log("Correct Percentage:", correctPercentage);
+-        console.log("Wrong Percentage:", wrongPercentage);
++        const user_id = 1;
++
++        const formData = new FormData();
++        formData.append('user_id', String(user_id)); // Convert user_id to string
++        formData.append('course_id', String(course_id)); // Convert course_id to string
++        formData.append('grade',correctPercentage); // Convert correctPercentage to string
++        Repository.createGrade(formData)
++            .then((response) => {
++                window.location.href = `/course/${course_id}/grade?user_id=${user_id}`;
++            })
++            .catch((error) => {
++                console.log(error);
++            });
+     };
+ 
+     if (!questions || !question) {
+@@ -80,7 +112,12 @@
+                         <div className="grid-container row row-cols-3">
+                             {questions.map((item, index) => (
+                                 <div className="grid-item col" key={item.id}>
+-                                    <div className="bg-white rounded-3 border p-3 border-white border-1 d-flex align-items-center justify-content-center" style={{ marginBottom: index % 3 === 1 ? '10px' : 0 }}>
++                                    <div
++                                        className={`bg-white rounded-3 border p-3 border-white border-1 d-flex align-items-center justify-content-center ${
++                                            !selectedAnswers[item.id] ? "bg-green" : ""
++                                        }`}
++                                        style={{ marginBottom: index % 3 === 1 ? "10px" : 0 }}
++                                    >
+                                         <Link
+                                             className="m-0 text-decoration-none text-center text-black"
+                                             to={`/course/${course_id}/quiz/${quiz_id}/question/${item.id}`}
+@@ -90,11 +127,18 @@
+                                     </div>
+                                 </div>
+                             ))}
+-
+-
+                         </div>
++                        <div className="justify-content-center  align-items-center">
++                            <br />
++                            <br />
++                            <button
++                                className="text-center justify-content-center text text-center btn btn-light "
++                                onClick={handleAnswerSubmit}
++                            >
++                                Finish
++                            </button>
++                        </div>
+                     </div>
+-
+                     <div className="col-md-9">
+                         <div className="container">
+                             <div className="row">
+@@ -103,7 +147,6 @@
+                                     <hr />
+ 
+                                     <div>
+-                                        {/* Render the answer options */}
+                                         <div className="form-check">
+                                             <input
+                                                 type="radio"
+@@ -193,10 +236,10 @@
+                                             </button>
+                                         ) : (
+                                             <button
+-                                                className="btn btn-light "
+-                                                onClick={handleAnswerSubmit}
++                                                className="btn btn-light"
++                                                onClick={isAdmin ? openModal : handleAnswerSubmit}
+                                             >
+-                                                Finish
++                                                {isAdmin ? "Create" : "Finish"}
+                                             </button>
+                                         )}
+                                     </div>
+@@ -206,6 +249,25 @@
+                     </div>
+                 </div>
+             </div>
++
++            {isAdmin ? (
++                <div>
++                    <h3 className="text-center opacity-25" onClick={openModal}>
++                        Create a new Question
++                    </h3>
++                    {showPopup && (
++                        <PopupCreate
++                            closeModal={closeModal}
++                            type={"question"}
++                            quiz_id={quiz_id}
++                            id={course_id}
++                            modalShow={true}
++                            func={loadQuestions}
++                        />
++                    )}
++                    <hr />
++                </div>
++            ) : null}
+         </div>
+     );
+ };
+Index: react.js/src/components/Popup/Create/PopupCreate.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useRef, useState } from 'react';\r\nimport '../Style.css';\r\nimport repository from \"../../../repository/repository\";\r\nimport PopupDelete from \"../Delete/PopupDelete\";\r\n\r\nconst PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal }) => {\r\n    const [showModal, setShowModal] = useState(modalShow);\r\n\r\n    const [newName, setNewName] = useState(() => name);\r\n    const [newFile, setNewFile] = useState( () => file);\r\n    const [newTime, setNewTime] = useState( () => time);\r\n\r\n\r\n    const handleCloseModal = () => {\r\n        closeModal(false);\r\n        setShowModal(false);\r\n        console.log(\"The file that was about to be sent: \" + newName);\r\n        setNewName(name);\r\n        setNewFile(file);\r\n        setNewTime(time);\r\n    };\r\n\r\n    const handleYes = () => {\r\n        if (type === 'material') {\r\n            const formData = new FormData();\r\n            formData.append('name', newName);\r\n            formData.append('file', newFile);\r\n            formData.append('sectionId', id);\r\n            repository.createMaterial(formData)\r\n                .then(() => {\r\n                    func(); // Call the function after the material is successfully deleted\r\n                })\r\n                .catch((error) => {\r\n                    console.log(error);\r\n                });\r\n        }\r\n        if (type === 'quiz') {\r\n            const formData = new FormData();\r\n            formData.append('name', newName);\r\n            formData.append('time', newTime);\r\n            repository.editQuiz(id, formData)\r\n                .then(() => {\r\n                    func(); // Call the function after the material is successfully deleted\r\n                })\r\n                .catch((error) => {\r\n                    console.log(error);\r\n                });\r\n        }\r\n\r\n\r\n        if(type === 'section'){\r\n            const formData = new FormData();\r\n            formData.append('name', newName);\r\n            formData.append('courseId', id);\r\n            repository.createSection(formData)\r\n                .then(() => {\r\n                    func(); // Call the function after the material is successfully deleted\r\n                })\r\n                .catch((error) => {\r\n                    console.log(error);\r\n                });\r\n        }\r\n        if(type === 'course'){\r\n            const formData = new FormData();\r\n            formData.append('name', newName);\r\n            repository.editCourse(id,formData)\r\n                .then(() => {\r\n                    func(); // Call the function after the material is successfully deleted\r\n                })\r\n                .catch((error) => {\r\n                    console.log(error);\r\n                });\r\n        }\r\n        func();\r\n        closeModal(false);\r\n        setShowModal(false);\r\n    };\r\n\r\n\r\n\r\n\r\n    const handleOpenModal = () => {\r\n        setShowModal(true);\r\n    };\r\n\r\n\r\n    const handleFileChange = (e) => {\r\n        const selectedFile = e.target.files[0];\r\n        if (selectedFile) {\r\n            setNewFile(selectedFile);\r\n            setNewName(selectedFile.name);\r\n        }\r\n    };\r\n\r\n    const handleNameChange = (e) => {\r\n        setNewName(e.target.value);\r\n        console.log(newName);\r\n    };\r\n\r\n    const handleTimeChange = (e) =>{\r\n        setNewTime(e.target.value);\r\n    }\r\n\r\n\r\n    return (\r\n        <div>\r\n            {showModal && (\r\n                <div className=\"modal modal-overlay\" tabIndex=\"-1\" role=\"dialog\" style={{ display: 'block' }}>\r\n                    <div className=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\r\n                        <div className=\"modal-content bg-white text-black\">\r\n                            <div className=\"modal-header\">\r\n                                <h5 className=\"modal-title\">Create {type}</h5>\r\n                            </div>\r\n                            <div className=\"modal-body\">\r\n                                <label>Name:</label>\r\n                                <input\r\n                                    className=\"bg-dark text-white w-100\"\r\n                                    placeholder={newName}\r\n                                    name={newName}\r\n                                    id={newName}\r\n                                    onChange={handleNameChange}\r\n                                />\r\n                                {type === 'quiz' ? (\r\n                                    <div>\r\n                                        <label>Change the time {name} to:</label>\r\n                                        <input\r\n                                            className=\"bg-dark text-white w-100\"\r\n                                            placeholder={newTime}\r\n                                            name={newTime}\r\n                                            id={newTime}\r\n                                            onChange={handleTimeChange}\r\n                                        />\r\n                                    </div>\r\n                                ):null}\r\n                                {type === 'material' ? (\r\n                                    <div>\r\n                                        <br/>\r\n                                        <label>Change the file to: </label>\r\n                                        <input type=\"file\"\r\n                                               name={newFile}\r\n                                               id={newFile}\r\n                                               onChange={handleFileChange}\r\n                                        />\r\n                                    </div>\r\n                                ):null}\r\n\r\n                            </div>\r\n                            <div className=\"modal-footer\">\r\n                                <button type=\"button\" className=\"btn btn-outline-dark\" onClick={handleCloseModal}>\r\n                                    Close\r\n                                </button>\r\n                                <button type=\"button \" className=\"btn btn-dark\" onClick={handleYes}>\r\n                                    Yes\r\n                                </button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            )}\r\n        </div>\r\n    );\r\n};\r\n\r\nexport default PopupCreate;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/components/Popup/Create/PopupCreate.js b/react.js/src/components/Popup/Create/PopupCreate.js
+--- a/react.js/src/components/Popup/Create/PopupCreate.js	(revision 406f6ffad73a2d0d7a820221d0de94b974cebfa1)
++++ b/react.js/src/components/Popup/Create/PopupCreate.js	(date 1685490625407)
+@@ -3,13 +3,17 @@
+ import repository from "../../../repository/repository";
+ import PopupDelete from "../Delete/PopupDelete";
+ 
+-const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal }) => {
++const PopupCreate = ({ id, name, time ,file, type, func, modalShow,closeModal, a, b, quiz_id, c, d, answer }) => {
+     const [showModal, setShowModal] = useState(modalShow);
+ 
+     const [newName, setNewName] = useState(() => name);
+-    const [newFile, setNewFile] = useState( () => file);
+-    const [newTime, setNewTime] = useState( () => time);
+-
++    const [newFile, setNewFile] = useState(() => file);
++    const [newTime, setNewTime] = useState(() => time);
++    const [newA, setNewA] = useState('');
++    const [newB, setNewB] = useState('');
++    const [newC, setNewC] = useState('');
++    const [newD, setNewD] = useState('');
++    const [newAnswer, setNewAnswer] = useState('');
+ 
+     const handleCloseModal = () => {
+         closeModal(false);
+@@ -48,7 +52,7 @@
+         }
+ 
+ 
+-        if(type === 'section'){
++        if (type === 'section') {
+             const formData = new FormData();
+             formData.append('name', newName);
+             formData.append('courseId', id);
+@@ -60,10 +64,31 @@
+                     console.log(error);
+                 });
+         }
+-        if(type === 'course'){
++        if (type === 'question'){
++            const formData = new FormData();
++            formData.append('name', newName);
++            formData.append('answer', newAnswer);
++            formData.append('a', newA);
++            formData.append('b', newB);
++            formData.append('c', newC);
++            formData.append('d', newD);
++            formData.append('quiz_id', quiz_id);
++
++
++            repository.createQuestion(formData)
++                .then(() => {
++                    func(); // Call the function after the material is successfully deleted
++                })
++                .catch((error) => {
++                    console.log(error);
++                });
++
++        }
++
++        if (type === 'course') {
+             const formData = new FormData();
+             formData.append('name', newName);
+-            repository.editCourse(id,formData)
++            repository.editCourse(id, formData)
+                 .then(() => {
+                     func(); // Call the function after the material is successfully deleted
+                 })
+@@ -71,7 +96,6 @@
+                     console.log(error);
+                 });
+         }
+-        func();
+         closeModal(false);
+         setShowModal(false);
+     };
+@@ -83,7 +107,6 @@
+         setShowModal(true);
+     };
+ 
+-
+     const handleFileChange = (e) => {
+         const selectedFile = e.target.files[0];
+         if (selectedFile) {
+@@ -97,10 +120,34 @@
+         console.log(newName);
+     };
+ 
+-    const handleTimeChange = (e) =>{
++    const handleTimeChange = (e) => {
+         setNewTime(e.target.value);
+-    }
++    };
++
++    const handleA = (e) =>{
++        setNewA(e.target.value);
++        console.log(newA);
++    };
++
++    const handleB = (e) =>{
++        setNewB(e.target.value);
++        console.log(newB);
++    };
++
++    const handleC = (e) =>{
++        setNewC(e.target.value);
++        console.log(newC);
++    };
+ 
++    const handleD = (e) =>{
++        setNewD(e.target.value);
++        console.log(newD);
++    };
++
++    const handleAnswer = (e) => {
++        setNewAnswer(e.target.value);
++        console.log(newAnswer);
++    };
+ 
+     return (
+         <div>
+@@ -112,7 +159,7 @@
+                                 <h5 className="modal-title">Create {type}</h5>
+                             </div>
+                             <div className="modal-body">
+-                                <label>Name:</label>
++                                <label>Rename: </label>
+                                 <input
+                                     className="bg-dark text-white w-100"
+                                     placeholder={newName}
+@@ -144,6 +191,54 @@
+                                     </div>
+                                 ):null}
+ 
++                                {type === 'question' ? (
++                                    <div>
++                                        <label>a. </label>
++                                        <input
++                                            className="bg-dark text-white w-100"
++                                            placeholder={newA}
++                                            name={newA}
++                                            id={newA}
++                                            onChange={handleA}
++                                        />
++
++                                        <label>b. </label>
++                                        <input
++                                            className="bg-dark text-white w-100"
++                                            placeholder={newB}
++                                            name={newB}
++                                            id={newB}
++                                            onChange={handleB}
++                                        />
++
++                                        <label>c. </label>
++                                        <input
++                                            className="bg-dark text-white w-100"
++                                            placeholder={newC}
++                                            name={newC}
++                                            id={newC}
++                                            onChange={handleC}
++                                        />
++
++                                        <label>d. </label>
++                                        <input
++                                            className="bg-dark text-white w-100"
++                                            placeholder={newD}
++                                            name={newD}
++                                            id={newD}
++                                            onChange={handleD}
++                                        />
++
++                                        <label>Answer </label>
++                                        <input
++                                            className="bg-dark text-white w-100"
++                                            placeholder={newAnswer}
++                                            name={newAnswer}
++                                            id={newAnswer}
++                                            onChange={handleAnswer}
++                                        />
++                                    </div>
++                                ):null}
+                             </div>
+                             <div className="modal-footer">
+                                 <button type="button" className="btn btn-outline-dark" onClick={handleCloseModal}>
+Index: react.js/src/repository/repository.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from '../axios/axios';\r\n\r\nconst Repository = {\r\n    login: (formData) => {\r\n        return axios.post('/api/auth/signin', formData, {\r\n            headers: {\r\n                'Content-Type': 'application/json',\r\n            }\r\n        });\r\n    },\r\n    fetchExample: () => {\r\n        return axios.get(\"/example/listAll\");\r\n    },\r\n    fetchMaterial: () => {\r\n        return axios.get(\"/material/listAll\");\r\n    },\r\n    createMaterial: (formData) => {\r\n        return axios.post(\"/material/create\", formData);\r\n    },\r\n    fetchCourse() {\r\n        return axios.get(\"/course/listAll\");\r\n    },\r\n    deleteMaterial(id) {\r\n        return axios.post(`/material/delete/${id}`);\r\n    },\r\n    fetchCourseById(id) {\r\n        return axios.get(`/course/findById/${id}`);\r\n    },\r\n    fetchSectionsByCourseId(courseId) {\r\n        return axios.get(`/section/findSectionsByCourseId/${courseId}`)\r\n    },\r\n    fetchMaterialsBySectionId(sectionId) {\r\n        return axios.get(`/material/findMaterialsBySectionId/${sectionId}`)\r\n    },\r\n    deleteSection(id) {\r\n        return axios.post(`/section/delete/${id}`);\r\n\r\n    },\r\n    deleteCourse(id) {\r\n        return axios.post(`/course/delete/${id}`);\r\n    },\r\n    editSection(id, formData) {\r\n        return axios.post(`/section/edit/${id}`, formData)\r\n    },\r\n    editMaterial(id, formData) {\r\n        return axios.post(`/material/edit/${id}`, formData, {\r\n            headers: {\r\n                'Content-Type': 'multipart/form-data' // Set the proper content type for form data\r\n            }\r\n        });\r\n    },\r\n    editCourse(id, formData) {\r\n        return axios.post(`/course/edit/${id}`, formData)\r\n    },\r\n    fetchQuizBySectionId(sectionId) {\r\n        return axios.get(`/quiz/findQuizByCourseId/${sectionId}`)\r\n    },\r\n    fetchQuiz(id) {\r\n        return axios.get(`/quiz/findById/${id}`)\r\n    },\r\n    editQuiz(id, formData) {\r\n        return axios.post(`/quiz/edit/${id}`, formData)\r\n    },\r\n    deleteQuiz(id) {\r\n        return axios.post(`/quiz/delete/${id}`)\r\n    },\r\n\r\n    createSection(formData) {\r\n        return axios.post(\"/section/create\", formData);\r\n    },\r\n    findQuestionByQuizId(quiz_id) {\r\n        return axios.get(`/question/findQuestionByQuizId/${quiz_id}`)\r\n    },\r\n    fetchQuestion(question_id) {\r\n        return axios.get(`/question/findById/${question_id}`);\r\n    }\r\n\r\n}\r\n\r\nexport default Repository;\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/repository/repository.js b/react.js/src/repository/repository.js
+--- a/react.js/src/repository/repository.js	(revision 406f6ffad73a2d0d7a820221d0de94b974cebfa1)
++++ b/react.js/src/repository/repository.js	(date 1685491590478)
+@@ -73,8 +73,17 @@
+     },
+     fetchQuestion(question_id) {
+         return axios.get(`/question/findById/${question_id}`);
++    },
++    createGrade(formData) {
++        return axios.post(`/grade/create`, formData, {
++            headers: {
++                'Content-Type': 'multipart/form-data',
++            },
++        });
++    },
++    createQuestion(formData) {
++        return axios.post(`/question/create`, formData);
+     }
+-
+ }
+ 
+ export default Repository;
+Index: react.js/src/components/Section/Section.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\nimport PopupEdit from \"../Popup/Edit/PopupEdit\";\r\nimport PopupDelete from \"../Popup/Delete/PopupDelete\";\r\nimport Repository from \"../../repository/repository\";\r\nimport { useEffect, useState } from 'react';\r\nimport { useParams } from 'react-router-dom';\r\nimport Material from \"../Material/Material\";\r\nimport PopupCreate from \"../Popup/Create/PopupCreate\";\r\n\r\nfunction Section({courseId}) {\r\n\r\n    const user = 'ADMIN';\r\n    const isAdmin = user === 'ADMIN';\r\n    const [sections, setSections] = useState([]);\r\n    const [showPopup, setShowPopup] = useState(false);\r\n\r\n\r\n    const openModal = () => {\r\n        setShowPopup(true);\r\n    };\r\n\r\n    const closeModal = () => {\r\n        setShowPopup(false);\r\n    };\r\n\r\n\r\n    useEffect(() => {\r\n        loadSections();\r\n    }, []);\r\n\r\n\r\n\r\n\r\n\r\n    const loadSections = () => {\r\n        Repository.fetchSectionsByCourseId(courseId)\r\n            .then((response) => {\r\n                const data = response.data;\r\n                setSections(data);\r\n            })\r\n            .catch((error) => {\r\n                console.log(error);\r\n            });\r\n    };\r\n\r\n    return (\r\n        // <div className=\"bg-dark  text-white\">\r\n        //     {sections.map((section) => (\r\n        //         <h3>{section.name} </h3>\r\n        //         <hr/>\r\n        //         <Material sectionId={section.id} />\r\n        //     ))}\r\n        // </div>\r\n        <div>\r\n\r\n            {sections.map((section) => (\r\n                <div key={section.id} className=\"section-container\">\r\n                    <div className=\"d-flex align-items-center justify-content-between\">\r\n                        <h3>{section.name}</h3>\r\n                        {isAdmin && (\r\n                            <div className=\"d-flex align-items-center\">\r\n                                <div className=\"mr-2\">\r\n                                    <PopupEdit  id={section.id} name={section.name} type={'section'} func={loadSections}/>\r\n                                </div>\r\n                                <div className=\"ms-2\">\r\n                                    <PopupDelete id={section.id} name={section.name} type={'section'} func={loadSections} />\r\n                                </div>\r\n                            </div>\r\n                        )}\r\n                    </div>\r\n                    <hr />\r\n                    <Material sectionId={section.id} />\r\n                </div>\r\n            ))}\r\n            {isAdmin ? (\r\n                <div>\r\n                    <h3 className=\"text-center opacity-25\"  onClick={openModal}>Create a new section</h3>\r\n                    {showPopup && <PopupCreate closeModal={closeModal} type={'section'} id={courseId} modalShow={true} func={loadSections} />}\r\n                    <hr/>\r\n                </div>\r\n            ):null}\r\n\r\n        </div>\r\n\r\n    )\r\n}\r\n\r\n\r\nexport default Section;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/components/Section/Section.js b/react.js/src/components/Section/Section.js
+--- a/react.js/src/components/Section/Section.js	(revision 406f6ffad73a2d0d7a820221d0de94b974cebfa1)
++++ b/react.js/src/components/Section/Section.js	(date 1685492367579)
+@@ -26,7 +26,7 @@
+ 
+     useEffect(() => {
+         loadSections();
+-    }, []);
++    }, [sections]);
+ 
+ 
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"BranchesTreeState\">\r\n    <expand>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"GROUP_NODE:origin\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n    </expand>\r\n    <select />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2b392ebe-2368-48d3-88af-3dd6e5080506\" name=\"Changes\" comment=\"Quiz + Grade\">\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/Cookie/Cookie.js\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/react.js/src/components/Login/UserContex.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/package-lock.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/package-lock.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/package.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/package.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/App/App.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/App/App.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Course/Course.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Course/Course.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Example/Example.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Example/Example.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Login/Login.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Login/Login.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Material/Material.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Material/Material.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Registration/registrationForm.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Registration/registrationForm.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/components/Section/Section.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/components/Section/Section.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/index.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/index.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/react.js/src/repository/repository.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/react.js/src/repository/repository.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/App/App.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/App/App.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/Course/Course.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/Course/Course.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/Material/Material.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/Material/Material.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/components/Section/Section.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/components/Section/Section.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/auth/AuthController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/auth/AuthController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/repository/repository.js\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/target/classes/repository/repository.js\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"CodeInsightWorkspaceSettings\">\r\n    <option name=\"optimizeImportsOnTheFly\" value=\"true\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"CSS File\" />\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"JavaScript File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Psn6N0qSA9CPikoOWLpKTY5Ht1\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"autoscrollFromSource\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,\r\n    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,\r\n    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,\r\n    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luka/Documents/University/Programing/Spring/Project/react.js/src/components/Course&quot;,\r\n    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;spring.configuration.checksum&quot;: &quot;ad1c857d37f99dfe528af9b0c0509d01&quot;,\r\n    &quot;ts.external.directory.path&quot;: &quot;C:\\\\Program Files\\\\JetBrains\\\\IntelliJ IDEA 2022.2.3\\\\plugins\\\\JavaScriptLanguage\\\\jsLanguageServicesImpl\\\\external&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Course\" />\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Popup\" />\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Material\" />\r\n      <recent name=\"C:\\Bojan\\FINKI\\VIII semestar\\Upravuvanje so IKT\\SmartStudy\\SmartStudy\\src\\main\\java\\mk\\ukim\\finki\\smartstudy\\web\\controllers\" />\r\n      <recent name=\"C:\\Bojan\\FINKI\\VIII semestar\\Upravuvanje so IKT\\SmartStudy\\SmartStudy\\src\\main\\java\\mk\\ukim\\finki\\smartstudy\\payload\\response\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Popup\\Quiz\\\" />\r\n      <recent name=\"C:\\Users\\Luka\\Documents\\University\\Programing\\Spring\\Project\\react.js\\src\\components\\Popup\\Delete\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"mk.ukim.finki.smartstudy.security\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.SmartStudyApplication\">\r\n    <configuration default=\"true\" type=\"ArquillianTestNG\" factoryName=\"\" nameIsGenerated=\"true\">\r\n      <option name=\"arquillianRunConfiguration\">\r\n        <value>\r\n          <option name=\"containerStateName\" value=\"\" />\r\n        </value>\r\n      </option>\r\n      <option name=\"TEST_OBJECT\" value=\"CLASS\" />\r\n      <properties />\r\n      <listeners />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"SmartStudyApplication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"mk.ukim.finki.smartstudy.SmartStudyApplication\" />\r\n      <module name=\"SmartStudy\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"mk.ukim.finki.smartstudy.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"SmartStudyApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\">\r\n      <module name=\"SmartStudy\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"mk.ukim.finki.smartstudy.SmartStudyApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.SmartStudyApplication\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2b392ebe-2368-48d3-88af-3dd6e5080506\" name=\"Changes\" comment=\"\" />\r\n      <created>1684254484081</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1684254484081</updated>\r\n      <workItem from=\"1684254487795\" duration=\"122000\" />\r\n      <workItem from=\"1684254674936\" duration=\"22000\" />\r\n      <workItem from=\"1684254899066\" duration=\"327000\" />\r\n      <workItem from=\"1684433973887\" duration=\"2195000\" />\r\n      <workItem from=\"1684785861371\" duration=\"608000\" />\r\n      <workItem from=\"1684786491097\" duration=\"1859000\" />\r\n      <workItem from=\"1684823393588\" duration=\"12802000\" />\r\n      <workItem from=\"1684920161870\" duration=\"407000\" />\r\n      <workItem from=\"1685046776794\" duration=\"10265000\" />\r\n      <workItem from=\"1685103505452\" duration=\"18394000\" />\r\n      <workItem from=\"1685133430823\" duration=\"113000\" />\r\n      <workItem from=\"1685133825108\" duration=\"462000\" />\r\n      <workItem from=\"1685135133118\" duration=\"1018000\" />\r\n      <workItem from=\"1685203080836\" duration=\"6705000\" />\r\n      <workItem from=\"1685283364462\" duration=\"21398000\" />\r\n      <workItem from=\"1685318221086\" duration=\"8986000\" />\r\n      <workItem from=\"1685363507373\" duration=\"22851000\" />\r\n      <workItem from=\"1685399520445\" duration=\"1896000\" />\r\n      <workItem from=\"1685441945791\" duration=\"11594000\" />\r\n      <workItem from=\"1685458767822\" duration=\"10193000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties\">\r\n      <created>1685118412696</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685118412696</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"React.js Material done.\">\r\n      <created>1685134197101</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685134197101</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Course, Material, Section done\">\r\n      <created>1685235593421</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685235593421</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Quiz + Grade\">\r\n      <created>1685400582685</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1685400582685</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"5\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Security\" />\r\n    <MESSAGE value=\"Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties\" />\r\n    <MESSAGE value=\"React.js Material done.\" />\r\n    <MESSAGE value=\"Course, Material, Section done\" />\r\n    <MESSAGE value=\"Quiz + Grade\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Quiz + Grade\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java</url>\r\n          <line>20</line>\r\n          <option name=\"timeStamp\" value=\"4\" />\r\n        </line-breakpoint>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/TestController.java</url>\r\n          <line>26</line>\r\n          <option name=\"timeStamp\" value=\"7\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 406f6ffad73a2d0d7a820221d0de94b974cebfa1)
++++ b/.idea/workspace.xml	(date 1685492723458)
+@@ -22,30 +22,17 @@
+     <select />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="Quiz + Grade">
+-      <change afterPath="$PROJECT_DIR$/react.js/src/Cookie/Cookie.js" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Login/UserContex.js" afterDir="false" />
++    <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="User Log-in">
++      <change afterPath="$PROJECT_DIR$/react.js/src/components/Timer/Timer.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/package-lock.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/package.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/App/App.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Example/Example.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Example/Example.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/react.js/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Login/Login.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Material/Material.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Registration/registrationForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Registration/registrationForm.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/react.js/src/components/Popup/Create/PopupCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Popup/Create/PopupCreate.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/react.js/src/components/Question/Question.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Question/Question.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/react.js/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/index.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/react.js/src/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/repository/repository.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/security/WebSecurityConfig.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/auth/AuthController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Course/Course.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Material/Material.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/components/Section/Section.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Section/Section.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/model/Section.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/security/WebSecurityConfig.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/auth/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/auth/AuthController.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/components/Example/Example.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Example/Example.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/components/Registration/registrationForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Registration/registrationForm.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/index.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/target/classes/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/repository/repository.js" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -205,7 +192,7 @@
+       <workItem from="1685363507373" duration="22851000" />
+       <workItem from="1685399520445" duration="1896000" />
+       <workItem from="1685441945791" duration="11594000" />
+-      <workItem from="1685458767822" duration="10193000" />
++      <workItem from="1685458767822" duration="26997000" />
+     </task>
+     <task id="LOCAL-00001" summary="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties">
+       <created>1685118412696</created>
+@@ -235,7 +222,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1685400582685</updated>
+     </task>
+-    <option name="localTasksCounter" value="5" />
++    <task id="LOCAL-00005" summary="User Log-in">
++      <created>1685470180215</created>
++      <option name="number" value="00005" />
++      <option name="presentableId" value="LOCAL-00005" />
++      <option name="project" value="LOCAL" />
++      <updated>1685470180215</updated>
++    </task>
++    <option name="localTasksCounter" value="6" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -258,7 +252,8 @@
+     <MESSAGE value="React.js Material done." />
+     <MESSAGE value="Course, Material, Section done" />
+     <MESSAGE value="Quiz + Grade" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Quiz + Grade" />
++    <MESSAGE value="User Log-in" />
++    <option name="LAST_COMMIT_MESSAGE" value="User Log-in" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+Index: target/classes/components/Example/Example.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\n\r\nfunction Example (props) {\r\n    const { example } = props;\r\n\r\n    return (\r\n        <div>\r\n            <h1>Example Component: </h1>\r\n            <ul>\r\n                {example.map((item) => (\r\n                    <li key={item.id}>\r\n                        <p>ID: {item.id}</p>\r\n                        <p>Name: {item.name}</p>\r\n                        <p>Number: {item.number}</p>\r\n                    </li>\r\n                ))}\r\n            </ul>\r\n        </div>\r\n    );\r\n}\r\n\r\nexport default Example;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/components/Example/Example.js b/target/classes/components/Example/Example.js
+--- a/target/classes/components/Example/Example.js	(revision 406f6ffad73a2d0d7a820221d0de94b974cebfa1)
++++ b/target/classes/components/Example/Example.js	(date 1685460815433)
+@@ -1,7 +1,10 @@
+-import React from 'react';
++import React, { useContext } from "react";
++import {UserContext } from '../Login/UserContex';
++
+ 
+ function Example (props) {
+     const { example } = props;
++    const { user, setUser } = useContext(UserContext);
+ 
+     return (
+         <div>
+@@ -12,6 +15,7 @@
+                         <p>ID: {item.id}</p>
+                         <p>Name: {item.name}</p>
+                         <p>Number: {item.number}</p>
++                        <p>{user.id}</p>
+                     </li>
+                 ))}
+             </ul>
+Index: target/classes/components/Registration/registrationForm.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {useState} from 'react';\r\nimport 'bootstrap/dist/css/bootstrap.css';\r\nfunction RegistrationForm() {\r\n\r\n    const [firstName, setFirstName] = useState(\"\");\r\n    const [lastName, setLastName] = useState(\"\");\r\n    const [username, setUsername] = useState(\"\");\r\n    const [studentIndex, setStudentIndex] = useState(null);\r\n    const [email, setEmail] = useState(\"\");\r\n    const [password,setPassword] = useState(\"\");\r\n    const [roles,setRoles] = useState([]);\r\n\r\n    const handleInputChange = (e) => {\r\n        const {id , value} = e.target;\r\n        if(id === \"firstName\"){\r\n            setFirstName(value);\r\n        }\r\n        if(id === \"lastName\"){\r\n            setLastName(value);\r\n        }\r\n        if(id === \"email\"){\r\n            setEmail(value);\r\n        }\r\n        if(id === \"password\"){\r\n            setPassword(value);\r\n        }\r\n\r\n        if(id === \"username\"){\r\n            setUsername(value);\r\n        }\r\n        if(id === \"roles\"){\r\n            setRoles(value);\r\n        }\r\n        if(id === \"studentIndex\"){\r\n            setStudentIndex(value);\r\n        }\r\n\r\n    }\r\n\r\n    const handleSubmit  = () => {\r\n        console.log(firstName,lastName,username,email,password,roles);\r\n    }\r\n\r\n    return(\r\n        <div className=\"container mt-3\">\r\n            <form className=\"bg-dark p-3 text-white\">\r\n                <h1 className=\"h3 mb-3 font-weight-normal text-center\">Registration</h1>\r\n                <div className=\"form-group\">\r\n                    <label htmlFor=\"firstName\">First Name</label>\r\n                    <input type=\"text\" id=\"firstName\" className=\"form-control\" placeholder=\"First Name\" required value={firstName} onChange={(e) => handleInputChange(e)}/>\r\n                </div>\r\n                <div className=\"form-group\">\r\n                    <label htmlFor=\"lastName\">First Name</label>\r\n                    <input type=\"text\" id=\"lastName\" className=\"form-control\" placeholder=\"Last Name\" required value={lastName} onChange={(e) => handleInputChange(e)}/>\r\n                </div>\r\n                <div className=\"form-group\">\r\n                    <label htmlFor=\"username\">Username</label>\r\n                    <input type=\"text\" id=\"username\" className=\"form-control\" placeholder=\"Username\" required value={username} onChange={(e) => handleInputChange(e)}/>\r\n                </div>\r\n                <div className=\"form-group\">\r\n                    <label htmlFor=\"studentIndex\">Student Index</label>\r\n                    <input type=\"number\" id=\"studentIndex\" className=\"form-control\" placeholder=\"Your index\" required value={studentIndex} onChange={(e) => handleInputChange(e)} />\r\n                </div>\r\n                <div className=\"form-group\">\r\n                    <label htmlFor=\"email\">Email</label>\r\n                    <input type=\"email\" id=\"email\" className=\"form-control\" placeholder=\"Email\" required value={email} onChange={(e) => handleInputChange(e)}/>\r\n                </div>\r\n                <div className=\"form-group\">\r\n                    <label htmlFor=\"password\">Email</label>\r\n                    <input type=\"password\" id=\"password\" className=\"form-control\" placeholder=\"Password\" required value={password} onChange={(e) => handleInputChange(e)}/>\r\n                </div>\r\n                <div className=\"form-group\">\r\n                    <label htmlFor=\"roles\">Roles</label>\r\n                    <select id=\"roles\" className=\"form-control\" value={roles} onChange={(e) => handleInputChange(e)}>\r\n                        <option value=\"\">Select a role</option>\r\n                        <option value=\"admin\">Admin</option>\r\n                        <option value=\"user\">User</option>\r\n                    </select>\r\n                </div>\r\n                <div className=\"text-center\">\r\n                    <button onClick={() => handleSubmit()} type=\"submit\" className=\"mt-3 mb-3 btn btn-secondary\">Register</button>\r\n                </div>\r\n            </form>\r\n        </div>\r\n\r\n    )\r\n}\r\n\r\nexport default RegistrationForm
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/components/Registration/registrationForm.js b/target/classes/components/Registration/registrationForm.js
+--- a/target/classes/components/Registration/registrationForm.js	(revision 406f6ffad73a2d0d7a820221d0de94b974cebfa1)
++++ b/target/classes/components/Registration/registrationForm.js	(date 1685459922291)
+@@ -43,7 +43,7 @@
+ 
+     return(
+         <div className="container mt-3">
+-            <form className="bg-dark p-3 text-white">
++            <form className="bg-dark h3 mb-3 font-weight-normal text-center p-3 text-white">
+                 <h1 className="h3 mb-3 font-weight-normal text-center">Registration</h1>
+                 <div className="form-group">
+                     <label htmlFor="firstName">First Name</label>
+Index: react.js/src/components/Timer/Timer.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/components/Timer/Timer.js b/react.js/src/components/Timer/Timer.js
+new file mode 100644
+--- /dev/null	(date 1685488255830)
++++ b/react.js/src/components/Timer/Timer.js	(date 1685488255830)
+@@ -0,0 +1,42 @@
++import React, { useState, useEffect } from "react";
++
++const Timer = ({ minutes, seconds, func }) => {
++    const initialTime = minutes * 60 + seconds;
++    const [remainingTime, setRemainingTime] = useState(
++        localStorage.getItem("timer") || initialTime
++    );
++
++    useEffect(() => {
++        localStorage.setItem("timer", remainingTime.toString());
++    }, [remainingTime]);
++
++    useEffect(() => {
++        const interval = setInterval(() => {
++            setRemainingTime((prevTime) => prevTime - 1);
++        }, 1000);
++
++        return () => clearInterval(interval);
++    }, []);
++
++    useEffect(() => {
++        if (remainingTime === 0) {
++            // Timer has reached zero, do something
++        }
++    }, [remainingTime]);
++
++    const formatTime = (time) => {
++        const formattedMinutes = Math.floor(time / 60)
++            .toString()
++            .padStart(2, "0");
++        const formattedSeconds = (time % 60).toString().padStart(2, "0");
++        return `${formattedMinutes}:${formattedSeconds}`;
++    };
++
++    return (
++        <div>
++            <p className="text-center">{formatTime(remainingTime)}</p>
++        </div>
++    );
++};
++
++export default Timer;
+Index: target/classes/repository/repository.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import axios from '../axios/axios';\r\n\r\nconst Repository = {\r\n    login: (formData) => {\r\n        return axios.post('/api/auth/signin', formData, {\r\n            headers: {\r\n                'Content-Type': 'application/json',\r\n            }\r\n        });\r\n    },\r\n    fetchExample: () => {\r\n        return axios.get(\"/example/listAll\");\r\n    },\r\n    fetchMaterial: () => {\r\n        return axios.get(\"/material/listAll\");\r\n    },\r\n    createMaterial: (formData) => {\r\n        return axios.post(\"/material/create\", formData);\r\n    },\r\n    fetchCourse() {\r\n        return axios.get(\"/course/listAll\");\r\n    },\r\n    deleteMaterial(id) {\r\n        return axios.post(`/material/delete/${id}`);\r\n    },\r\n    fetchCourseById(id) {\r\n        return axios.get(`/course/findById/${id}`);\r\n    },\r\n    fetchSectionsByCourseId(courseId) {\r\n        return axios.get(`/section/findSectionsByCourseId/${courseId}`)\r\n    },\r\n    fetchMaterialsBySectionId(sectionId) {\r\n        return axios.get(`/material/findMaterialsBySectionId/${sectionId}`)\r\n    },\r\n    deleteSection(id) {\r\n        return axios.post(`/section/delete/${id}`);\r\n\r\n    },\r\n    deleteCourse(id) {\r\n        return axios.post(`/course/delete/${id}`);\r\n    },\r\n    editSection(id, formData) {\r\n        return axios.post(`/section/edit/${id}`, formData)\r\n    },\r\n    editMaterial(id, formData) {\r\n        return axios.post(`/material/edit/${id}`, formData, {\r\n            headers: {\r\n                'Content-Type': 'multipart/form-data' // Set the proper content type for form data\r\n            }\r\n        });\r\n    },\r\n    editCourse(id, formData) {\r\n        return axios.post(`/course/edit/${id}`, formData)\r\n    },\r\n    fetchQuizBySectionId(sectionId) {\r\n        return axios.get(`/quiz/findQuizByCourseId/${sectionId}`)\r\n    },\r\n    fetchQuiz(id) {\r\n        return axios.get(`/quiz/findById/${id}`)\r\n    },\r\n    editQuiz(id, formData) {\r\n        return axios.post(`/quiz/edit/${id}`, formData)\r\n    },\r\n    deleteQuiz(id) {\r\n        return axios.post(`/quiz/delete/${id}`)\r\n    },\r\n\r\n    createSection(formData) {\r\n        return axios.post(\"/section/create\", formData);\r\n    },\r\n    findQuestionByQuizId(quiz_id) {\r\n        return axios.get(`/question/findQuestionByQuizId/${quiz_id}`)\r\n    },\r\n    fetchQuestion(question_id) {\r\n        return axios.get(`/question/findById/${question_id}`);\r\n    }\r\n\r\n}\r\n\r\nexport default Repository;\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/repository/repository.js b/target/classes/repository/repository.js
+--- a/target/classes/repository/repository.js	(revision 406f6ffad73a2d0d7a820221d0de94b974cebfa1)
++++ b/target/classes/repository/repository.js	(date 1685488936846)
+@@ -73,8 +73,14 @@
+     },
+     fetchQuestion(question_id) {
+         return axios.get(`/question/findById/${question_id}`);
+-    }
++    },
+ 
++    createGrade(formData) {
++        return axios.post(`/grade/create`, formData);
++    },
++    createQuestion(formData) {
++        return axios.post(`/question/create`, formData);
++    }
+ }
+ 
+ export default Repository;
+Index: react.js/src/components/Login/Login.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, { useState, useEffect } from \"react\";\r\nimport axios from \"axios\";\r\nimport {redirect} from \"react-router-dom\";\r\n\r\nconst Login = () => {\r\n    const [username, setUsername] = useState(\"\");\r\n    const [password, setPassword] = useState(\"\");\r\n    const [user, setUser] = useState(null);\r\n\r\n    const handleSubmit = (e) => {\r\n        e.preventDefault();\r\n\r\n        const formData = {\r\n            username: username,\r\n            password: password,\r\n        };\r\n\r\n        axios\r\n            .post(`http://localhost:8080/api/auth/signin?username=${username}&password=${password}`)\r\n            .then((response) => {\r\n                const userData = response.data;\r\n                setUser(userData);\r\n\r\n            })\r\n            .catch((error) => {\r\n                // Handle the error\r\n            });\r\n\r\n    };\r\n\r\n\r\n\r\n    return (\r\n\r\n        <div className=\"container mt-3\">\r\n            <form className=\"bg-dark p-3 text-white\" onSubmit={handleSubmit}>\r\n                <h3 className=\"h3 mb-3 font-weight-normal text-center\">Login</h3>\r\n                <div>\r\n                    <form className=\"form-group\">\r\n                    <label htmlFor=\"username\">Username:</label>\r\n                    <input\r\n                        type=\"text\"\r\n                        id=\"username\"\r\n                        value={username}\r\n                        onChange={(e) => setUsername(e.target.value)}\r\n                        required\r\n                    />\r\n                    </form>\r\n                </div>\r\n                <div>\r\n                    <label htmlFor=\"password\">Password:</label>\r\n                    <input\r\n                        type=\"password\"\r\n                        id=\"password\"\r\n                        value={password}\r\n                        onChange={(e) => setPassword(e.target.value)}\r\n                        required\r\n                    />\r\n                </div>\r\n                <button type=\"submit\">Login</button>\r\n            </form>\r\n\r\n            {user && (\r\n                <div>\r\n                    <h2>Welcome, {user.username}!</h2>\r\n                    <p>Login successful!</p>\r\n                </div>\r\n            )}\r\n\r\n        </div>\r\n    );\r\n};\r\n\r\nexport default Login;
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/react.js/src/components/Login/Login.js b/react.js/src/components/Login/Login.js
+--- a/react.js/src/components/Login/Login.js	(revision 406f6ffad73a2d0d7a820221d0de94b974cebfa1)
++++ b/react.js/src/components/Login/Login.js	(date 1685473961607)
+@@ -20,6 +20,7 @@
+             .then((response) => {
+                 const userData = response.data;
+                 setUser(userData);
++                localStorage.setItem('user', JSON.stringify(userData));
+ 
+             })
+             .catch((error) => {
+@@ -29,6 +30,12 @@
+     };
+ 
+ 
++    useEffect(() => {
++        const storedUser = localStorage.getItem('user');
++        if (storedUser) {
++            setUser(JSON.parse(storedUser));
++        }
++    }, []);
+ 
+     return (
+ 
+Index: target/classes/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React from 'react';\r\nimport ReactDOM from 'react-dom/client';\r\nimport 'bootstrap/dist/css/bootstrap.css';\r\nimport './index.css';\r\nimport App from './components/App/App';\r\nimport reportWebVitals from './reportWebVitals';\r\n\r\nconst root = ReactDOM.createRoot(document.getElementById('root'));\r\nroot.render(\r\n      <React.StrictMode>\r\n        <App />\r\n      </React.StrictMode>\r\n);\r\n\r\n// If you want to start measuring performance in your app, pass a function\r\n// to log results (for example: reportWebVitals(console.log))\r\n// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals\r\nreportWebVitals();\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/index.js b/target/classes/index.js
+--- a/target/classes/index.js	(revision 406f6ffad73a2d0d7a820221d0de94b974cebfa1)
++++ b/target/classes/index.js	(date 1685460687890)
+@@ -4,12 +4,16 @@
+ import './index.css';
+ import App from './components/App/App';
+ import reportWebVitals from './reportWebVitals';
++import UserProvider from "./components/Login/UserContex";
++
+ 
+ const root = ReactDOM.createRoot(document.getElementById('root'));
+ root.render(
+-      <React.StrictMode>
+-        <App />
+-      </React.StrictMode>
++    <UserProvider>
++        <React.StrictMode>
++            <App />
++        </React.StrictMode>
++    </UserProvider>
+ );
+ 
+ // If you want to start measuring performance in your app, pass a function
