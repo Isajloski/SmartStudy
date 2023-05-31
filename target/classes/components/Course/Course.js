@@ -23,6 +23,7 @@ const Course = () => {
 
     const userType = user.role;
     const isAdmin = userType === 1;
+
     console.log(isAdmin)
 
 

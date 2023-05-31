@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import {UserContext} from "./UserContex";
 
-const Login = () => {
+const Login = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { user, setUser } = useContext(UserContext); // Accessing setUser from UserContext
@@ -24,7 +24,7 @@ const Login = () => {
 
                 const userData = response.data;
                 setUser(userData);
-
+                props.getUser(userData)
                 //const token = response.headers['set-cookie'][0].split(';')[0].split('=')[1];
                 const jsonResponse = response.data;
 
@@ -46,30 +46,36 @@ const Login = () => {
 
     return (
 
-        <div className="container mt-3">
-            <form className="bg-dark p-3 text-white" onSubmit={handleSubmit}>
-                <h3 className="h3 mb-3 font-weight-normal text-center">Login</h3>
+        <div className="container ">
+            <form className="bg-dark p-3  text-white" onSubmit={handleSubmit}>
+                <h3 className="h3 font-weight-normal">Login</h3>
                 <div>
                     <label htmlFor="username">Username:</label>
+                    <br/>
                     <input
                         type="text"
                         id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
+                        className="w-75"
                     />
                 </div>
                 <div>
                     <label htmlFor="password">Password:</label>
+                    <br/>
                     <input
                         type="password"
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        className="w-75"
+
                     />
                 </div>
-                <button type="submit">Login</button>
+                <br/>
+                <button className="btn btn-light" type="submit">Login</button>
             </form>
 
             {user && (

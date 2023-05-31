@@ -7,7 +7,14 @@ const UserPage = (props) => {
         getfromProps()
     }, [])
 
-    const [user, setUser] = useState(undefined)
+    const [newUser, setUser] = useState(undefined)
+
+    const userJson = localStorage.getItem("User");
+    const user = JSON.parse(userJson);
+
+    const userType = user?.role;
+    const isAdmin = userType === 1;
+
     const formatDate = (date) => {
         let temp = date?.slice(0, 10)
         return temp

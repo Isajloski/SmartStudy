@@ -22,44 +22,24 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="Merge resolve">
-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Grade/Grade.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/react.js/src/components/Grade/Grades.js" afterDir="false" />
+    <list default="true" id="2b392ebe-2368-48d3-88af-3dd6e5080506" name="Changes" comment="small commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react.js/src/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/App/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Course/Course.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/components/Example/Example.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Example/Example.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/components/Grade/Grade.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Grade/Grade.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/components/Grade/Grades.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/react.js/src/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Login/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react.js/src/components/Question/Question.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Question/Question.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.js/src/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/repository/repository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/CourseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/GradeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/repository/GradeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/GradeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/GradeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/GradeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/GradeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/service/SectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/GradeRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/web/controllers/GradeRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/Section/Section.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.js/src/components/UserPage/UserPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/react.js/src/components/UserPage/UserPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mk/ukim/finki/smartstudy/data/DataInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/components/App/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/App/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/components/Course/Course.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Course/Course.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Example/Example.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Example/Example.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/components/Grade/Grade.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Grade/Grade.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/components/Grade/Grades.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/components/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Material/Material.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Material/Material.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Popup/Create/PopupCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Popup/Create/PopupCreate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/components/Question/Question.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Question/Question.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Registration/registrationForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Registration/registrationForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/components/Section/Section.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/components/Section/Section.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/components/Timer/Timer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/GradeRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/repository/GradeRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/CourseService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/CourseService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/GradeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/GradeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/CourseServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/GradeServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/GradeServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/service/Impl/SectionServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/CourseRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/GradeRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mk/ukim/finki/smartstudy/web/controllers/GradeRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/repository/repository.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/repository/repository.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +58,9 @@
         <option value="JavaScript File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/test" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -220,6 +203,7 @@
       <workItem from="1685399520445" duration="1896000" />
       <workItem from="1685441945791" duration="11594000" />
       <workItem from="1685458767822" duration="10193000" />
+      <workItem from="1685513661065" duration="5482000" />
     </task>
     <task id="LOCAL-00001" summary="Add spring.jackson.serialization.FAIL_ON_EMPTY_BEANS=false To application.properties">
       <created>1685118412696</created>
@@ -263,7 +247,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685493500914</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="small commit">
+      <created>1685513896858</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1685513896858</updated>
+    </task>
+    <task id="LOCAL-00008" summary="small commit">
+      <created>1685513907426</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1685513907426</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,7 +297,8 @@
     <MESSAGE value="Course, Material, Section done" />
     <MESSAGE value="Quiz + Grade" />
     <MESSAGE value="Merge resolve" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge resolve" />
+    <MESSAGE value="small commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="small commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

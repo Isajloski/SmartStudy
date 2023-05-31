@@ -13,7 +13,6 @@ import './App.css';
 import Question from "../Question/Question"; // Import the Bootstrap CSS
 import Navbar from '../Nabar/Navbar';
 import UserPage from '../UserPage/UserPage'
-class App extends Component {
 import Grade from "../Grade/Grade";
 
 
@@ -73,9 +72,8 @@ class App extends Component{
               <Route path="/user/:id" element={<Course />}> </Route>
               <Route path="/userpage" element={<UserPage user={this.state.user} />} />
               <Route path="/course/:course_id/quiz/:quiz_id/question/:question_id" element={<Question />} />
+              <Route path="/course/:id/grade" element={  <Grade />}/>
             </Routes>
-
-
           </div>
         </Router>
       </div>

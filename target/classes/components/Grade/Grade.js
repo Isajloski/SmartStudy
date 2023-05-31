@@ -10,6 +10,8 @@ const Grade = () => {
     const userJson = localStorage.getItem("User");
     const user = JSON.parse(userJson);
 
+    console.log(user);
+
     const userType = user?.role;
     const isAdmin = userType === 1;
 
@@ -32,13 +34,12 @@ const Grade = () => {
 
         const fetchGradeByUserAndCourse = () => {
             const formData = new FormData();
-            formData.append('user_id', user.id);
+            formData.append('user_id', user.user_id);
             formData.append('course_id', course_id)
             Repository.fetchGradeByUserAndCourse(user.user_id, course_id)
                 .then((response) => {
                     const data = response.data;
                     setGrade(data);
-                    console.log(newGrade);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -46,19 +47,23 @@ const Grade = () => {
         }
 
         fetchGradeByUserAndCourse();
-    }, [course_id, user.id]);
+    }, [course_id, user.user_id]);
 
     if (course === null) {
         return <div>waiting</div>;
     }
 
+    if(!newGrade){
+        return <div>no grade!</div>;
+    }
+
+
     return (
         <div className="text-white bg-dark text-center p-4">
-            <h1>{user.id}</h1>
             <hr />
-            <p>Your grade in this course is</p>
+            <p>{user.name} your grade in this course is</p>
             <button className="btn btn-light disabled">
-                <Link className="text-decoration-none text-black">{newGrade.grade}</Link>
+                <Link className="text-decoration-none text-black">{newGrade?.grade}</Link>
             </button>
             <hr />
         </div>

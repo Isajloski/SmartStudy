@@ -64,11 +64,10 @@ public class DataInitializer{
         this.quizService.create("Прв колоквиум", 35, 1L);
         this.quizService.create("Втор колоквиум", 60, 1L);
 
-        this.questionService.create("Колку краци има македонското знаме?", "d", "9", "5", "3", "8", 1L);
-        this.questionService.create("Колку краци има јапонското знаме?", "c", "9", "5", "1", "8", 1L);
-        this.questionService.create("Колку бои има германското знаме", "c", "9", "5", "3", "8", 1L);
-        this.questionService.create("Колку бои има германското знаме", "c", "9", "5", "3", "8", 1L);
-        this.questionService.create("Колку бои има германското знаме", "c", "9", "5", "3", "8", 1L);
+        this.questionService.create("Колку е 2 + 2?", "d", "9", "5", "3", "4", 1L);
+        this.questionService.create("Колку е 1 + 0?", "c", "9", "5", "1", "8", 1L);
+        this.questionService.create("Колку е 2 + 1?", "c", "9", "5", "3", "8", 1L);
+        this.questionService.create("Колку е 2 + 7", "c", "9", "5", "3", "8", 1L);
 
     }
 

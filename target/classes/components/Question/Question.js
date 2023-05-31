@@ -68,10 +68,9 @@ const Question = () => {
 
         const totalQuestions = questions.length;
         const correctPercentage = (correctAnswersCount / totalQuestions) * 100;
-        const user_id = 1;
 
         const formData = new FormData();
-        formData.append('user_id', user_id); // Convert user_id to string
+        formData.append('user_id', user.user_id); // Convert user_id to string
         formData.append('course_id',course_id); // Convert course_id to string
         formData.append('grade',correctPercentage); // Convert correctPercentage to string
         Repository.createGrade(formData)
